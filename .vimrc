@@ -85,6 +85,12 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
+" leader settings
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
 " Plugin Settings
 " lightline
 let g:lightline = {
