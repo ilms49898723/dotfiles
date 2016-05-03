@@ -1552,7 +1552,7 @@ highlight CursorLineNr term=bold cterm=none ctermfg=226 ctermbg=none
 nnoremap [Tag] <Nop>
 nmap t [Tag]
 " Tab jump
-for n in range(1, 10)
+for n in range(1, 9)
   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
