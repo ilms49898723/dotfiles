@@ -122,10 +122,10 @@ let g:lightline = {
         \   'anzu': 'anzu#search_status',
         \ }}
 
-if has('multi_byte')
-    let g:lightline.separator = {'left': '', 'right': ''}
-    let g:lightline.subseparator = {'left': '>', 'right': '<'}
-endif
+let g:lightline.separator = {'left': '', 'right': ''}
+let g:lightline.subseparator = {'left': '>', 'right': '<'}
+let g:lightline.tabline_separator = {'left': '', 'right': ''}
+let g:lightline.tabline_subseparator = {'left': '|', 'right': '|'}
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
