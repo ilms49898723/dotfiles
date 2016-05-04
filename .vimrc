@@ -145,9 +145,11 @@ function! MyFilename()
         \ &ft == 'vimshell' ? vimshell#get_status_string() :
         \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
-        \ ' -' . bufnr('%') . '-' .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
+
+" buffer number field
+"       \ ' -' . bufnr('%') . '-' .
 
 function! MyFugitive()
   try
@@ -1557,12 +1559,16 @@ for n in range(1, 9)
 endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
 " tc 新しいタブを一番右に作る
-map <silent> [Tag]x :tabclose<CR>
+map <silent> [Tag]c :tablast <bar> tabnew<CR>
 " tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
+map <silent> [Tag]x :tabclose<CR>
 " tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
+map <silent> [Tag]n :tabnext<CR>
 " tp 前のタブ
+map <silent> [Tag]p :tabprevious<CR>
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map [Tag]e :tabedit <c-r>=expand("%:p:h")<cr>/
 
