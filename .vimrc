@@ -1035,6 +1035,8 @@ source $VIMRUNTIME/menu.vim
 " Turn on the WiLd menu
 set wildmenu
 
+set wildignorecase
+
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
