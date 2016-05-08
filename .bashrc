@@ -113,6 +113,8 @@ alias mv='mv -i'
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
+# vi -> vim
+alias vi='vim -p'
 # vim use tabs by default
 alias vim='vim -p'
 #
