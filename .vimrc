@@ -8,6 +8,14 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+set nocompatible
+
+" leader settings
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
 " Required:
 call neobundle#begin(expand('~/.vim/bundle'))
 
@@ -45,6 +53,7 @@ NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'vim-scripts/Smart-Home-Key'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'kchmck/vim-coffee-script'
@@ -85,17 +94,10 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
-" leader settings
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
 " Plugin Settings
 " lightline
 let g:lightline = {
         \ 'colorscheme': 'jellybeans',
-        \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
@@ -132,7 +134,7 @@ function! MyModified()
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '[RO]' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '[R]' : ''
 endfunction
 
 function! MyFilename()
@@ -725,7 +727,15 @@ endif
 call neobundle#untap()
 
 " gitgutter
-let g:gitgutter_sign_column_always = 1
+set updatetime=250
+let g:gitgutter_sign_column_always=1
+let g:gitgutter_max_signs=1024
+map ]h <Plug>GitGutterNextHunk
+map [h <Plug>GitGutterPrevHunk
+
+" Smart-Home-Key
+map <silent> <Home> :SmartHomeKey <CR>
+imap <silent> <Home> <C-O>:SmartHomeKey<CR>
 
 " vimfilter
 "
@@ -998,9 +1008,10 @@ nmap <Leader>a <Plug>(EasyAlign)
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=500
+set history=4096
 
 " Enable filetype plugins
+filetype on
 filetype plugin on
 filetype indent on
 
@@ -1009,15 +1020,15 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+" let mapleader = ","
+" let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" command W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1451,8 +1462,13 @@ iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Omni complete functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
+autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType java set omnifunc=javacomplete#Complete
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1490,6 +1506,8 @@ au FileType python syn keyword pythonDecorator True None False self
 
 au BufNewFile,BufRead *.jinja set syntax=htmljinja
 au BufNewFile,BufRead *.mako set ft=mako
+
+au Filetype python set noexpandtab
 
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
@@ -1539,6 +1557,12 @@ au FileType coffee call CoffeeScriptFold()
 
 au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
+" makefile
+au FileType Makefile set noexpandtab
+
+" c, cpp
+au FileType c,cpp,cc set cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+
 " littlebird settings
 syntax on
 colorscheme molokai
@@ -1556,10 +1580,10 @@ highlight CursorLineNr term=bold cterm=none ctermfg=226 ctermbg=none
 nnoremap [Tag] <Nop>
 nmap t [Tag]
 " Tab jump
+" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 for n in range(1, 9)
   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
 " tc 新しいタブを一番右に作る
 map <silent> [Tag]c :tablast <bar> tabnew<CR>
@@ -1569,8 +1593,6 @@ map <silent> [Tag]x :tabclose<CR>
 map <silent> [Tag]n :tabnext<CR>
 " tp 前のタブ
 map <silent> [Tag]p :tabprevious<CR>
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map [Tag]e :tabedit <c-r>=expand("%:p:h")<cr>/
+" te tab edit
+map [Tag]e :tabedit 
 
