@@ -727,7 +727,6 @@ endif
 call neobundle#untap()
 
 " gitgutter
-set updatetime=0
 let g:gitgutter_sign_column_always=1
 let g:gitgutter_max_signs=1024
 map ]h <Plug>GitGutterNextHunk
@@ -1567,6 +1566,8 @@ au FileType c,cpp,cc set cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,
 syntax on
 colorscheme molokai
 highlight Normal ctermbg=none
+
+set updatetime=200
 
 set title
 set noshowmode
