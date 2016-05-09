@@ -1494,9 +1494,9 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType java set omnifunc=javacomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1532,10 +1532,10 @@ endfunc
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
-au BufNewFile,BufRead *.jinja set syntax=htmljinja
-au BufNewFile,BufRead *.mako set ft=mako
+au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
+au BufNewFile,BufRead *.mako setlocal ft=mako
 
-au Filetype python set noexpandtab
+au Filetype python setlocal tabstop=8
 
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
@@ -1553,8 +1553,8 @@ au FileType python map <buffer> <leader>D ?def
 " => JavaScript section
 """""""""""""""""""""""""""""""
 au FileType javascript call JavaScriptFold()
-au FileType javascript setl fen
-au FileType javascript setl nocindent
+au FileType javascript setlocal fen
+au FileType javascript setlocal nocindent
 
 au FileType javascript imap <c-t> $log();<esc>hi
 au FileType javascript imap <c-a> alert();<esc>hi
@@ -1586,10 +1586,10 @@ au FileType coffee call CoffeeScriptFold()
 au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
 " makefile
-au FileType Makefile set noexpandtab
+au FileType Makefile setlocal noexpandtab
 
 " c, cpp
-au FileType c,cpp,cc set cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+au FileType c,cpp,cc setlocal cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
 
 " littlebird settings
 syntax on
