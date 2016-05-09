@@ -727,7 +727,7 @@ endif
 call neobundle#untap()
 
 " gitgutter
-set updatetime=250
+set updatetime=0
 let g:gitgutter_sign_column_always=1
 let g:gitgutter_max_signs=1024
 map ]h <Plug>GitGutterNextHunk
@@ -1008,7 +1008,7 @@ nmap <Leader>a <Plug>(EasyAlign)
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=4096
+set history=100
 
 " Enable filetype plugins
 filetype on
