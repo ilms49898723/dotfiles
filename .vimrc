@@ -177,8 +177,8 @@ function! MyFilename()
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
