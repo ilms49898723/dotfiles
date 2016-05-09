@@ -1567,7 +1567,8 @@ syntax on
 colorscheme molokai
 highlight Normal ctermbg=none
 
-set updatetime=200
+" update time
+set updatetime=250
 
 set title
 set noshowmode
