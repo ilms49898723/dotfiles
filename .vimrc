@@ -1597,7 +1597,7 @@ colorscheme molokai
 highlight Normal ctermbg=none
 
 " update time
-set updatetime=2000
+set updatetime=3000
 
 set title
 set noshowmode
