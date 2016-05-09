@@ -110,6 +110,9 @@ let g:lightline = {
         \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
+        \ 'tab': {
+        \   'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
+        \ },
         \ 'component_function': {
         \   'modified': 'MyModified',
         \   'readonly': 'MyReadonly',
@@ -122,12 +125,41 @@ let g:lightline = {
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
         \   'anzu': 'anzu#search_status',
-        \ }}
+        \ },
+        \ 'tab_component_function': {
+        \   'filename': 'MyTabFilename',
+        \   'readonly': 'MyTabReadonly',
+        \   'modified': 'MyTabModified',
+        \ }
+        \}
 
+" let inactive = active
+let g:lightline.inactive = g:lightline.active
+" let tab.inactive = tab.active
+let g:lightline.tab.inactive = g:lightline.tab.active
+" setting seperator
 let g:lightline.separator = {'left': '', 'right': ''}
 let g:lightline.subseparator = {'left': '>', 'right': '<'}
+" setting tab seperator
 let g:lightline.tabline_separator = {'left': '', 'right': ''}
 let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
+
+function! MyTabFilename(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let _ = expand('#'.buflist[winnr - 1].':t')
+  return strlen(_) ? _ : '[No Name]'
+endfunction
+
+function! MyTabReadonly(n)
+  let winnr = tabpagewinnr(a:n)
+  return gettabwinvar(a:n, winnr, '&readonly') ? '[R]' : ''
+endfunction
+
+function! MyTabModified(n)
+    let winnr = tabpagewinnr(a:n)
+    return gettabwinvar(a:n, winnr, '&modified') ? '[+]' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '[-]'
+endfunction
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
@@ -149,9 +181,6 @@ function! MyFilename()
         \ ('' != fname ? fname : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
-
-" buffer number field
-"       \ ' -' . bufnr('%') . '-' .
 
 function! MyFugitive()
   try
@@ -1568,7 +1597,7 @@ colorscheme molokai
 highlight Normal ctermbg=none
 
 " update time
-set updatetime=250
+set updatetime=1000
 
 set title
 set noshowmode
