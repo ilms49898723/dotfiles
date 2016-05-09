@@ -1231,8 +1231,8 @@ map <leader>ba :bufdo bd<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -1626,4 +1626,8 @@ map <silent> [Tag]n :tabnext<CR>
 map <silent> [Tag]p :tabprevious<CR>
 " te tab edit
 map [Tag]e :tabedit 
+" tm tab move
+map [Tag]m :tabmove 
+" tg tabnext (number to enter)
+map [Tag]g :tabnext 
 
