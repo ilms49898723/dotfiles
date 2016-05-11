@@ -6,6 +6,14 @@ set nocompatible               " Be iMproved
 let mapleader = ","
 let g:mapleader = ","
 
+let s:plugin_dir = expand('~/.vim/dein/')
+let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
+
+if !isdirectory(s:dein_dir)
+    call mkdir(s:dein_dir, 'p')
+    silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
+endif
+
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
@@ -14,67 +22,72 @@ endif
 " Required:
 set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
-" Required:
-call dein#begin(expand('~/.vim/dein'))
+if dein#load_state(s:plugin_dir)
+    " Required:
+    call dein#begin(s:plugin_dir)
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+    " Let dein manage dein
+    " Required:
+    call dein#add('Shougo/dein.vim')
 
-" Add or remove your plugins here:
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
+    " Add or remove your plugins here:
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
 
-" Littlebird's plugin
+    " Littlebird's plugin
 
-call dein#add('airblade/vim-gitgutter')
-call dein#add('alvan/vim-closetag')
-call dein#add('bronson/vim-trailing-whitespace')
-call dein#add('flazz/vim-colorschemes')
-call dein#add('glidenote/memolist.vim')
-call dein#add('hail2u/vim-css3-syntax')
-call dein#add('itchyny/landscape.vim')
-call dein#add('itchyny/lightline.vim')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('kien/ctrlp.vim')
-call dein#add('LeafCage/yankround.vim')
-call dein#add('Lokaltog/vim-easymotion')
-call dein#add('majutsushi/tagbar')
-call dein#add('mattn/emmet-vim')
-call dein#add('moll/vim-node')
-call dein#add('nanotech/jellybeans.vim')
-call dein#add('osyo-manga/vim-anzu')
-call dein#add('othree/html5.vim')
-call dein#add('pangloss/vim-javascript')
-call dein#add('rking/ag.vim')
-call dein#add('scrooloose/nerdtree')
-call dein#add('shawncplus/skittles_berry')
-call dein#add('Shougo/neocomplete.vim')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/vimfiler.vim')
-call dein#add('sickill/vim-monokai')
-call dein#add('sjl/badwolf')
-call dein#add('sjl/gundo.vim')
-call dein#add('szw/vim-ctrlspace')
-call dein#add('tomasr/molokai')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-surround')
-call dein#add('vim-scripts/matchit.zip')
-call dein#add('vim-scripts/Smart-Home-Key')
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('alvan/vim-closetag')
+    call dein#add('bronson/vim-trailing-whitespace')
+    call dein#add('flazz/vim-colorschemes')
+    call dein#add('glidenote/memolist.vim')
+    call dein#add('hail2u/vim-css3-syntax')
+    call dein#add('itchyny/landscape.vim')
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('junegunn/vim-easy-align')
+    call dein#add('kchmck/vim-coffee-script')
+    call dein#add('kien/ctrlp.vim')
+    call dein#add('LeafCage/yankround.vim')
+    call dein#add('Lokaltog/vim-easymotion')
+    call dein#add('majutsushi/tagbar')
+    call dein#add('mattn/emmet-vim')
+    call dein#add('moll/vim-node')
+    call dein#add('nanotech/jellybeans.vim')
+    call dein#add('osyo-manga/vim-anzu')
+    call dein#add('othree/html5.vim')
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('rking/ag.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('shawncplus/skittles_berry')
+    call dein#add('Shougo/context_filetype.vim')
+    call dein#add('Shougo/neco-syntax')
+    call dein#add('Shougo/neocomplete.vim')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/vimfiler.vim')
+    call dein#add('sickill/vim-monokai')
+    call dein#add('sjl/badwolf')
+    call dein#add('sjl/gundo.vim')
+    call dein#add('szw/vim-ctrlspace')
+    call dein#add('tomasr/molokai')
+    call dein#add('tomtom/tcomment_vim')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('tpope/vim-surround')
+    call dein#add('vim-scripts/matchit.zip')
+    call dein#add('vim-scripts/Smart-Home-Key')
 
-call dein#add('Shougo/neomru.vim', {
-  \ 'depends' : 'Shougo/unite.vim'
-  \ })
+    call dein#add('Shougo/neomru.vim', {
+      \ 'depends' : 'Shougo/unite.vim'
+      \ })
 
-" End of Littlebird's plugin
+    " End of Littlebird's plugin
 
-" You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+    " You can specify revision/branch/tag.
+    call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
-" Required:
-call dein#end()
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
 
 " Required:
 filetype plugin indent on
