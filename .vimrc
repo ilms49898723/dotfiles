@@ -107,7 +107,7 @@ let g:lightline = {
         \   'left': [
         \     ['mode', 'paste'],
         \     ['fugitive', 'gitgutter', 'filename'],
-        \     ['anzu'],
+        \     ['tagbartags', 'anzu'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
@@ -117,6 +117,9 @@ let g:lightline = {
         \ },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
+        \ },
+        \ 'component': {
+        \   'tagbartags': '%{tagbar#currenttag("%s", "", "f")}',
         \ },
         \ 'component_function': {
         \   'modified': 'MyModified',
@@ -1077,6 +1080,13 @@ let g:auto_ctags = 1
 let g:auto_ctags_directory_list = [ '.git', '.svn', '.' ]
 let g:auto_ctags_filetype_mode = 1
 
+" tagbar
+nnoremap <silent><F9> :TagbarToggle<cr>
+let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
 "       Amir Salihefendic
@@ -1725,5 +1735,4 @@ map [Tag]e :tabedit
 map [Tag]m :tabmove 
 " tg tabnext (number to enter)
 map [Tag]g :tabnext 
-
 
