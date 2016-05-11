@@ -6,8 +6,9 @@ set nocompatible               " Be iMproved
 let mapleader = ","
 let g:mapleader = ","
 
-let s:plugin_dir = expand('~/.vim/dein/')
-let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
+" dein.vim
+let s:plugin_dir = expand('~/.vim/dein')
+let s:dein_dir = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_dir)
     call mkdir(s:dein_dir, 'p')
@@ -20,7 +21,7 @@ if &compatible
 endif
 
 " Required:
-set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
+execute 'set runtimepath^=' . s:dein_dir
 
 if dein#load_state(s:plugin_dir)
     " Required:
