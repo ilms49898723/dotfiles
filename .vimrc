@@ -1137,12 +1137,17 @@ set autoread
 
 " Fast saving
 nmap <leader>w :w<cr>
+nmap <leader>W :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 " command W w !sudo tee % > /dev/null
 
+" Quit
 nmap <leader>q :q<cr>
+
+" Write and quit
+nmap <leader>Q :wq<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1683,7 +1688,7 @@ colorscheme molokai
 highlight Normal ctermbg=none
 
 " map for :make
-map <C-F9> :make<CR>
+nmap <C-F9> :make<CR>
 
 " update time
 set updatetime=3000
