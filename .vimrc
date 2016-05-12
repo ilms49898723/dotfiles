@@ -38,6 +38,7 @@ call dein#add('Shougo/neosnippet-snippets')
 
 call dein#add('airblade/vim-gitgutter')
 call dein#add('alvan/vim-closetag')
+call dein#add('artur-shaik/vim-javacomplete2')
 call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('glidenote/memolist.vim')
