@@ -68,12 +68,12 @@ call dein#add('sickill/vim-monokai')
 call dein#add('sjl/badwolf')
 call dein#add('sjl/gundo.vim')
 call dein#add('soramugi/auto-ctags.vim')
-call dein#add('szw/vim-ctrlspace')
 call dein#add('thinca/vim-quickrun')
 call dein#add('tomasr/molokai')
 call dein#add('tomtom/tcomment_vim')
 call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-surround')
+call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('vim-scripts/matchit.zip')
 call dein#add('vim-scripts/Smart-Home-Key')
 
@@ -305,19 +305,24 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 " Completion for Underbar
 let g:neocomplete#enable_underbar_completion = 1
+" Completion for camel case
 let g:neocomplete#enable_camel_case_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" auto popup candidate number
+let g:neocomplete#max_list = 20
+" auto popup minimum words
+let g:neocomplete#auto_completion_start_length = 3
 " Disable auto popup
-let g:neocomplete#disable_auto_complete = 1
+" let g:neocomplete#disable_auto_complete = 1
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -328,7 +333,7 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 " Plugin key-mappings.
 inoremap <expr><C-g> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
-inoremap <expr><C-p> neocomplete#start_manual_complete()
+" inoremap <expr><C-p> neocomplete#start_manual_complete()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -351,7 +356,7 @@ inoremap <expr>. pumvisible() ? "\<C-y>." : "."
 "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
 " AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#enable_auto_select = 1
 
 " Shell like behavior(not recommended).
 "set completeopt+=longest
@@ -379,6 +384,11 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" color
+highlight Pmenu ctermbg=8 guibg=#606060
+highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
 " neosnippet
 " Plugin key-mappings.
