@@ -314,7 +314,7 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " auto popup candidate number
 let g:neocomplete#max_list = 20
 " auto popup minimum words
-let g:neocomplete#auto_completion_start_length = 3
+let g:neocomplete#auto_completion_start_length = 2
 " Disable auto popup
 " let g:neocomplete#disable_auto_complete = 1
 
