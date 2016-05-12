@@ -1,0 +1,9 @@
+## sreen resolution
+10-monitor.conf /usr/share/X11/xorg.conf.d/10-monitor.conf
+
+## disable guest
+lightdm.conf /etc/lightdm/lightdm.conf
+
+## disable suspend
+com.ubuntu.disable-suspend.pkla /etc/polkit-1/localauthority/50-local.d/com.ubuntu.disable-suspend.pkla
+
