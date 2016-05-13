@@ -108,7 +108,7 @@ let g:lightline = {
         \   'left': [
         \     ['mode', 'paste'],
         \     ['fugitive', 'gitgutter', 'filename'],
-        \     ['tagbartags', 'anzu'],
+        \     ['tagbartags', 'anzu', 'ctrlpmark'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
@@ -134,6 +134,7 @@ let g:lightline = {
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
         \   'anzu': 'anzu#search_status',
+        \   'ctrlpmark': 'MyCtrlpmark',
         \ },
         \ 'tab_component_function': {
         \   'filename': 'MyTabFilename',
@@ -157,7 +158,7 @@ function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
   let _ = expand('#'.buflist[winnr - 1].':t')
-  return strlen(_) ? _ : '[No Name]'
+  return _ !=# '' ? _ : '[No Name]'
 endfunction
 
 function! MyTabReadonly(n)
@@ -196,7 +197,7 @@ function! MyFugitive()
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       let mark = '# '  " edit here for cool mark
       let _ = fugitive#head()
-      return strlen(_) ? mark._ : ''
+      return _ !=# '' ? mark._ : ''
     endif
   catch
   endtry
@@ -208,11 +209,11 @@ function! MyFileformat()
 endfunction
 
 function! MyFiletype()
-  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth('.') > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth('.') > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
 
 function! MyMode()
@@ -226,6 +227,33 @@ function! MyMode()
         \ &ft == 'vimfiler' ? 'VimFiler' :
         \ &ft == 'vimshell' ? 'VimShell' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! MyCtrlpmark()
+  if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+          \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
+endfunction
+
+let g:ctrlp_status_func = {
+  \ 'main': 'CtrlPStatusFunc_1',
+  \ 'prog': 'CtrlPStatusFunc_2',
+  \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+  return lightline#statusline(0)
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
@@ -1170,7 +1198,7 @@ nmap <leader>q :q<cr>
 nmap <leader>Q :q!<cr>
 
 " Save and quit
-nmap <leader>wq :wq<cr>
+" nmap <leader>wq :wq<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
