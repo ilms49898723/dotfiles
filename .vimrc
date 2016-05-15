@@ -1670,6 +1670,9 @@ endfunc
 " => Python section
 """"""""""""""""""""""""""""""
 let python_highlight_all = 1
+
+au FileType python setlocal completeopt-=preview
+
 au FileType python syn keyword pythonDecorator True None False self
 
 au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
