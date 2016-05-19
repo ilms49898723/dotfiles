@@ -7,3 +7,5 @@ lightdm.conf /etc/lightdm/lightdm.conf
 ## disable suspend
 com.ubuntu.disable-suspend.pkla /etc/polkit-1/localauthority/50-local.d/com.ubuntu.disable-suspend.pkla
 
+## disable menu shutdown, suspend...
+disable-power.pkla /etc/polkit-1/localauthority/90-mandatory.d/disable-power.pkla
