@@ -428,6 +428,38 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
+" vimshell
+let g:vimshell_environment_term = 'xterm256'
+
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+
+if has('win32') || has('win64')
+  " Display user name on Windows.
+  let g:vimshell_prompt = $USERNAME."% "
+else
+  " Display user name on Linux.
+  let g:vimshell_prompt = $USER."% "
+endif
+
+" Initialize execute file list.
+let g:vimshell_execute_file_list = {}
+call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+let g:vimshell_execute_file_list['rb'] = 'ruby'
+let g:vimshell_execute_file_list['pl'] = 'perl'
+let g:vimshell_execute_file_list['py'] = 'python3'
+call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+
+autocmd FileType vimshell call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
+
+function! MyChpwd(args, context)
+  call vimshell#execute('ls')
+endfunction
+
+autocmd FileType int-* call s:interactive_settings()
+function! s:interactive_settings()
+endfunction
+
 " anzu
 nmap <silent><expr> n '<Plug>(anzu-n-with-echo):normal! zz<cr>'
 nmap <silent><expr> N '<Plug>(anzu-N-with-echo):normal! zz<cr>'
@@ -1738,6 +1770,9 @@ highlight Normal ctermbg=none
 
 " map for :make
 nmap <C-F9> :make<CR>
+
+" map for :VimShell
+nmap <C-F12> :VimShell<CR>
 
 " updatetime
 set updatetime=250
