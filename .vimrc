@@ -34,7 +34,9 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 
-" Littlebird's plugin
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+
+call dein#add('Shougo/vimshell', {'depends': 'Shougo/vimproc.vim'})
 
 call dein#add('airblade/vim-gitgutter')
 call dein#add('alvan/vim-closetag')
@@ -78,14 +80,7 @@ call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('vim-scripts/matchit.zip')
 call dein#add('vim-scripts/Smart-Home-Key')
 
-call dein#add('Shougo/neomru.vim', {
-  \ 'depends' : 'Shougo/unite.vim'
-  \ })
-
-" End of Littlebird's plugin
-
-" You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
 
 " Required:
 call dein#end()
@@ -108,12 +103,12 @@ let g:lightline = {
         \   'left': [
         \     ['mode', 'paste'],
         \     ['fugitive', 'gitgutter', 'filename'],
-        \     ['tagbartags', 'anzu', 'ctrlpmark'],
+        \     ['tagbartags', 'ctrlpmark'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
         \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+        \     ['fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
         \ 'tab': {
@@ -1743,6 +1738,9 @@ highlight Normal ctermbg=none
 
 " map for :make
 nmap <C-F9> :make<CR>
+
+" updatetime
+set updatetime=250
 
 set title
 set noshowmode
