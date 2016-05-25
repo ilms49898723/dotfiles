@@ -450,7 +450,6 @@ let g:vimshell_execute_file_list['pl'] = 'perl'
 let g:vimshell_execute_file_list['py'] = 'python3'
 call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
-autocmd FileType vimshell setlocal so=0
 autocmd FileType vimshell call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
 
 function! MyChpwd(args, context)
@@ -1152,7 +1151,7 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
 " vim-better-whitespace
-let g:better_whitespace_filetypes_blacklist=['unite', 'vimshell', 'vim', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+let g:better_whitespace_filetypes_blacklist=['vimshell', 'vim', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
