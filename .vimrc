@@ -181,7 +181,7 @@ function! MyFilename()
         \ fname =~ '__Gundo\|NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
-        \ &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ &ft == 'vimshell' ? '[VimShell]' :
         \ ('' != fname ? fname : '[No Name]') .
         \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
