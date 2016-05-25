@@ -450,6 +450,7 @@ let g:vimshell_execute_file_list['pl'] = 'perl'
 let g:vimshell_execute_file_list['py'] = 'python3'
 call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
+autocmd FileType vimshell setlocal so=0
 autocmd FileType vimshell call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
 
 function! MyChpwd(args, context)
@@ -1149,6 +1150,9 @@ nnoremap <silent><F9> :TagbarToggle<cr>
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
+
+" vim-trailing-whitespace
+let g:extra_whitespace_ignored_filetypes = ['unite', 'mkd', 'vimshell', 'vim']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
