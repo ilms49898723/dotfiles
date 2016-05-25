@@ -41,7 +41,6 @@ call dein#add('Shougo/vimshell', {'depends': 'Shougo/vimproc.vim'})
 call dein#add('airblade/vim-gitgutter')
 call dein#add('alvan/vim-closetag')
 call dein#add('artur-shaik/vim-javacomplete2')
-call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('glidenote/memolist.vim')
 call dein#add('hail2u/vim-css3-syntax')
@@ -56,6 +55,7 @@ call dein#add('majutsushi/tagbar')
 call dein#add('mattn/emmet-vim')
 call dein#add('moll/vim-node')
 call dein#add('nanotech/jellybeans.vim')
+call dein#add('ntpeters/vim-better-whitespace')
 call dein#add('osyo-manga/vim-anzu')
 call dein#add('othree/html5.vim')
 call dein#add('pangloss/vim-javascript')
@@ -1151,9 +1151,8 @@ let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
-" vim-trailing-whitespace
-let g:extra_whitespace_ignored_filetypes = ['unite', 'mkd', 'vimshell', 'vim']
-
+" vim-better-whitespace
+let g:better_whitespace_filetypes_blacklist=['unite', 'vimshell', 'vim', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
@@ -1775,8 +1774,8 @@ highlight Normal ctermbg=none
 " map for :make
 nmap <C-F9> :make<CR>
 
-" map for :VimShell
-nmap <C-F12> :VimShell<CR>
+" map for :VimShellTab
+nmap <C-F12> :VimShellTab<CR>
 
 " updatetime
 set updatetime=250
