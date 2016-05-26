@@ -1778,14 +1778,14 @@ nmap <C-F12> :VimShellTab<CR>
 
 " set so(set 0 for vimshell, 7 for others)
 function! SetScrolloff()
-    if exists('b:noscrolloff')
+    if &ft == 'vimshell'
         set so=0
-        return
+    else
+        set so=7
     endif
-    set so=7
 endfunction
+autocmd FileType * call SetScrolloff()
 autocmd BufEnter * call SetScrolloff()
-autocmd FileType vimshell let b:noscrolloff=1
 
 " updatetime
 set updatetime=250
