@@ -339,7 +339,7 @@ let g:neocomplete#max_list = 20
 " auto popup minimum words
 let g:neocomplete#auto_completion_start_length = 2
 " auto select candidate
-let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#enable_auto_select = 1
 " Disable auto popup
 " let g:neocomplete#disable_auto_complete = 1
 
@@ -375,9 +375,9 @@ inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Select by <Space>.
-" inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
+inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
 " Select by dot.
-" inoremap <expr>. pumvisible() ? "\<C-y>." : "."
+inoremap <expr>. pumvisible() ? "\<C-y>." : "."
 " Close popup by <Space>.
 " inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
 " Close popup by <Esc> (not recommended)
