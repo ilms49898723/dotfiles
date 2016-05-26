@@ -338,6 +338,8 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#max_list = 20
 " auto popup minimum words
 let g:neocomplete#auto_completion_start_length = 2
+" auto select candidate
+let g:neocomplete#enable_auto_select = 1
 " Disable auto popup
 " let g:neocomplete#disable_auto_complete = 1
 
@@ -377,7 +379,9 @@ inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
 " Select by dot.
 inoremap <expr>. pumvisible() ? "\<C-y>." : "."
 " Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+"inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
+" Close popup by <Esc>
+inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 
 " AutoComplPop like behavior.
 " let g:neocomplete#enable_auto_select = 1
