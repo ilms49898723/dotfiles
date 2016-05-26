@@ -368,7 +368,7 @@ function! s:my_cr_function()
   return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 " <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -417,11 +417,12 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
-\ pumvisible() ? "\<C-n>" :
+\ pumvisible() ? "\<Down>" :
 \ neosnippet#expandable_or_jumpable() ?
-\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+\   "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB>
+\ neosnippet#expandable_or_jumpable() ?
+\   "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -430,6 +431,9 @@ endif
 
 " vimshell
 let g:vimshell_environment_term = 'xterm256'
+
+let g:vimshell_disable_escape_highlight = 1
+let g:vimshell_interactive_update_time = 250
 
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
@@ -1775,17 +1779,6 @@ nmap <C-F9> :make<CR>
 
 " map for :VimShellTab
 nmap <C-F12> :VimShellTab<CR>
-
-" set so(set 0 for vimshell, 7 for others)
-function! SetScrolloff()
-    if &ft == 'vimshell'
-        set so=0
-    else
-        set so=7
-    endif
-endfunction
-autocmd FileType * call SetScrolloff()
-autocmd BufEnter * call SetScrolloff()
 
 " updatetime
 set updatetime=250
