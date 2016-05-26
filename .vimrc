@@ -379,9 +379,9 @@ inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
 " Select by dot.
 inoremap <expr>. pumvisible() ? "\<C-y>." : "."
 " Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
-" Close popup by <Esc>
-inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+" inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
+" Close popup by <Esc> (not recommended)
+" inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 
 " AutoComplPop like behavior.
 " let g:neocomplete#enable_auto_select = 1
@@ -390,7 +390,7 @@ inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 "set completeopt+=longest
 "let g:neocomplete#enable_auto_select = 1
 "let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
