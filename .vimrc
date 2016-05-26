@@ -339,7 +339,7 @@ let g:neocomplete#max_list = 20
 " auto popup minimum words
 let g:neocomplete#auto_completion_start_length = 2
 " auto select candidate
-" let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 1
 " Disable auto popup
 " let g:neocomplete#disable_auto_complete = 1
 
@@ -375,7 +375,7 @@ inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Select by <Space>.
-inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
+" inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
 " Select by dot.
 inoremap <expr>. pumvisible() ? "\<C-y>." : "."
 " Close popup by <Space>.
@@ -411,7 +411,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " neosnippet
 " Plugin key-mappings.
@@ -437,7 +437,7 @@ endif
 let g:vimshell_environment_term = 'xterm256'
 
 let g:vimshell_disable_escape_highlight = 1
-let g:vimshell_interactive_update_time = 250
+let g:vimshell_interactive_update_time = 500
 
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
@@ -1785,7 +1785,7 @@ nmap <C-F9> :make<CR>
 nmap <C-F12> :VimShellTab<CR>
 
 " updatetime
-set updatetime=250
+" set updatetime=250
 
 set title
 set noshowmode
