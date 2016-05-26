@@ -377,7 +377,7 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Select by <Space>.
 " inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
 " Select by dot.
-inoremap <expr>. pumvisible() ? "\<C-y>." : "."
+" inoremap <expr>. pumvisible() ? "\<C-y>." : "."
 " Close popup by <Space>.
 " inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
 " Close popup by <Esc> (not recommended)
