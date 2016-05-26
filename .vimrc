@@ -1777,15 +1777,15 @@ nmap <C-F9> :make<CR>
 nmap <C-F12> :VimShellTab<CR>
 
 " set so(set 0 for vimshell, 7 for others)
-function! SetCo()
-    if exists('b:noco')
-        setlocal so=0
+function! SetScrolloff()
+    if exists('b:noscrolloff')
+        set so=0
         return
     endif
-    setlocal so=7
+    set so=7
 endfunction
-autocmd TabEnter * call SetCo()
-autocmd FileType vimshell let b:noco=1
+autocmd BufEnter * call SetScrolloff()
+autocmd FileType vimshell let b:noscrolloff=1
 
 " updatetime
 set updatetime=250
