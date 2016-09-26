@@ -7,7 +7,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " dein.vim
-let s:plugin_dir = expand('~/.vim/dein')
+let s:plugin_dir = expand('~/.vim')
 let s:dein_dir = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_dir)
@@ -77,7 +77,6 @@ call dein#add('tomasr/molokai')
 call dein#add('tomtom/tcomment_vim')
 call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-surround')
-call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('vim-scripts/matchit.zip')
 call dein#add('vim-scripts/Smart-Home-Key')
 
