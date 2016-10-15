@@ -1160,6 +1160,7 @@ let g:tagbar_autoclose = 1
 
 " vim-better-whitespace
 let g:better_whitespace_filetypes_blacklist=['vimshell', 'vim', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+autocmd BufWritePre * StripWhitespace
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
@@ -1399,6 +1400,11 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+map <C-Down>  <C-W>j
+map <C-Up>    <C-W>k
+map <C-Left>  <C-W>h
+map <C-Right> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -1813,9 +1819,9 @@ map <silent> [Tag]n :tabnext<CR>
 " tp 前のタブ
 map <silent> [Tag]p :tabprevious<CR>
 " te tab edit
-map [Tag]e :tabedit 
+map [Tag]e :tabedit
 " tm tab move
-map [Tag]m :tabmove 
+map [Tag]m :tabmove
 " tg tabnext (number to enter)
-map [Tag]g :tabnext 
+map [Tag]g :tabnext
 
