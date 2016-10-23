@@ -1793,9 +1793,15 @@ nmap <C-F12> :VimShellTab<CR>
 " updatetime
 " set updatetime=250
 
+" split settings
+set splitright
+set splitbelow
+
+" something...
 set title
 set noshowmode
 
+" cursor line
 set cursorline
 highlight LineNr ctermfg=none ctermbg=none guibg=bg guifg=bg
 highlight CursorLine cterm=none ctermbg=none ctermfg=none
