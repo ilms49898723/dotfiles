@@ -31,8 +31,8 @@ call dein#begin(s:plugin_dir)
 call dein#add('Shougo/dein.vim')
 
 " Add or remove your plugins here:
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
+" call dein#add('Shougo/neosnippet.vim')
+" call dein#add('Shougo/neosnippet-snippets')
 
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
@@ -335,7 +335,7 @@ let g:neocomplete#enable_camel_case_completion = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " auto popup candidate number
-let g:neocomplete#max_list = 20
+let g:neocomplete#max_list = 10
 " auto popup minimum words
 let g:neocomplete#auto_completion_start_length = 2
 " auto select candidate
@@ -415,18 +415,18 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 
 " neosnippet
 " Plugin key-mappings.
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+" imap <C-k> <Plug>(neosnippet_expand_or_jump)
+" smap <C-k> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB>
-\ pumvisible() ? "\<Down>" :
-\ neosnippet#expandable_or_jumpable() ?
-\   "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB>
-\ neosnippet#expandable_or_jumpable() ?
-\   "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" imap <expr><TAB>
+" \ pumvisible() ? "\<Down>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \   "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB>
+" \ neosnippet#expandable_or_jumpable() ?
+" \   "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
