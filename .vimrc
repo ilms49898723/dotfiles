@@ -341,7 +341,7 @@ let g:neocomplete#auto_completion_start_length = 2
 " auto select candidate
 let g:neocomplete#enable_auto_select = 1
 " Disable auto popup
-" let g:neocomplete#disable_auto_complete = 1
+let g:neocomplete#disable_auto_complete = 1
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
