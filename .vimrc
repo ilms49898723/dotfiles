@@ -1148,8 +1148,12 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 
 " auto-ctags
+let s:ctags_dir = expand('~/.ctags_files')
+if !isdirectory(s:ctags_dir)
+    call mkdir(s:ctags_dir, 'p')
+endif
 let g:auto_ctags = 1
-let g:auto_ctags_directory_list = [ '.git', '.svn', '.' ]
+let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn', '.' ]
 let g:auto_ctags_filetype_mode = 1
 
 " tagbar
