@@ -1,4 +1,4 @@
-source .bashrc
+source $HOME/.bashrc
 
 # Setting PATH for Python 3.5
 # The original version is saved in .bash_profile.pysave
