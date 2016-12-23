@@ -89,6 +89,8 @@ alias ll='ls -alFG'
 alias la='ls -AG'
 alias l='ls -CFG'
 
+alias tree='tree -C'
+
 # Aliases
 #
 # Some people use a different file for aliases
@@ -239,6 +241,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Editor
+export EDITOR=vim
 
 # Go Environment Variables
 export GOPATH=$HOME/.go:$HOME/Workspace/go
