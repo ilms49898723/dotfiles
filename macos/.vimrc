@@ -99,11 +99,12 @@ let g:lightline = {
         \     ['mode', 'paste'],
         \     ['fugitive', 'gitgutter', 'filename'],
         \     ['tagbartags', 'ctrlpmark'],
+        \     ['anzu'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
         \     ['percent'],
-        \     ['fileformat', 'fileencoding', 'filetype'],
+        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
         \ 'tab': {
