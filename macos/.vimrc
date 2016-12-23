@@ -1831,3 +1831,12 @@ map [Tag]m :tabmove
 " tg tabnext (number to enter)
 map [Tag]g :tabnext
 
+" no show command
+set noshowcmd
+" no highlight search
+set nohlsearch
+
+" relative line number in normal mode
+" normal line number in insert mode
+" autocmd InsertEnter * set number norelativenumber
+" autocmd InsertLeave * set nonumber relativenumber
