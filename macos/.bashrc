@@ -89,7 +89,7 @@ alias ll='ls -alFG'
 alias la='ls -AG'
 alias l='ls -CFG'
 
-alias tree='tree -C'
+alias tree='tree -C -N'
 
 # Aliases
 #
