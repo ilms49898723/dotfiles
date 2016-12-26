@@ -247,3 +247,6 @@ export EDITOR=vim
 
 # Go Environment Variables
 export GOPATH=$HOME/.go:$HOME/Workspace/go
+
+# Locate
+export LC_ALL=C
