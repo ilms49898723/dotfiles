@@ -242,6 +242,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# globstar
+shopt -s globstar
+
 # Editor
 export EDITOR=vim
 
