@@ -1,0 +1,25 @@
+# bracket style using Java
+--style=java
+
+# indent using space
+--indent=spaces
+
+# bracket modify options
+--attach-namespaces
+--attach-classes
+--attach-inlines
+
+# identation options
+--indent-switches
+--indent-col1-comments
+--min-conditional-indent=1
+
+# padding options
+--break-blocks
+--pad-oper
+--pad-header
+--align-pointer=type
+--align-reference=type
+--convert-tabs
+--close-templates
+
