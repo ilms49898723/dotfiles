@@ -1279,10 +1279,11 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
+" if has('mouse')
   " set mouse=a
-  set mouse=n  " only enable on normal mode
-endif
+  " set mouse=n  " only enable in normal mode
+" endif
+set mouse=""
 
 " Ignore case when searching
 set ignorecase
