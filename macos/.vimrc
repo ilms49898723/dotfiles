@@ -149,7 +149,7 @@ function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
   let _ = expand('#'.buflist[winnr - 1].':t')
-  return _ !=# '' ? _ : '[No Name]'
+  return _ !=# '' ? _ : '[New File]'
 endfunction
 
 function! MyTabReadonly(n)
@@ -173,12 +173,12 @@ endfunction
 function! MyFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? g:lightline.fname :
+        \ fname == '__Tagbar__' ? '[Tagbar]' :
         \ fname =~ '__Gundo\|NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? '[VimShell]' :
-        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != fname ? fname : '[New File]') .
         \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
@@ -1153,7 +1153,8 @@ let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn', '.' ]
 let g:auto_ctags_filetype_mode = 1
 
 " tagbar
-nnoremap <silent><F9> :TagbarToggle<cr>
+nnoremap <silent><F9> :TagbarToggle<CR>
+nnoremap <silent><leader>o :TagbarToggle<CR>
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
@@ -1537,7 +1538,7 @@ map <leader>s? z=
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+" noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
 " map <leader>q :e ~/buffer<cr>
@@ -1789,9 +1790,13 @@ highlight Normal ctermbg=none
 
 " map for :make
 nmap <C-F9> :make<CR>
+nmap <leader>m :make<CR>
 
 " map for :VimShellTab
 nmap <C-F12> :VimShellTab<CR>
+
+" map for tcomment
+nmap <leader>/ :TComment<CR>
 
 " updatetime
 set updatetime=0
@@ -1800,9 +1805,15 @@ set updatetime=0
 set splitright
 set splitbelow
 
-" something...
+set noshowcmd
+set nohlsearch
 set title
 set noshowmode
+
+" relative line number in normal mode
+" normal line number in insert mode
+" autocmd InsertEnter * set number norelativenumber
+" autocmd InsertLeave * set nonumber relativenumber
 
 " cursor line
 set cursorline
@@ -1834,12 +1845,3 @@ map [Tag]m :tabmove
 " tg tabnext (number to enter)
 map [Tag]g :tabnext
 
-" no show command
-set noshowcmd
-" no highlight search
-set nohlsearch
-
-" relative line number in normal mode
-" normal line number in insert mode
-" autocmd InsertEnter * set number norelativenumber
-" autocmd InsertLeave * set nonumber relativenumber
