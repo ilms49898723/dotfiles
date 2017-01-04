@@ -148,8 +148,17 @@ let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  let _ = expand('#'.buflist[winnr - 1].':t')
-  return _ !=# '' ? _ : '[New File]'
+  let fname = expand('#'.buflist[winnr - 1].':t')
+  return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+        \ fname =~ '__Tagbar__' ? '[Tagbar]' :
+        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+        \ fname =~ '__Gundo' ? '[Gundo]' :
+        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ &ft == 'unite' ? unite#get_status_string() :
+        \ &ft == 'vimshell' ? '[VimShell]' :
+        \ ('' != fname ? fname : '[New File]')
+  " return _ !=# '' ? _ : '[New File]'
 endfunction
 
 function! MyTabReadonly(n)
@@ -174,6 +183,8 @@ function! MyFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
         \ fname =~ '__Tagbar__' ? '[Tagbar]' :
+        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+        \ fname =~ '__Gundo' ? '[Gundo]' :
         \ fname =~ '__Gundo\|NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
