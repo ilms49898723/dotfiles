@@ -173,7 +173,7 @@ endfunction
 function! MyFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? '[Tagbar]' :
+        \ fname =~ '__Tagbar__' ? '[Tagbar]' :
         \ fname =~ '__Gundo\|NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
@@ -1796,7 +1796,7 @@ nmap <leader>m :make<CR>
 nmap <C-F12> :VimShellTab<CR>
 
 " map for tcomment
-nmap <leader>/ :TComment<CR>
+map <silent> <leader>/ :TComment<CR>
 
 " updatetime
 set updatetime=0
