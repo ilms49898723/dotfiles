@@ -1794,7 +1794,7 @@ nmap <C-F9> :make<CR>
 nmap <C-F12> :VimShellTab<CR>
 
 " updatetime
-" set updatetime=250
+set updatetime=0
 
 " split settings
 set splitright
