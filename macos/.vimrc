@@ -1626,7 +1626,11 @@ endfunction
 "    means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
-    set undodir=~/.vim/undodir
+    let s:undo_dir = expand('~/.vim/undodir')
+    if !isdirectory(s:undo_dir)
+        call mkdir(s:undo_dir, 'p')
+    endif
+    set undodir = s:undo_dir
     set undofile
 catch
 endtry
