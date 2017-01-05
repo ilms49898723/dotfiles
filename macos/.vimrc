@@ -1813,8 +1813,8 @@ nmap <C-F12> :VimShellTab<CR>
 " map for tcomment
 map <silent> <leader>/ :TComment<CR>
 
-" updatetime
-set updatetime=0
+" update time
+set updatetime=200
 
 " split settings
 set splitright
