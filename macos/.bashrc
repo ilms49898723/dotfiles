@@ -111,7 +111,10 @@ if ! shopt -oq posix; then
 fi
 
 # Editor environment variables
-export EDITOR=vim
+export EDITOR=$(which vim)
+
+export LESS='ij.5KMRX'
+export PAGER='less'
 
 # Git prompt
 # . ~/.git-prompt.sh

@@ -5,6 +5,19 @@
 # application.  To override the alias instruction use a \ before, ie
 # \rm will call the real rm not the alias.
 
+# sudo
+alias please='sudo'
+
+# easy navigation
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+
+# archives
+alias mktar='tar pvczf'
+alias untar='tar xf'
+
 # enable color support of ls and also add handy aliases
 alias ls='ls -FG'
 alias dir='ls -FG'
