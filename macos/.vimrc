@@ -1406,9 +1406,6 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files
-set nostartofline
-
 " Remember info about open buffers on close
 set viminfo^=%
 
@@ -1739,6 +1736,8 @@ set secure
 
 set modeline
 set modelines=2
+
+set nostartofline
 
 noremap <F1> <Nop>
 noremap K <Nop>
