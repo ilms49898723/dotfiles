@@ -1753,6 +1753,9 @@ nnoremap Y y$
 vnoremap < <gv
 vnoremap > >gv
 
+" vimdiff option
+set diffopt=vertical
+
 let g:is_posix=1
 
 " relative line number in normal mode
