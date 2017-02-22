@@ -439,7 +439,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 
 " For conceal markers.
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+  set conceallevel=0 concealcursor=niv
 endif
 
 " vimshell
@@ -1128,7 +1128,7 @@ let g:yankround_max_history = 100
 nnoremap <Leader><C-p> :<C-u>Unite yankround<CR>
 
 " memolist
-let g:memolist_path = expand('~/GoogleDrive/memolist')
+let g:memolist_path = expand('~/vimdata/memolist')
 let g:memolist_gfixgrep = 1
 let g:memolist_unite = 1
 let g:memolist_unite_option = "-vertical -start-insert"
