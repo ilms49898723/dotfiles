@@ -9,6 +9,9 @@
 alias please='sudo'
 
 # easy navigation
+alias cd..='cd ../'
+
+# easy navigation
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -43,6 +46,10 @@ alias du='du -h'
 # Misc :)
 alias less='less -r'                          # raw control characters
 alias whence='type -a'                        # where, of a sort
+
+# df aliases
+alias df='/bin/df'                            # df in macos
+alias gdf='env LC_ALL=C /usr/local/bin/df'    # gnu df
 
 # vi -> vim
 # use the version located in /usr/local/bin
