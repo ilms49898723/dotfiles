@@ -19,17 +19,17 @@ alias mktar='tar pvczf'
 alias untar='tar xf'
 
 # enable color support of ls and also add handy aliases
-alias ls='ls -FG'
-alias dir='ls -FG'
+alias ls='ls -F --color=auto'
+alias dir='ls -F --color=auto'
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # some more ls aliases
-alias l='ls -CFG'
-alias la='ls -AG'
-alias ll='ls -alFG'
+alias l='ls -CF --color=auto'
+alias la='ls -A --color=auto'
+alias ll='ls -alF --color=auto'
 
 # Interactive operation...
 alias rm='rm -i'
