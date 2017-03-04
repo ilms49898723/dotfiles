@@ -1252,7 +1252,7 @@ endif
 set encoding=utf8
 
 " Use Unix as the standard file type
-set ffs=unix,dos,mac
+set ffs=unix,mac,dos
 
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
