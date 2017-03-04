@@ -1,5 +1,7 @@
 set nocompatible               " Be iMproved
 
+set nomore
+
 " leader settings
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -39,18 +41,13 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/vimshell', {'depends': 'Shougo/vimproc.vim'})
 
 call dein#add('airblade/vim-gitgutter')
-call dein#add('alvan/vim-closetag')
-call dein#add('artur-shaik/vim-javacomplete2')
-call dein#add('flazz/vim-colorschemes')
 call dein#add('glidenote/memolist.vim')
-call dein#add('hail2u/vim-css3-syntax')
 call dein#add('itchyny/landscape.vim')
 call dein#add('itchyny/lightline.vim')
 call dein#add('junegunn/vim-easy-align')
 call dein#add('kchmck/vim-coffee-script')
 call dein#add('kien/ctrlp.vim')
 call dein#add('LeafCage/yankround.vim')
-call dein#add('Lokaltog/vim-easymotion')
 call dein#add('majutsushi/tagbar')
 call dein#add('mattn/emmet-vim')
 call dein#add('moll/vim-node')
@@ -58,26 +55,18 @@ call dein#add('nanotech/jellybeans.vim')
 call dein#add('ntpeters/vim-better-whitespace')
 call dein#add('osyo-manga/vim-anzu')
 call dein#add('othree/html5.vim')
-call dein#add('pangloss/vim-javascript')
-call dein#add('rking/ag.vim')
 call dein#add('scrooloose/nerdtree')
-call dein#add('shawncplus/skittles_berry')
 call dein#add('Shougo/context_filetype.vim')
 call dein#add('Shougo/neco-syntax')
 call dein#add('Shougo/neocomplete.vim')
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/vimfiler.vim')
-call dein#add('sickill/vim-monokai')
-call dein#add('sjl/badwolf')
-call dein#add('sjl/gundo.vim')
-call dein#add('solarnz/thrift.vim')
 call dein#add('soramugi/auto-ctags.vim')
 call dein#add('thinca/vim-quickrun')
 call dein#add('tomasr/molokai')
 call dein#add('tomtom/tcomment_vim')
 call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-surround')
-call dein#add('vim-scripts/matchit.zip')
 call dein#add('vim-scripts/Smart-Home-Key')
 
 call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
@@ -104,11 +93,12 @@ let g:lightline = {
         \     ['mode', 'paste'],
         \     ['fugitive', 'gitgutter', 'filename'],
         \     ['tagbartags', 'ctrlpmark'],
+        \     ['anzu'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
         \     ['percent'],
-        \     ['fileformat', 'fileencoding', 'filetype'],
+        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
         \ 'tab': {
@@ -152,8 +142,16 @@ let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  let _ = expand('#'.buflist[winnr - 1].':t')
-  return _ !=# '' ? _ : '[No Name]'
+  let fname = expand('#'.buflist[winnr - 1].':t')
+  return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+        \ fname =~ '__Tagbar__' ? '[Tagbar]' :
+        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+        \ fname =~ 'NERD_tree' ? '' :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ &ft == 'unite' ? unite#get_status_string() :
+        \ &ft == 'vimshell' ? '[VimShell]' :
+        \ ('' != fname ? fname : '[New File]')
+  " return _ !=# '' ? _ : '[New File]'
 endfunction
 
 function! MyTabReadonly(n)
@@ -167,29 +165,30 @@ function! MyTabModified(n)
 endfunction
 
 function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
+  return &ft =~ 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '[R]' : ''
+  return &ft !~? 'help\|vimfiler' && &readonly ? '[R]' : ''
 endfunction
 
 function! MyFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? g:lightline.fname :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ fname =~ '__Tagbar__' ? '[Tagbar]' :
+        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+        \ fname =~ 'NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? '[VimShell]' :
-        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != fname ? fname : '[New File]') .
         \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFugitive()
   try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+    if expand('%:t') !~? 'Tagbar\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       let mark = '# '  " edit here for cool mark
       let _ = fugitive#head()
       return _ !=# '' ? mark._ : ''
@@ -215,8 +214,6 @@ function! MyMode()
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
         \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
         \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ &ft == 'unite' ? 'Unite' :
         \ &ft == 'vimfiler' ? 'VimFiler' :
@@ -430,7 +427,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 
 " For conceal markers.
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+  set conceallevel=0 concealcursor=niv
 endif
 
 " vimshell
@@ -475,31 +472,6 @@ nmap <silent><expr> * '<Plug>(anzu-star-with-echo):normal! N<cr>'
 nmap <silent><expr> # '<Plug>(anzu-sharp-with-echo):normal! N<cr>'
 
 nmap <silent><expr> g* 'g*<Plug>(anzu-update-search-status-with-echo):normal! N<cr>'
-
-" ag
-"  :Ag [options] {pattern} [{directory}]
-"  :bufdo AgAdd {pattern}
-"  :LAg, LAgAdd
-"  :AgFile
-"  :AgHelp
-"
-"  If [!] is not given the first error is jumped to.
-"
-"   o    to open (same as enter)
-"   go   to preview file (open but maintain focus on ack.vim results)
-"   t    to open in new tab
-"   T    to open in new tab silently
-"   h    to open in horizontal split
-"   H    to open in horizontal split silently
-"   v    to open in vertical split
-"   gv   to open in vertical split silently
-"   q    to close the quickfix window
-" -------------------------------------------------
-" フォーマット
-let g:agprg="ag -S --nogroup --column"
-
-" closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " emmet-vim
 let g:user_zen_removetag_key = ''
@@ -575,13 +547,6 @@ nnoremap <Space>gb :<C-u>Gblame<cr>
 " git-now
 nnoremap <Space>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <Space>gN :<C-u>w<CR>:Git now --all<CR>
-
-" gundo
-nnoremap U :<C-u>GundoToggle<CR>
-" 移動と同時にプレビューを表示しない
-" r を押すとプレビュー表示
-" 履歴表示が遅い場合に設定すると良い
-"let g:gundo_auto_preview = 0
 
 " nerdtree
 "  http://blog.livedoor.jp/kumonopanya/archives/51048805.html
@@ -1110,7 +1075,7 @@ function! s:vimfiler_my_settings()
 
 endfunction
 
-" yankaround
+" yankround
 nmap p <Plug>(yankround-p)
 nmap P <Plug>(yankround-P)
 nmap <C-p> <Plug>(yankround-prev)
@@ -1119,29 +1084,13 @@ let g:yankround_max_history = 100
 nnoremap <Leader><C-p> :<C-u>Unite yankround<CR>
 
 " memolist
-let g:memolist_path = expand('~/GoogleDrive/memolist')
+let g:memolist_path = expand('~/vimdata/memolist')
 let g:memolist_gfixgrep = 1
 let g:memolist_unite = 1
 let g:memolist_unite_option = "-vertical -start-insert"
 nnoremap mn  :MemoNew<CR>
 nnoremap ml  :MemoList<CR>
 nnoremap mg  :MemoGrep<CR>
-
-" easymotion
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
-xmap s <Plug>(easymotion-s2)
-omap z <Plug>(easymotion-s2)
-nmap g/ <Plug>(easymotion-sn)
-xmap g/ <Plug>(easymotion-sn)
-omap g/ <Plug>(easymotion-tn)
-let g:EasyMotion_smartcase = 1
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-let g:EasyMotion_startofline = 0
-let g:EasyMotion_keys = 'QZASDFGHJKL;'
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_enter_jump_first = 1
 
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
@@ -1157,7 +1106,8 @@ let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn', '.' ]
 let g:auto_ctags_filetype_mode = 1
 
 " tagbar
-nnoremap <silent><F9> :TagbarToggle<cr>
+nnoremap <silent><F9> :TagbarToggle<CR>
+nnoremap <silent><leader>o :TagbarToggle<CR>
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
@@ -1166,53 +1116,10 @@ let g:tagbar_autoclose = 1
 let g:better_whitespace_filetypes_blacklist=['vimshell', 'vim', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer:
-"       Amir Salihefendic
-"       http://amix.dk - amix@amix.dk
-"
-" Version:
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post:
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version:
-"       http://amix.dk/vim/vimrc.txt
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=100
+set history=1000
 
 " Enable filetype plugins
 filetype on
@@ -1242,20 +1149,24 @@ nmap <leader>Q :q!<cr>
 " Save and quit
 " nmap <leader>wq :wq<cr>
 
+set ttyfast
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" shell
+set shell=$SHELL
+set termencoding=utf-8
+set encoding=utf-8
+
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set scrolloff=7
+set sidescrolloff=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en'
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+" let $LANG='en'
+" set langmenu=en
+" source $VIMRUNTIME/delmenu.vim
+" source $VIMRUNTIME/menu.vim
 
-" Turn on the WiLd menu
+" Turn on the Wild menu
 set wildmenu
 
 set wildignorecase
@@ -1272,7 +1183,8 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+" set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -1282,9 +1194,12 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
+" if has('mouse')
+"   set mouse=a
+"   set mouse=n  " only enable in normal mode
+" endif
+set mouse=""
+set mousehide
 
 " Ignore case when searching
 set ignorecase
@@ -1307,7 +1222,7 @@ set magic
 " Show matching brackets when text indicator is over them
 set showmatch
 " How many tenths of a second to blink when matching brackets
-set mat=2
+set matchtime=2
 
 " No annoying sound on errors
 set noerrorbells
@@ -1319,13 +1234,13 @@ set tm=500
 " set foldcolumn=1
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
 
 set background=dark
+
+" Maximum number of lines to try and highlight
+set synmaxcol=500
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -1342,18 +1257,12 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show line number
 set number
 
@@ -1366,35 +1275,32 @@ set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
+set shiftround
 
 " Linebreak on 500 characters
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
+set autoindent "Auto indent
+set smartindent "Smart indent
 set wrap "Wrap lines
 
+set display=lastline
 
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+" map <space> /
+" map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -1443,28 +1349,17 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
 " Remember info about open buffers on close
 set viminfo^=%
 
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
@@ -1482,19 +1377,15 @@ if has("mac") || has("macunix")
 endif
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
+" func! DeleteTrailingWS()
+"   exe "normal mz"
+"   %s/\s\+$//ge
+"   exe "normal `z"
+" endfunc
+" autocmd BufWrite *.py :call DeleteTrailingWS()
+" autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"    requires ag.vim - it's much better than vimgrep/grep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " When you press gv you Ag after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
@@ -1521,9 +1412,6 @@ map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -1534,11 +1422,8 @@ map <leader>sa zg
 map <leader>s? z=
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+" noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
 " map <leader>q :e ~/buffer<cr>
@@ -1550,9 +1435,6 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 map <leader>pp :setlocal paste!<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
@@ -1610,20 +1492,17 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Turn persistent undo on
-"    means that you can undo even when you close a buffer/VIM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
-    set undodir=~/.vim/undodir
+    let s:undo_dir = expand('~/.vim/undodir')
+    if !isdirectory(s:undo_dir)
+        call mkdir(s:undo_dir, 'p')
+    endif
+    set undodir = s:undo_dir
     set undofile
 catch
 endtry
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Command mode related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Smart mappings on the command line
 cno $h e ~/
 cno $d e ~/Desktop/
@@ -1648,9 +1527,6 @@ cnoremap <C-N> <Down>
 " imap ½ $
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Parenthesis/bracket
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vnoremap $1 <esc>`>a)<esc>`<i(<esc>
 " vnoremap $2 <esc>`>a]<esc>`<i[<esc>
 " vnoremap $3 <esc>`>a}<esc>`<i{<esc>
@@ -1668,15 +1544,9 @@ cnoremap <C-N> <Down>
 " inoremap $t <><esc>i
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General abbreviations
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Omni complete functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -1686,9 +1556,6 @@ autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 func! DeleteTillSlash()
     let g:cmd = getcmdline()
 
@@ -1713,9 +1580,7 @@ func! CurrentFileDir(cmd)
     return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
-""""""""""""""""""""""""""""""
-" => Python section
-""""""""""""""""""""""""""""""
+
 let python_highlight_all = 1
 
 au FileType python setlocal completeopt-=preview
@@ -1739,9 +1604,6 @@ au FileType python map <buffer> <leader>C ?class
 au FileType python map <buffer> <leader>D ?def
 
 
-""""""""""""""""""""""""""""""
-" => JavaScript section
-"""""""""""""""""""""""""""""""
 au FileType javascript call JavaScriptFold()
 au FileType javascript setlocal fen
 au FileType javascript setlocal nocindent
@@ -1764,9 +1626,6 @@ function! JavaScriptFold()
 endfunction
 
 
-""""""""""""""""""""""""""""""
-" => CoffeeScript section
-"""""""""""""""""""""""""""""""
 function! CoffeeScriptFold()
     setl foldmethod=indent
     setl foldlevelstart=1
@@ -1781,29 +1640,71 @@ au FileType Makefile setlocal noexpandtab
 " c, cpp
 au FileType c,cpp,cc setlocal cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
 
-" littlebird settings
 
 " general
+syntax enable
 syntax on
+set synmaxcol=500
+
 colorscheme molokai
 highlight Normal ctermbg=none
 
 " map for :make
 nmap <C-F9> :make<CR>
+nmap <leader>m :make<CR>
 
 " map for :VimShellTab
 nmap <C-F12> :VimShellTab<CR>
 
-" updatetime
-" set updatetime=250
+" map for tcomment
+map <silent> <leader>/ :TComment<CR>
+
+" update time
+set updatetime=200
 
 " split settings
 set splitright
 set splitbelow
 
-" something...
 set title
+set noshowcmd
+set nohlsearch
 set noshowmode
+set nojoinspaces
+
+set gdefault
+set virtualedit=block
+
+set secure
+
+set modeline
+set modelines=2
+
+set nostartofline
+
+noremap <F1> <Nop>
+noremap K <Nop>
+
+" remap W and Q
+nnoremap W :wa<CR>
+nnoremap Q :qa<CR>
+
+" remap Y
+nnoremap Y y$
+
+" reselect after shift
+vnoremap < <gv
+vnoremap > >gv
+
+" vimdiff option
+set diffopt=vertical
+
+let g:is_posix=1
+
+" relative line number in normal mode
+" normal line number in insert mode
+" autocmd InsertEnter * set number norelativenumber
+" autocmd InsertLeave * set nonumber relativenumber
 
 " cursor line
 set cursorline
