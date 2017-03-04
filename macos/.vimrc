@@ -41,17 +41,13 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/vimshell', {'depends': 'Shougo/vimproc.vim'})
 
 call dein#add('airblade/vim-gitgutter')
-call dein#add('alvan/vim-closetag')
-call dein#add('flazz/vim-colorschemes')
 call dein#add('glidenote/memolist.vim')
-call dein#add('hail2u/vim-css3-syntax')
 call dein#add('itchyny/landscape.vim')
 call dein#add('itchyny/lightline.vim')
 call dein#add('junegunn/vim-easy-align')
 call dein#add('kchmck/vim-coffee-script')
 call dein#add('kien/ctrlp.vim')
 call dein#add('LeafCage/yankround.vim')
-call dein#add('Lokaltog/vim-easymotion')
 call dein#add('majutsushi/tagbar')
 call dein#add('mattn/emmet-vim')
 call dein#add('moll/vim-node')
@@ -59,16 +55,12 @@ call dein#add('nanotech/jellybeans.vim')
 call dein#add('ntpeters/vim-better-whitespace')
 call dein#add('osyo-manga/vim-anzu')
 call dein#add('othree/html5.vim')
-call dein#add('rking/ag.vim')
 call dein#add('scrooloose/nerdtree')
 call dein#add('Shougo/context_filetype.vim')
 call dein#add('Shougo/neco-syntax')
 call dein#add('Shougo/neocomplete.vim')
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/vimfiler.vim')
-call dein#add('sjl/badwolf')
-call dein#add('sjl/gundo.vim')
-call dein#add('solarnz/thrift.vim')
 call dein#add('soramugi/auto-ctags.vim')
 call dein#add('thinca/vim-quickrun')
 call dein#add('tomasr/molokai')
@@ -154,8 +146,7 @@ function! MyTabFilename(n)
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
         \ fname =~ '__Tagbar__' ? '[Tagbar]' :
         \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-        \ fname =~ '__Gundo' ? '[Gundo]' :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ fname =~ 'NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? '[VimShell]' :
@@ -174,11 +165,11 @@ function! MyTabModified(n)
 endfunction
 
 function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
+  return &ft =~ 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '[R]' : ''
+  return &ft !~? 'help\|vimfiler' && &readonly ? '[R]' : ''
 endfunction
 
 function! MyFilename()
@@ -186,8 +177,7 @@ function! MyFilename()
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
         \ fname =~ '__Tagbar__' ? '[Tagbar]' :
         \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-        \ fname =~ '__Gundo' ? '[Gundo]' :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ fname =~ 'NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? '[VimShell]' :
@@ -198,7 +188,7 @@ endfunction
 
 function! MyFugitive()
   try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+    if expand('%:t') !~? 'Tagbar\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       let mark = '# '  " edit here for cool mark
       let _ = fugitive#head()
       return _ !=# '' ? mark._ : ''
@@ -224,8 +214,6 @@ function! MyMode()
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
         \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
         \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ &ft == 'unite' ? 'Unite' :
         \ &ft == 'vimfiler' ? 'VimFiler' :
@@ -485,31 +473,6 @@ nmap <silent><expr> # '<Plug>(anzu-sharp-with-echo):normal! N<cr>'
 
 nmap <silent><expr> g* 'g*<Plug>(anzu-update-search-status-with-echo):normal! N<cr>'
 
-" ag
-"  :Ag [options] {pattern} [{directory}]
-"  :bufdo AgAdd {pattern}
-"  :LAg, LAgAdd
-"  :AgFile
-"  :AgHelp
-"
-"  If [!] is not given the first error is jumped to.
-"
-"   o    to open (same as enter)
-"   go   to preview file (open but maintain focus on ack.vim results)
-"   t    to open in new tab
-"   T    to open in new tab silently
-"   h    to open in horizontal split
-"   H    to open in horizontal split silently
-"   v    to open in vertical split
-"   gv   to open in vertical split silently
-"   q    to close the quickfix window
-" -------------------------------------------------
-" フォーマット
-let g:agprg="ag -S --nogroup --column"
-
-" closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
-
 " emmet-vim
 let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
@@ -584,13 +547,6 @@ nnoremap <Space>gb :<C-u>Gblame<cr>
 " git-now
 nnoremap <Space>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <Space>gN :<C-u>w<CR>:Git now --all<CR>
-
-" gundo
-nnoremap U :<C-u>GundoToggle<CR>
-" 移動と同時にプレビューを表示しない
-" r を押すとプレビュー表示
-" 履歴表示が遅い場合に設定すると良い
-"let g:gundo_auto_preview = 0
 
 " nerdtree
 "  http://blog.livedoor.jp/kumonopanya/archives/51048805.html
@@ -1119,7 +1075,7 @@ function! s:vimfiler_my_settings()
 
 endfunction
 
-" yankaround
+" yankround
 nmap p <Plug>(yankround-p)
 nmap P <Plug>(yankround-P)
 nmap <C-p> <Plug>(yankround-prev)
@@ -1135,22 +1091,6 @@ let g:memolist_unite_option = "-vertical -start-insert"
 nnoremap mn  :MemoNew<CR>
 nnoremap ml  :MemoList<CR>
 nnoremap mg  :MemoGrep<CR>
-
-" easymotion
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
-xmap s <Plug>(easymotion-s2)
-omap z <Plug>(easymotion-s2)
-nmap g/ <Plug>(easymotion-sn)
-xmap g/ <Plug>(easymotion-sn)
-omap g/ <Plug>(easymotion-tn)
-let g:EasyMotion_smartcase = 1
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-let g:EasyMotion_startofline = 0
-let g:EasyMotion_keys = 'QZASDFGHJKL;'
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_enter_jump_first = 1
 
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
