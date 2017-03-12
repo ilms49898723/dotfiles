@@ -1684,8 +1684,8 @@ noremap <F1> <Nop>
 noremap K <Nop>
 
 " remap W and Q
-nnoremap W :wa<CR>
-nnoremap Q :qa<CR>
+nnoremap W :w<CR>
+nnoremap Q :q<CR>
 
 " remap Y
 nnoremap Y y$
