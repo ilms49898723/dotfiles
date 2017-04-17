@@ -1682,6 +1682,7 @@ set nostartofline
 
 noremap <F1> <Nop>
 noremap K <Nop>
+noremap q <Nop>
 
 " remap W and Q
 nnoremap W :w<CR>
