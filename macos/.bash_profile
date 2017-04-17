@@ -9,7 +9,11 @@ if [ -f "/usr/local/share/bash-completion/bash_completion" ]; then
 fi
 
 # PATH for MATLAB
-PATH="/Applications/MATLAB_R2016b.app/bin:${PATH}"
+PATH="/Applications/MATLAB_R2017a.app/bin:${PATH}"
+export PATH
+
+# PATH for MySQL
+PATH="/usr/local/mysql/bin:${PATH}"
 export PATH
 
 # Setting PATH for Python 3.5
@@ -17,8 +21,23 @@ export PATH
 PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
 export PATH
 
+# Setting Ant Environment Variables
+ANT_HOME="/usr/local/ant"
+export ANT_HOME
+
+# Setting PATH for ANT
+PATH="${ANT_HOME}/bin:${PATH}"
+export PATH
+
+# Setting Maven Environment Variables
+M2_HOME="/usr/local/maven"
+export M2_HOME
+
+# Setting PATH for maven
+PATH="${M2_HOME}/bin:${PATH}"
+
 # Setting Gradle Environment Variables
-GRADLE_HOME="${HOME}/gradle"
+GRADLE_HOME="/usr/local/gradle"
 export GRADLE_HOME
 
 # Setting PATH for Gradle

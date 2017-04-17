@@ -64,3 +64,6 @@ alias tree='tree -C -N'
 # only alias for ipython with python3
 alias ipython='python3 -m IPython'
 alias ipython3='python3 -m IPython'
+
+# matlab
+alias matlab-cli='matlab -nodesktop -nosplash'
