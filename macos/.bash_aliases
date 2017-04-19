@@ -18,8 +18,9 @@ alias ....='cd ../../../'
 alias .....='cd ../../../../'
 
 # archives
-alias mktar='tar pvczf'
-alias untar='tar xf'
+alias mktar='tar -czvf'
+alias untar='tar -xvf'
+alias ltar='tar -tvf'
 
 # enable color support of ls and also add handy aliases
 alias ls='ls -F --color=auto'
