@@ -20,6 +20,8 @@ export PATH
 # The original version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
 export PATH
+PATH="${HOME}/Library/Python/3.5/bin:${PATH}"
+export PATH
 
 # Setting Ant Environment Variables
 ANT_HOME="/usr/local/ant"
@@ -45,7 +47,7 @@ PATH="${GRADLE_HOME}/bin:${PATH}"
 export PATH
 
 # Go Environment Variables
-GOPATH=$HOME/.go:$HOME/Workspace/go
+GOPATH=${HOME}/.go:${HOME}/Workspace/go
 export GOPATH
 
 # Tex PATH
