@@ -44,6 +44,7 @@ call dein#add('itchyny/landscape.vim')
 call dein#add('itchyny/lightline.vim')
 call dein#add('junegunn/vim-easy-align')
 call dein#add('kchmck/vim-coffee-script')
+call dein#add('keith/swift.vim')
 call dein#add('kien/ctrlp.vim')
 call dein#add('LeafCage/yankround.vim')
 call dein#add('majutsushi/tagbar')
@@ -69,7 +70,7 @@ call dein#add('vim-scripts/Smart-Home-Key')
 
 call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
 
-call dein#local('~/.vim/manual', {'frozen' : 1})
+" call dein#local('~/.vim/manual', {'frozen' : 1})
 
 " Required:
 call dein#end()
