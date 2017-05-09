@@ -69,6 +69,8 @@ call dein#add('vim-scripts/Smart-Home-Key')
 
 call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
 
+call dein#local('~/.vim/manual', {'frozen' : 1})
+
 " Required:
 call dein#end()
 
