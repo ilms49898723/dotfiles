@@ -344,14 +344,9 @@ function! MyUTF8Code()
   if len(command_result) <= 2
       return '0x0000' . command_result
   elseif len(command_result) <= 5
-      let firstCode = matchstr(command_result, '[0-9a-zA-Z]+')
-      let secondCode = matchstr(command_result, '[0-9a-zA-Z]+', 2)
       let codes = split(command_result, ' ', 0)
       return '0x00' . join(codes, '')
   else
-      let firstCode = matchstr(command_result, '[0-9a-zA-Z]+')
-      let secondCode = matchstr(command_result, '[0-9a-zA-Z]+', 4)
-      let thirdCode = matchstr(command_result, '[0-9a-zA-Z]+', 7)
       let codes = split(command_result, ' ', 0)
       return '0x' . join(codes, '')
   endif
