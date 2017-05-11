@@ -99,7 +99,7 @@ let g:lightline = {
         \   'right': [
         \     ['lineinfo'],
         \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+        \     ['charcode', 'utf8code', 'fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
         \ 'tab': {
@@ -118,6 +118,7 @@ let g:lightline = {
         \   'fileencoding': 'MyFileencoding',
         \   'mode': 'MyMode',
         \   'charcode': 'MyCharCode',
+        \   'utf8code': 'MyUTF8Code',
         \   'gitgutter': 'MyGitGutter',
         \   'anzu': 'anzu#search_status',
         \   'ctrlpmark': 'MyCtrlpmark',
@@ -277,7 +278,6 @@ function! MyGitGutter()
   return join(ret, ' ')
 endfunction
 
-" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
 function! MyCharCode()
   if winwidth('.') <= 70
     return ''
@@ -288,14 +288,18 @@ function! MyCharCode()
   silent! ascii
   redir END
 
+  let encoding = (&fenc == '' ? &enc : &fenc)
+
   if match(ascii, 'NUL') != -1
-    return 'NUL'
+    if encoding == 'utf-8'
+      return 'NUL 0x0000'
+    else
+      return 'NUL 0x00'
+    endif
   endif
 
   " Zero pad hex values
   let nrformat = '0x%02x'
-
-  let encoding = (&fenc == '' ? &enc : &fenc)
 
   if encoding == 'utf-8'
     " Zero pad with 4 zeroes in unicode files
@@ -311,6 +315,46 @@ function! MyCharCode()
   let nr = printf(nrformat, nr)
 
   return "'". char ."' ". nr
+endfunction
+
+function! MyUTF8Code()
+  if winwidth('.') <= 70
+    return ''
+  endif
+
+  let encoding = (&fenc == '' ? &enc : &fenc)
+
+  if encoding != 'utf-8'
+    return ''
+  endif
+
+  let p = getpos('.')
+
+  redir => utfseq
+  silent normal! g8
+  redir END
+
+  call setpos('.', p)
+
+  if match(utfseq, 'NUL') != -1
+    return '0x000000'
+  endif
+
+  let command_result = matchstr(utfseq, '\v[0-9a-zA-Z]+([ ][0-9a-zA-Z]+)*([ ][0-9a-zA-Z]+)*')
+  if len(command_result) <= 2
+      return '0x0000' . command_result
+  elseif len(command_result) <= 5
+      let firstCode = matchstr(command_result, '[0-9a-zA-Z]+')
+      let secondCode = matchstr(command_result, '[0-9a-zA-Z]+', 2)
+      let codes = split(command_result, ' ', 0)
+      return '0x00' . join(codes, '')
+  else
+      let firstCode = matchstr(command_result, '[0-9a-zA-Z]+')
+      let secondCode = matchstr(command_result, '[0-9a-zA-Z]+', 4)
+      let thirdCode = matchstr(command_result, '[0-9a-zA-Z]+', 7)
+      let codes = split(command_result, ' ', 0)
+      return '0x' . join(codes, '')
+  endif
 endfunction
 
 let g:unite_force_overwrite_statusline = 0
@@ -1105,6 +1149,7 @@ endif
 let g:auto_ctags = 1
 let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn', '.' ]
 let g:auto_ctags_filetype_mode = 1
+let g:auto_ctags_tags_args = '--tag-relative --sort=yes'
 
 " tagbar
 nnoremap <silent><F9> :TagbarToggle<CR>
