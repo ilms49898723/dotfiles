@@ -1324,7 +1324,8 @@ set lbr
 set tw=500
 
 set autoindent "Auto indent
-set smartindent "Smart indent
+" set smartindent "Smart indent
+
 set wrap "Wrap lines
 
 set display=lastline
