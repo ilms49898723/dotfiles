@@ -1,4 +1,4 @@
-# source ~/.bashrc if exists
+# Source ~/.bashrc if exists
 if [ -f "${HOME}/.bashrc" ]; then
     source ${HOME}/.bashrc
 fi
@@ -16,11 +16,11 @@ export PATH
 PATH="/usr/local/mysql/bin:${PATH}"
 export PATH
 
-# Setting PATH for Python 3.5
+# Setting PATH for Python 3.6
 # The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 export PATH
-PATH="${HOME}/Library/Python/3.5/bin:${PATH}"
+PATH="${HOME}/Library/Python/3.6/bin:${PATH}"
 export PATH
 
 # Setting Ant Environment Variables
@@ -65,3 +65,4 @@ export PATH
 # GNU GCC PATH
 PATH="/usr/local/gcc/bin:${PATH}"
 export PATH
+
