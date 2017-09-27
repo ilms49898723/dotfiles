@@ -9,7 +9,7 @@ if [ -f "/usr/local/share/bash-completion/bash_completion" ]; then
 fi
 
 # PATH for MATLAB
-PATH="/Applications/MATLAB_R2017a.app/bin:${PATH}"
+PATH="/Applications/MATLAB_R2017b.app/bin:${PATH}"
 export PATH
 
 # PATH for MySQL
