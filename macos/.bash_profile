@@ -62,7 +62,3 @@ export PATH
 PATH="/usr/local/gnu/bin:${PATH}"
 export PATH
 
-# GNU GCC PATH
-PATH="/usr/local/gcc/bin:${PATH}"
-export PATH
-
