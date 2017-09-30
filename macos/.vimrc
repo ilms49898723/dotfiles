@@ -6,86 +6,65 @@ set nocompatible               " Be iMproved
 let mapleader = ","
 let g:mapleader = ","
 
-" dein.vim
-let s:plugin_dir = expand('~/.vim')
-let s:dein_dir = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
+" Plug.vim
+let s:base_dir = expand('~/.vim')
+let s:plugin_dir = s:base_dir . '/plugged'
 
-if !isdirectory(s:dein_dir)
-    call mkdir(s:dein_dir, 'p')
-    silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
-endif
-
-"dein Scripts-----------------------------
+" Plug Scripts
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
 " Required:
-execute 'set runtimepath^=' . s:dein_dir
+call plug#begin(s:plugin_dir)
+
+Plug 'airblade/vim-gitgutter'
+Plug 'farmergreg/vim-lastplace'
+Plug 'glidenote/memolist.vim'
+Plug 'itchyny/landscape.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'kchmck/vim-coffee-script'
+Plug 'keith/swift.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'LeafCage/yankround.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
+Plug 'moll/vim-node'
+Plug 'nanotech/jellybeans.vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'osyo-manga/vim-anzu'
+Plug 'othree/html5.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'thinca/vim-quickrun'
+Plug 'tomasr/molokai'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/Smart-Home-Key'
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/vimshell'
+
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
 
 " Required:
-call dein#begin(s:plugin_dir)
-
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
-
-" Add or remove your plugins here:
-" call dein#add('Shougo/neosnippet.vim')
-" call dein#add('Shougo/neosnippet-snippets')
-
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-
-call dein#add('Shougo/vimshell', {'depends': 'Shougo/vimproc.vim'})
-
-call dein#add('airblade/vim-gitgutter')
-call dein#add('glidenote/memolist.vim')
-call dein#add('itchyny/landscape.vim')
-call dein#add('itchyny/lightline.vim')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('keith/swift.vim')
-call dein#add('kien/ctrlp.vim')
-call dein#add('LeafCage/yankround.vim')
-call dein#add('majutsushi/tagbar')
-call dein#add('mattn/emmet-vim')
-call dein#add('moll/vim-node')
-call dein#add('nanotech/jellybeans.vim')
-call dein#add('ntpeters/vim-better-whitespace')
-call dein#add('osyo-manga/vim-anzu')
-call dein#add('othree/html5.vim')
-call dein#add('scrooloose/nerdtree')
-call dein#add('Shougo/context_filetype.vim')
-call dein#add('Shougo/neco-syntax')
-call dein#add('Shougo/neocomplete.vim')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/vimfiler.vim')
-call dein#add('soramugi/auto-ctags.vim')
-call dein#add('thinca/vim-quickrun')
-call dein#add('tomasr/molokai')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-surround')
-call dein#add('vim-scripts/Smart-Home-Key')
-
-call dein#add('Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'})
-
-" call dein#local('~/.vim/manual', {'frozen' : 1})
-
-" Required:
-call dein#end()
+call plug#end()
 
 " Required:
 filetype plugin indent on
 
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
+"End Plug Scripts
 
 " Plugin Settings
+
 " lightline
 let g:lightline = {
         \ 'colorscheme': 'jellybeans',
@@ -924,7 +903,7 @@ endfunction
 " }}}}
 
 " gitgutter
-let g:gitgutter_sign_column_always=1
+set signcolumn=yes
 let g:gitgutter_max_signs=1024
 map ]h <Plug>GitGutterNextHunk
 map [h <Plug>GitGutterPrevHunk
@@ -1391,11 +1370,11 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal! g`\"" |
-  \ endif
+" Return to last edit position when opening files
+" autocmd BufReadPost *
+"   \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"   \   exe "normal! g`\"" |
+"   \ endif
 
 " Remember info about open buffers on close
 set viminfo^=%
@@ -1540,16 +1519,12 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-try
-    let s:undo_dir = expand('~/.vim/undodir')
-    if !isdirectory(s:undo_dir)
-        call mkdir(s:undo_dir, 'p')
-    endif
-    set undodir = s:undo_dir
-    set undofile
-catch
-endtry
-
+let s:undo_dir = expand('~/.vim/undodir')
+if !isdirectory(s:undo_dir)
+    call mkdir(s:undo_dir, 'p')
+endif
+set undodir=s:undo_dir
+set undofile
 
 " Smart mappings on the command line
 cno $h e ~/
