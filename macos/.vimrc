@@ -1523,7 +1523,7 @@ let s:undo_dir = expand('~/.vim/undodir')
 if !isdirectory(s:undo_dir)
     call mkdir(s:undo_dir, 'p')
 endif
-set undodir=s:undo_dir
+set undodir=~/.vim/undodir
 set undofile
 
 " Smart mappings on the command line
