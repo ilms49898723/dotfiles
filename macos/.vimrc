@@ -1694,7 +1694,6 @@ set nohlsearch
 set noshowmode
 set nojoinspaces
 
-set gdefault
 set virtualedit=block
 
 set secure
