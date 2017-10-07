@@ -4,61 +4,55 @@ if [ -f "${HOME}/.bashrc" ]; then
 fi
 
 # bash-completion
-if [ -f "/usr/local/share/bash-completion/bash_completion" ]; then
-    . /usr/local/share/bash-completion/bash_completion
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+  . /usr/local/share/bash-completion/bash_completion
 fi
+
+# gnu coreutils
+PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
+export PATH
+export MANPATH
+
+# gnu findutils
+PATH="/usr/local/opt/findutils/libexec/gnubin:${PATH}"
+MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
+export PATH
+export MANPATH
+
+# gnu make
+PATH="/usr/local/opt/make/libexec/gnubin:${PATH}"
+MANPATH="/usr/local/opt/make/libexec/gnuman:${MANPATH}"
+export PATH
+export MANPATH
+
+# gnu bison
+PATH="/usr/local/opt/bison/bin:${PATH}"
+export PATH
+
+# flex
+PATH="/usr/local/opt/flex/bin:${PATH}"
+export PATH
+
+# curl
+PATH="/usr/local/opt/curl/bin:${PATH}"
+export PATH
+
+# openssl 1.1
+PATH="/usr/local/opt/openssl@1.1/bin:${PATH}"
+export PATH
 
 # PATH for MATLAB
 PATH="/Applications/MATLAB_R2017b.app/bin:${PATH}"
 export PATH
 
-# PATH for MySQL
-PATH="/usr/local/mysql/bin:${PATH}"
-export PATH
-
 # Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH
 PATH="${HOME}/Library/Python/3.6/bin:${PATH}"
 export PATH
 
-# Setting Ant Environment Variables
-ANT_HOME="/usr/local/ant"
-export ANT_HOME
-
-# Setting PATH for ANT
-PATH="${ANT_HOME}/bin:${PATH}"
-export PATH
-
-# Setting Maven Environment Variables
-M2_HOME="/usr/local/maven"
-export M2_HOME
-
-# Setting PATH for maven
-PATH="${M2_HOME}/bin:${PATH}"
-
-# Setting Gradle Environment Variables
-GRADLE_HOME="/usr/local/gradle"
-export GRADLE_HOME
-
-# Setting PATH for Gradle
-PATH="${GRADLE_HOME}/bin:${PATH}"
-export PATH
-
 # Go Environment Variables
+PATH=${PATH}:/usr/local/opt/go/libexec/bin
 GOPATH=${HOME}/.go:${HOME}/Workspace/go
+export PATH
 export GOPATH
-
-# Tex PATH
-PATH="/usr/local/texlive/2016/bin/x86_64-darwin:${PATH}"
-export PATH
-
-# Qt PATH
-PATH="/usr/local/Qt/5.8/clang_64/bin:${PATH}"
-export PATH
-
-# GNU binutils PATH
-PATH="/usr/local/gnu/bin:${PATH}"
-export PATH
 
