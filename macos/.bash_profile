@@ -8,6 +8,9 @@ if [ -f /usr/local/share/bash-completion/bash_completion ]; then
   . /usr/local/share/bash-completion/bash_completion
 fi
 
+PATH="/usr/local/sbin:${PATH}"
+export PATH
+
 # gnu coreutils
 PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
@@ -17,6 +20,12 @@ export MANPATH
 # gnu findutils
 PATH="/usr/local/opt/findutils/libexec/gnubin:${PATH}"
 MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
+export PATH
+export MANPATH
+
+# gnu inetutils
+PATH="/usr/local/opt/inetutils/libexec/gnubin:${PATH}"
+MANPATH="/usr/local/opt/inetutils/libexec/gnuman:${MANPATH}"
 export PATH
 export MANPATH
 
