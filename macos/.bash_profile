@@ -51,6 +51,12 @@ export PATH
 PATH="/usr/local/opt/openssl@1.1/bin:${PATH}"
 export PATH
 
+# Go Environment Variables
+PATH="/usr/local/opt/go/libexec/bin:${PATH}"
+GOPATH="${HOME}/.go:${HOME}/Workspace/go"
+export PATH
+export GOPATH
+
 # PATH for MATLAB
 PATH="/Applications/MATLAB_R2017b.app/bin:${PATH}"
 export PATH
@@ -58,10 +64,4 @@ export PATH
 # Setting PATH for Python 3.6
 PATH="${HOME}/Library/Python/3.6/bin:${PATH}"
 export PATH
-
-# Go Environment Variables
-PATH=${PATH}:/usr/local/opt/go/libexec/bin
-GOPATH=${HOME}/.go:${HOME}/Workspace/go
-export PATH
-export GOPATH
 
