@@ -35,12 +35,28 @@ MANPATH="/usr/local/opt/make/libexec/gnuman:${MANPATH}"
 export PATH
 export MANPATH
 
+# gnu tar
+PATH="/usr/local/opt/gnu-tar/libexec/gnubin:${PATH}"
+MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:${MANPATH}"
+export PATH
+export MANPATH
+
+# gnu sed
+PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
+MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
+export PATH
+export MANPATH
+
 # gnu bison
 PATH="/usr/local/opt/bison/bin:${PATH}"
 export PATH
 
 # flex
 PATH="/usr/local/opt/flex/bin:${PATH}"
+export PATH
+
+# unzip
+PATH="/usr/local/opt/unzip/bin:${PATH}"
 export PATH
 
 # curl
