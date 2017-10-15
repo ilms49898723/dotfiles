@@ -68,15 +68,17 @@ let g:lightline = {
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
-        \     ['tagbartags', 'ctrlpmark'],
-        \     ['anzu'],
+        \     ['filename', 'fugitive', 'gitgutter'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
         \     ['percent'],
-        \     ['charcode', 'utf8code', 'fileformat', 'fileencoding', 'filetype'],
+        \     ['charcode', 'fileencoding', 'fileformat', 'filetype'],
         \   ]
+        \ },
+        \ 'tabline': {
+        \    'left': [ [ 'tabsinfo' ], [ 'tabs' ] ],
+        \    'right': [ ],
         \ },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
@@ -85,8 +87,10 @@ let g:lightline = {
         \   'tagbartags': '%{tagbar#currenttag("%s", "", "f")}',
         \ },
         \ 'component_function': {
+        \   'tabsinfo': 'MyTabsInfo',
         \   'modified': 'MyModified',
         \   'readonly': 'MyReadonly',
+        \   'lineinfo': 'MyLineInfo',
         \   'fugitive': 'MyFugitive',
         \   'filename': 'MyFilename',
         \   'fileformat': 'MyFileformat',
@@ -138,8 +142,13 @@ function! MyTabReadonly(n)
 endfunction
 
 function! MyTabModified(n)
-    let winnr = tabpagewinnr(a:n)
-    return gettabwinvar(a:n, winnr, '&modified') ? '[+]' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '[-]'
+  let winnr = tabpagewinnr(a:n)
+  return gettabwinvar(a:n, winnr, '&modified') ? '[+]' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '[-]'
+endfunction
+
+function! MyTabsInfo()
+  let tabsinfo = printf('(%d/%d)', tabpagenr(), tabpagenr('$'))
+  return tabsinfo
 endfunction
 
 function! MyModified()
@@ -153,15 +162,20 @@ endfunction
 function! MyFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname =~ '__Tagbar__' ? '[Tagbar]' :
-        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-        \ fname =~ 'NERD_tree' ? '' :
-        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ &ft == 'unite' ? unite#get_status_string() :
-        \ &ft == 'vimshell' ? '[VimShell]' :
-        \ ('' != fname ? fname : '[New File]') .
-        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
+       \ fname =~ '__Tagbar__' ? '[Tagbar]' :
+       \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+       \ fname =~ 'NERD_tree' ? '' :
+       \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+       \ &ft == 'unite' ? unite#get_status_string() :
+       \ &ft == 'vimshell' ? '[VimShell]' :
+       \ ('' != fname ? fname : '[New File]') .
+       \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
+       \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyLineInfo()
+  let lineinfo = printf('%3d/%d : %2d/%-2d', line('.'), line('$'), col('.'), col('$'))
+  return lineinfo
 endfunction
 
 function! MyFugitive()
@@ -191,19 +205,19 @@ endfunction
 function! MyMode()
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
-        \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
+       \ fname == 'ControlP' ? 'CtrlP' :
+       \ fname =~ 'NERD_tree' ? 'NERDTree' :
+       \ &ft == 'unite' ? 'Unite' :
+       \ &ft == 'vimfiler' ? 'VimFiler' :
+       \ &ft == 'vimshell' ? 'VimShell' :
+       \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! MyCtrlpmark()
   if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
     call lightline#link('iR'[g:lightline.ctrlp_regex])
     return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-          \ , g:lightline.ctrlp_next], 0)
+         \ , g:lightline.ctrlp_next], 0)
   else
     return ''
   endif
@@ -229,7 +243,7 @@ endfunction
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
 function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
+  let g:lightline.fname = a:fname
   return lightline#statusline(0)
 endfunction
 
@@ -240,9 +254,9 @@ function! MyGitGutter()
     return ''
   endif
   let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
+        \ '+' . ' ',
+        \ '~' . ' ',
+        \ '-' . ' '
         \ ]
   let hunks = GitGutterGetHunkSummary()
   let ret = []
@@ -1335,10 +1349,10 @@ map <C-Left>  <C-W>h
 map <C-Right> <C-W>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+" map <leader>bd :Bclose<cr>
 
 " Close all the buffers
-map <leader>ba :bufdo bd<cr>
+" map <leader>ba :bufdo bd<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -1349,7 +1363,7 @@ map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
@@ -1432,8 +1446,8 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 "
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
+" map <leader>n :cn<cr>
+" map <leader>p :cp<cr>
 
 
 " Pressing ,ss will toggle and untoggle spell checking
@@ -1456,7 +1470,7 @@ map <leader>s? z=
 " map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+map <leader>p :setlocal paste!<cr>
 
 
 function! CmdLine(str)
@@ -1686,7 +1700,6 @@ set updatetime=200
 set splitright
 set splitbelow
 
-set title
 set noshowcmd
 set nohlsearch
 set noshowmode
@@ -1735,24 +1748,27 @@ highlight CursorLineNr term=bold cterm=none ctermfg=226 ctermbg=none
 " The prefix key.
 nnoremap [Tag] <Nop>
 nmap t [Tag]
-" Tab jump
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
+" Tab jump, using t<tabnum>
 for n in range(1, 9)
   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 
-" tc 新しいタブを一番右に作る
+" tc, tablast (new tab at last)
 map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tx タブを閉じる
+" tx, tabclose (close tab)
 map <silent> [Tag]x :tabclose<CR>
-" tn 次のタブ
+" tn, tabnext (next tab)
+" also <leader>n
 map <silent> [Tag]n :tabnext<CR>
-" tp 前のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" te tab edit
+map <silent> <leader>n :tabnext<CR>
+" tb, tabprevious (previous tab)
+" also <leader>b
+map <silent> [Tag]b :tabprevious<CR>
+map <silent> <leader>b :tabprevious<CR>
+" te, tab edit
 map [Tag]e :tabedit
-" tm tab move
+" tm, tab move
 map [Tag]m :tabmove
-" tg tabnext (number to enter)
+" tg, tabnext <tabnum>
 map [Tag]g :tabnext
 
