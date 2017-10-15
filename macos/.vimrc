@@ -18,6 +18,7 @@ call plug#begin(s:plugin_dir)
 
 Plug 'airblade/vim-gitgutter'
 Plug 'farmergreg/vim-lastplace'
+Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'majutsushi/tagbar'
@@ -27,6 +28,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'osyo-manga/vim-anzu'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
+Plug 'sjl/gundo.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'tomasr/molokai'
 Plug 'tomtom/tcomment_vim'
@@ -111,8 +113,10 @@ function! MyTabFilename(n)
   let winnr = tabpagewinnr(a:n)
   let fname = expand('#'.buflist[winnr - 1].':t')
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
+       \ fname =~ '__Gundo__' ? '[Gundo]' :
+       \ fname =~ '__Gundo_Preview__' ? '[Gundo Preview]' :
        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-       \ &ft == 'vimshell' ? '[VimShell]' :
+       \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -142,8 +146,10 @@ endfunction
 function! MyFilename()
   let fname = expand('%:t')
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
+       \ fname =~ '__Gundo__' ? '[Gundo]' :
+       \ fname =~ '__Gundo_Preview__' ? '[Gundo Preview]' :
        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-       \ &ft == 'vimshell' ? '[VimShell]' :
+       \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]') .
        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
        \ ('' != MyModified() ? ' ' . MyModified() : '')
@@ -180,9 +186,11 @@ endfunction
 
 function! MyMode()
   let fname = expand('%:t')
-  return fname == '__Tagbar__' ? 'Tagbar' :
-       \ fname =~ 'NERD_tree' ? 'NERDTree' :
-       \ &ft == 'vimshell' ? 'VimShell' :
+  return fname =~ '__Tagbar__' ? '' :
+       \ fname =~ '__Gundo__' ? '' :
+       \ fname =~ '__Gundo_Preview__' ? '' :
+       \ fname =~ 'NERD_tree' ? '' :
+       \ &ft =~ 'vimshell' ? 'VimShell' :
        \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
@@ -410,6 +418,16 @@ autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
 
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_prefer_python3 = 1
+let g:gundo_preview_bottom = 1
+
+" incsearch
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
 " anzu
 nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
@@ -433,14 +451,16 @@ nnoremap <Space>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <Space>gN :<C-u>w<CR>:Git now --all<CR>
 
 " nerdtree
+nnoremap <leader>t :NERDTreeToggle<CR>
 let g:NERDTreeIgnore = [
       \ '\.clean$', '\.swp$', '\.bak$', '\~$',
       \ '\.svn$', '\.git$',
       \ ]
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalUI = 0
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeMouseMode = 0
+let g:NERDTreeWinSize = 35
 
 " gitgutter
 set signcolumn=yes
@@ -605,9 +625,6 @@ set autoindent
 set wrap
 
 set display=lastline
-
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
