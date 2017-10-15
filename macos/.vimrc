@@ -57,6 +57,9 @@ Plug 'Shougo/neomru.vim'
 " Required:
 call plug#end()
 
+" Add fzf.vim (installed using Homebrew)
+set runtimepath+=/usr/local/opt/fzf
+
 " Required:
 filetype plugin indent on
 

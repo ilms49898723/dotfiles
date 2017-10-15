@@ -131,3 +131,5 @@ export LC_ALL="ja_JP.UTF-8"
 # . ~/.git-prompt.sh
 # export GIT_PS1_SHOWDIRTYSTATE=1
 # export PS1='\w$(__git_ps1 " (%s)")\$ '
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
