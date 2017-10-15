@@ -440,15 +440,15 @@ let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
 
 " fugitive
-nnoremap <Space>gd :<C-u>Gdiff<cr>
-nnoremap <Space>gs :<C-u>Gstatus<cr>GM
-nnoremap <Space>gl :<C-u>Glog<cr>
-nnoremap <Space>ga :<C-u>Gwrite<cr>
-nnoremap <Space>gc :<C-u>Gcommit -v<cr>
-nnoremap <Space>gC :<C-u>Git commit -v --amend<cr>
-nnoremap <Space>gb :<C-u>Gblame<cr>
-nnoremap <Space>gn :<C-u>w<CR>:Git now<CR>
-nnoremap <Space>gN :<C-u>w<CR>:Git now --all<CR>
+nnoremap <leader>gd :<C-u>Gdiff<cr>
+nnoremap <leader>gs :<C-u>Gstatus<cr>GM
+nnoremap <leader>gl :<C-u>Glog<cr>
+nnoremap <leader>ga :<C-u>Gwrite<cr>
+nnoremap <leader>gc :<C-u>Gcommit -v<cr>
+nnoremap <leader>gC :<C-u>Git commit -v --amend<cr>
+nnoremap <leader>gb :<C-u>Gblame<cr>
+nnoremap <leader>gn :<C-u>w<CR>:Git now<CR>
+nnoremap <leader>gN :<C-u>w<CR>:Git now --all<CR>
 
 " nerdtree
 nnoremap <leader>t :NERDTreeToggle<CR>
@@ -733,9 +733,14 @@ set modelines=2
 
 set nostartofline
 
+" disable F1, K, q
 noremap <F1> <Nop>
 noremap K <Nop>
 noremap q <Nop>
+
+" remap space
+nnoremap <Space> <C-d>
+nnoremap <leader><Space> <C-u>
 
 " remap W and Q
 nnoremap W :w<CR>
