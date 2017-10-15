@@ -48,17 +48,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/Smart-Home-Key'
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/vimshell'
-
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
+Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 " Required:
 call plug#end()
-
-" Add fzf.vim (installed using Homebrew)
-set runtimepath+=/usr/local/opt/fzf
 
 " Required:
 filetype plugin indent on
