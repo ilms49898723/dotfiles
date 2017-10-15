@@ -1,3 +1,3 @@
-# dot_files
+# dotfiles
 
-A backup for configuration files (.bashrc, etc.)
+A backup of my configuration files (.bashrc, .vimrc, etc.)
