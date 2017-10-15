@@ -26,11 +26,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
 Plug 'keith/swift.vim'
-Plug 'kien/ctrlp.vim'
 Plug 'LeafCage/yankround.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
-Plug 'moll/vim-node'
 Plug 'nanotech/jellybeans.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'osyo-manga/vim-anzu'
@@ -39,7 +37,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/vimfiler.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'tomasr/molokai'
@@ -49,7 +46,6 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/Smart-Home-Key'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
-Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 " Required:
@@ -77,8 +73,8 @@ let g:lightline = {
         \   ]
         \ },
         \ 'tabline': {
-        \    'left': [ [ 'tabsinfo' ], [ 'tabs' ] ],
-        \    'right': [ ],
+        \   'left': [ [ 'tabsinfo' ], [ 'tabs' ] ],
+        \   'right': [ ],
         \ },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
@@ -101,7 +97,6 @@ let g:lightline = {
         \   'utf8code': 'MyUTF8Code',
         \   'gitgutter': 'MyGitGutter',
         \   'anzu': 'anzu#search_status',
-        \   'ctrlpmark': 'MyCtrlpmark',
         \ },
         \ 'tab_component_function': {
         \   'filename': 'MyTabFilename',
@@ -125,15 +120,10 @@ function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
   let fname = expand('#'.buflist[winnr - 1].':t')
-  return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname =~ '__Tagbar__' ? '[Tagbar]' :
-        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-        \ fname =~ 'NERD_tree' ? '' :
-        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ &ft == 'unite' ? unite#get_status_string() :
-        \ &ft == 'vimshell' ? '[VimShell]' :
-        \ ('' != fname ? fname : '[New File]')
-  " return _ !=# '' ? _ : '[New File]'
+  return fname =~ '__Tagbar__' ? '[Tagbar]' :
+       \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+       \ &ft == 'vimshell' ? '[VimShell]' :
+       \ ('' != fname ? fname : '[New File]')
 endfunction
 
 function! MyTabReadonly(n)
@@ -152,21 +142,17 @@ function! MyTabsInfo()
 endfunction
 
 function! MyModified()
-  return &ft =~ 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
+  return &ft =~ 'help' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler' && &readonly ? '[R]' : ''
+  return &ft !~? 'help' && &readonly ? '[R]' : ''
 endfunction
 
 function! MyFilename()
   let fname = expand('%:t')
-  return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-       \ fname =~ '__Tagbar__' ? '[Tagbar]' :
+  return fname =~ '__Tagbar__' ? '[Tagbar]' :
        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
-       \ fname =~ 'NERD_tree' ? '' :
-       \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-       \ &ft == 'unite' ? unite#get_status_string() :
        \ &ft == 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]') .
        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
@@ -180,8 +166,8 @@ endfunction
 
 function! MyFugitive()
   try
-    if expand('%:t') !~? 'Tagbar\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = '# '  " edit here for cool mark
+    if expand('%:t') !~? 'Tagbar\|NERD' && exists('*fugitive#head')
+      let mark = '# '
       let _ = fugitive#head()
       return _ !=# '' ? mark._ : ''
     endif
@@ -205,39 +191,9 @@ endfunction
 function! MyMode()
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
-       \ fname == 'ControlP' ? 'CtrlP' :
        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-       \ &ft == 'unite' ? 'Unite' :
-       \ &ft == 'vimfiler' ? 'VimFiler' :
        \ &ft == 'vimshell' ? 'VimShell' :
        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! MyCtrlpmark()
-  if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-    call lightline#link('iR'[g:lightline.ctrlp_regex])
-    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-         \ , g:lightline.ctrlp_next], 0)
-  else
-    return ''
-  endif
-endfunction
-
-let g:ctrlp_status_func = {
-  \ 'main': 'CtrlPStatusFunc_1',
-  \ 'prog': 'CtrlPStatusFunc_2',
-  \ }
-
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
-  let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
-  return lightline#statusline(0)
-endfunction
-
-function! CtrlPStatusFunc_2(str)
-  return lightline#statusline(0)
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
@@ -342,8 +298,6 @@ function! MyUTF8Code()
   endif
 endfunction
 
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
 " neocomplete
@@ -558,360 +512,25 @@ let g:user_zen_settings = {
 \}
 
 " fugitive
-" http://d.hatena.ne.jp/cohama/20120317/1331978764
-" http://yuku-tech.hatenablog.com/entry/20110427/1303868482
-" 現在のソースの変更点をvimdiffで表示
 nnoremap <Space>gd :<C-u>Gdiff<cr>
-" 新しい窓を作ってgit statusを表示
 nnoremap <Space>gs :<C-u>Gstatus<cr>GM
-" gitlogを表示
 nnoremap <Space>gl :<C-u>Glog<cr>
-" 現在開いているソースをgit add
 nnoremap <Space>ga :<C-u>Gwrite<cr>
-" staged なファイルがあれば git commit なければ git status
 nnoremap <Space>gc :<C-u>Gcommit -v<cr>
-" git commit --amend
 nnoremap <Space>gC :<C-u>Git commit -v --amend<cr>
-" 現在のソースをgit blame。vimが色づけしてくれる
 nnoremap <Space>gb :<C-u>Gblame<cr>
-" git-now
 nnoremap <Space>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <Space>gN :<C-u>w<CR>:Git now --all<CR>
 
 " nerdtree
-"  http://blog.livedoor.jp/kumonopanya/archives/51048805.html
-
-"  Commands
-"    NERDTreeFromBookmark
-"    NERDTreeFind
-"    NERDTreeCWD
-"
-"  Mappings
-"    o/Enter : Open the item and the cursor move in the window.
-"    O : Recursively open the selected directory.
-"    go : Open the item but the cursor dose not move.
-"    t : Open in a new tab.
-"    T : The same as t except that the focus is kept in the current tab.
-"    i : Opne in a new horizonatal split window.
-"    I : The same as i except that the cursor is not moved.
-"    s : Opne in a new vertical split window.
-"    S : The same as i except that the cursor is not moved.
-"    x : Closes the parent of the selected node.
-"    X : Recursively closes all children of the selected directory.
-"    p : Jump to the parent node of the selected node.
-"    K : Jump to the first child of the current nodes parent.
-"    J : Jump to the last child of the current nodes parent.
-"    u : Move the tree root up a dir (like doing a "cd ..").
-"    r.R : Refresh.
-"    m : Menu.
-"    cd : Change vims current working directory to that of the selected node.
-"    CD : Change tree root to vims current working directory.
-"    ? : Quick help.
-"-------------------------------------------------------------
-" ツリー表示幅
-"let g:NERDTreeWinSize=31
-
-" 無視するファイルを設定 (正規表現)
 let g:NERDTreeIgnore = [
       \ '\.clean$', '\.swp$', '\.bak$', '\~$',
       \ '\.svn$', '\.git$',
       \ ]
-
-" 隠しファイル表示ON
 let g:NERDTreeShowHidden=1
-" ツリー上部のヘルプ表示OFF
 let g:NERDTreeMinimalUI=1
-" ツリーに矢印などを表示OFF
 let g:NERDTreeDirArrows=0
-
-"マウス操作方法
-" 1 : ファイル、ディレクトリ両方共ダブルクリックで開く(default)
-" 2 : ディレクトリのみシングルクリックで開く
-" 3 : ファイル、ディレクトリ両方共シングルクリックで開く
-let g:NERDTreeMouseMode=1
-
-" トグル
-" nmap <silent> <F5> :call <SID>toggle_nerdtree()<cr>
-" function! s:toggle_nerdtree()
-"   NERDTreeToggle
-"   if &buftype ==# 'nofile' && bufname('') ==# '-MiniBufExplorer-'
-"     execute 'wincmd w'
-"   endif
-" endfunction
-
-" 自動実行
-" if has('vim_starting') && len(expand('%:p')) == 0
-"     autocmd VimEnter * if !argc() | NERDTreeToggle | execute 'wincmd w'
-" endif
-
-" unite
-" help: g?
-" The prefix key.
-nnoremap    [unite]   <Nop>
-xnoremap    [unite]   <Nop>
-nmap    ;f   [unite]
-xmap    ;f   [unite]
-
-" === Mappinigs {{{{
-" Files.
-nnoremap <silent> <space>ff
-    \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
-    \ jump_point file_point file_mru
-    \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
-    \ buffer_tab:- file file/new<CR>
-
-nnoremap <silent> <space>fc  :<C-u>UniteWithCurrentDir
-    \ -buffer-name=files buffer bookmark file<CR>
-
-nnoremap <silent> <space>fb  :<C-u>UniteWithBufferDir
-    \ -buffer-name=files buffer bookmark file<CR>
-
-" Change jump.
-nnoremap <silent> <space>j
-    \ :<C-u>Unite change jump<CR>
-
-nnoremap <silent> <space>n  :UniteNext<CR>
-nnoremap <silent> <space>p  :UnitePrevious<CR>
-
-" Unite.
-nnoremap <silent> [unite]f  :<C-u>Unite <CR>
-
-" Outline.
-nnoremap <silent> [unite]o
-      \ :<C-u>Unite outline -no-start-insert -resume<CR>
-
-" Tag.
-nnoremap <silent> [unite]t
-      \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-
-" History.
-xnoremap <silent> [unite]r
-    \ :<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
-
-" Grep.
-nnoremap <silent> [unite]g
-    \ :<C-u>Unite grep -buffer-name=grep`tabpagenr()` -auto-preview -no-split -no-empty -resume<CR>
-
-" Tab pages.
-nnoremap <silent> <space>t
-    \ :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
-
-" Window.
-nnoremap <silent> [unite]w  :<C-u>Unite window<CR>
-
-" Help.
-nnoremap <silent> [unite]hh  :<C-u>Unite -buffer-name=help help<CR>
-" Help by cursor keyword.
-nnoremap <silent> [unite]hk  :<C-u>UniteWithCursorWord help<CR>
-
-" Search.
-nnoremap <silent> [unite]/
-    \ :<C-u>Unite -buffer-name=search%`bufnr('%')` -start-insert line:forward:wrap<CR>
-nnoremap <silent> [unite]?
-    \ :<C-u>Unite -buffer-name=search%`bufnr('%')` -start-insert line:backward<CR>
-nnoremap <silent> [unite]*
-    \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')` line:forward:wrap<CR>
-
-nnoremap <silent> [unite]j
-    \ :<C-u>UniteResume search%`bufnr('%')`
-    \  -no-start-insert -force-redraw<CR>
-" }}}}
-
-" === Commands {{{{
-" dotfiles以下のファイルを表示
-command! Ufd :Unite file:~/dotfiles -input=. -winwidth=60
-" }}}}
-
-" === Menu {{{{
-let g:unite_source_menu_menus = {}
-
-let g:unite_source_menu_menus.enc = {
-      \     'description' : 'Open with a specific character code again.',
-      \ }
-let g:unite_source_menu_menus.enc.command_candidates = [
-      \       ['utf8', 'Utf8'],
-      \       ['iso2022jp', 'Iso2022jp'],
-      \       ['cp932', 'Cp932'],
-      \       ['euc', 'Euc'],
-      \       ['utf16', 'Utf16'],
-      \       ['utf16-be', 'Utf16be'],
-      \       ['jis', 'Jis'],
-      \       ['sjis', 'Sjis'],
-      \       ['unicode', 'Unicode'],
-      \     ]
-let g:unite_source_menu_menus.fenc = {
-      \     'description' : 'Change file fenc option.',
-      \ }
-let g:unite_source_menu_menus.fenc.command_candidates = [
-      \       ['utf8', 'WUtf8'],
-      \       ['iso2022jp', 'WIso2022jp'],
-      \       ['cp932', 'WCp932'],
-      \       ['euc', 'WEuc'],
-      \       ['utf16', 'WUtf16'],
-      \       ['utf16-be', 'WUtf16be'],
-      \       ['jis', 'WJis'],
-      \       ['sjis', 'WSjis'],
-      \       ['unicode', 'WUnicode'],
-      \     ]
-let g:unite_source_menu_menus.ff = {
-      \     'description' : 'Change file format option.',
-      \ }
-let g:unite_source_menu_menus.ff.command_candidates = {
-      \       'unix'   : 'WUnix',
-      \       'dos'    : 'WDos',
-      \       'mac'    : 'WMac',
-      \     }
-let g:unite_source_menu_menus.unite = {
-      \     'description' : 'Start unite sources',
-      \ }
-let g:unite_source_menu_menus.unite.command_candidates = {
-      \       'bookmark'   : 'Unite bookmark',
-      \       'history'    : 'Unite history/command',
-      \       'quickfix'   : 'Unite qflist -no-quit',
-      \       'resume'     : 'Unite -buffer-name=resume resume',
-      \       'directory'  : 'Unite -buffer-name=files '.
-      \             '-default-action=lcd directory_mru',
-      \       'mapping'    : 'Unite mapping',
-      \       'message'    : 'Unite output:message',
-      \       'scriptnames': 'Unite output:scriptnames',
-      \       'colorscheme': 'Unite -auto-preview -winwidth=15',
-      \     }
-" }}}}
-
-" === Aliases {{{{
-let g:unite_source_alias_aliases = {}
-let g:unite_source_alias_aliases.test = {
-      \ 'source' : 'file_rec',
-      \ 'args'   : '~/',
-      \ }
-let g:unite_source_alias_aliases.line_migemo = 'line'
-let g:unite_source_alias_aliases.calc = 'kawaii-calc'
-let g:unite_source_alias_aliases.l = 'launcher'
-let g:unite_source_alias_aliases.kill = 'process'
-let g:unite_source_alias_aliases.message = {
-      \ 'source' : 'output',
-      \ 'args'   : 'message',
-      \ }
-let g:unite_source_alias_aliases.mes = {
-      \ 'source' : 'output',
-      \ 'args'   : 'message',
-      \ }
-let g:unite_source_alias_aliases.scriptnames = {
-      \ 'source' : 'output',
-      \ 'args'   : 'scriptnames',
-      \ }
-" }}}}
-
-" === Global variables. {{{{
-let g:unite_enable_auto_select = 0
-let g:unite_source_history_yank_enable = 1
-let g:unite_ignore_source_files = []
-let g:unite_source_rec_max_cache_files = -1
-let g:unite_cursor_line_highlight = 'CursorLine'
-
-if executable('ag')
-  " For ag
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '-S --nocolor --nogroup --hidden'
-  let g:unite_source_grep_recursive_opt = ''
-elseif executable('ack-grep')
-  " For ack.
-  let g:unite_source_grep_command = 'ack-grep'
-  let g:unite_source_grep_default_opts = '-i --no-heading --no-color -a'
-  let g:unite_source_grep_recursive_opt = ''
-else
-  let g:unite_source_grep_default_opts="-niE --color=never"
-endif
-
-" My custom split action.
-let s:my_split = {'is_selectable': 1}
-function! s:my_split.func(candidate)
-  let split_action = 'vsplit'
-  if winwidth(winnr('#')) <= 2 * (&tw ? &tw : 80)
-    let split_action = 'split'
-  endif
-  call unite#take_action(split_action, a:candidate)
-endfunction
-call unite#custom_action('openable', 'context_split', s:my_split)
-unlet s:my_split
-
-" }}}}
-
-" === Custom profile. {{{{
-call unite#custom#profile('action', 'context', {
-      \ 'start_insert' : 1,
-      \ })
-
-" Default context.
-let default_context = {
-      \ 'start_insert' : 1,
-      \ 'vertical' : 0,
-      \ 'short_source_names' : 1,
-      \ }
-call unite#custom#profile('default', 'context', default_context)
-" }}}}
-
-" === Custom source. {{{{
-" migemo.
-call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
-
-" Custom filters.
-call unite#custom#source(
-      \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
-      \ ['converter_relative_word', 'matcher_fuzzy',
-      \  'matcher_project_ignore_files'])
-call unite#custom#source(
-      \ 'file_mru', 'matchers',
-      \ ['matcher_project_files', 'matcher_fuzzy',
-      \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
-call unite#custom#source(
-      \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-      \ ['converter_file_directory'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-" }}}}
-
-" === My settings in AutoCmd. {{{{
-autocmd FileType unite call s:unite_my_settings()
-
-function! s:unite_my_settings()
-  " Directory partial match.
-  call unite#custom#alias('file', 'h', 'left')
-  call unite#custom#default_action('directory', 'narrow')
-
-  call unite#custom#default_action('versions/git/status', 'commit')
-
-  " Overwrite settings.
-  nmap <buffer> <ESC>      <Plug>(unite_exit)
-  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
-  imap <buffer>  jj        <Plug>(unite_insert_leave)
-  imap <buffer>  <Tab>     <Plug>(unite_complete)
-  imap <buffer> '          <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '          <Plug>(unite_quick_match_default_action)
-  nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
-  nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
-  nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
-  nnoremap <silent><buffer> <Tab>     <C-w>w
-  nnoremap <silent><buffer><expr> l
-        \ unite#smart_map('l', unite#do_action('default'))
-  nnoremap <silent><buffer><expr> P
-        \ unite#smart_map('P', unite#do_action('insert'))
-
-  let unite = unite#get_current_unite()
-  if unite.profile_name ==# '^search'
-    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-  else
-    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-  endif
-
-  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-  nnoremap <silent><buffer><expr> !     unite#do_action('start')
-  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-  nmap <buffer> x     <Plug>(unite_quick_match_jump)
-endfunction
-" }}}}
+let g:NERDTreeMouseMode=0
 
 " gitgutter
 set signcolumn=yes
@@ -923,195 +542,12 @@ map [h <Plug>GitGutterPrevHunk
 map <silent> <Home> :SmartHomeKey <CR>
 imap <silent> <Home> <C-O>:SmartHomeKey<CR>
 
-" vimfilter
-"
-" Normal mode default mappings.
-" -------------------------------------
-"   <Tab>            switch to another vimfiler
-"   j                loop cursor down
-"   k                loop cursor up
-"   gg               cursor top
-"   <C-l>            redraw screen
-"   <Space>          toggle mark current line
-"   <S-LeftMouse>    toggle mark current line
-"   <S-Space>        toggle mark current line up
-"   *                toggle mark all lines
-"   #                mark similar lines
-"   U                clear mark all lines
-"   c                copy file
-"   m                move file
-"   d                delete file
-"   Cc               clipboard copy file
-"   Cm               clipboard move file
-"   Cp               clipboard paste
-"   r                rename file
-"   K                make directory
-"   N                new file
-"   <Enter>          cd or edit
-"   o                expand or edit
-"   l                smart l
-"   x                execute system associated
-"   h                smart h
-"   L                switch to drive
-"   ~                switch to home directory
-"   \                switch to root directory
-"   &                switch to project directory
-"   <C-j>            switch to history directory
-"   <BS>             switch to parent directory
-"   .                toggle visible ignore files
-"   H                popup shell
-"   e                edit file
-"   E                split edit file
-"   B                edit binary file
-"   ge               execute external filer
-"   <RightMouse>     execute external filer
-"   !                execute shell command
-"   q                hide
-"   Q                exit
-"   -                close
-"   g?               help
-"   v                preview file
-"   O                sync with current vimfiler
-"   go               open file in another vimfiler
-"   <C-g>            print filename
-"   g<C-g>           toggle maximize window
-"   yy               yank full path
-"   M                set current mask
-"   gr               grep
-"   gf               find
-"   S                select sort type
-"   <C-v>            switch vim buffer mode
-"   gc               cd vim current dir
-"   gs               toggle safe mode
-"   gS               toggle simple mode
-"   a                choose action
-"   Y                pushd
-"   P                popd
-"   t                expand tree
-"   T                expand tree recursive
-"   I                cd input directory
-"   <2-LeftMouse>    double click
-"   gj               jump last child
-"   gk               jump first child
-"
-"   Visual mode mappings.
-" -------------------------------------
-"   <Space>          <Plug>(vimfiler toggle mark selected lines
-
-" Open Vimfiler.
-nnoremap <silent> <Space>v :<C-u>VimFiler -invisible -parent<CR>
-nnoremap <silent> <F5> :VimFilerExplorer<cr>
-nnoremap <silent> <F6> :VimFilerBufferDir -buffer-name=explorer -split -toggle -no-quit<cr>
-
-" OS flag.
-let is_windows = has('win16') || has('win32') || has('win64')
-let is_cygwin = has('win32unix')
-let is_mac = !is_windows && !is_cygwin
-      \ && (has('mac') || has('macunix') || has('gui_macvim')
-      \ || (!executable('xdg-open') && system('uname') =~? '^darwin'))
-
-" Profile Settings.
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe' : 1,
-      \ 'auto_expand' : 1,
-      \ 'edit_action' : 'tabopen',
-      \ 'parent' : 1,
-      \ })
-
-" Basic Settings.
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern = '^\%(\.git\|\.svn\)$'
-let g:vimfiler_time_format = '%Y/%m/%d %H:%M:%S'
-
-let g:vimfiler_detect_drives = is_windows ? [
-      \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
-      \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/'] :
-      \ split(glob('/mnt/*'), '\n') + split(glob('/media/*'), '\n') +
-      \ split(glob('/Users/*'), '\n')
-
-" %p : full path
-" %d : current directory
-" %f : filename
-" %F : filename removed extensions
-" %* : filenames
-" %# : filenames fullpath
-let g:vimfiler_sendto = {
-      \ 'unzip' : 'unzip %f',
-      \ 'zip' : 'zip -r %F.zip %*',
-      \ 'Inkscape' : 'inkspace',
-      \ 'GIMP' : 'gimp %*',
-      \ 'gedit' : 'gedit',
-      \ }
-
-" Icons.
-if is_windows
-  " Use trashbox.
-  let g:unite_kind_file_use_trashbox = 1
-else
-  let g:vimfiler_tree_leaf_icon = ' '
-  let g:vimfiler_tree_opened_icon = '▾'
-  let g:vimfiler_tree_closed_icon = '▸'
-  let g:vimfiler_file_icon = '-'
-  let g:vimfiler_readonly_file_icon = 'X'
-  let g:vimfiler_marked_file_icon = '*'
-endif
-
-let g:vimfiler_quick_look_command =
-      \ is_windows ? 'maComfort.exe -ql' :
-      \ is_mac ? 'qlmanage -p' : 'gloobus-preview'
-
-" AutoCmd.
-autocmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings()
-  call vimfiler#set_execute_file('vim', 'vim')
-  call vimfiler#set_execute_file('txt', 'vim')
-
-  " Overwrite settings.
-  nmap <buffer> q <Plug>(vimfiler_close)
-  nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
-  nmap <buffer> p <Plug>(vimfiler_quick_look)
-
-  nmap <buffer> o <Plug>(vimfiler_expand_tree)
-
-  " Unite.
-  nnoremap <silent><buffer> J
-        \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-
-  " Open and split window.
-  nnoremap <buffer> s :call vimfiler#mappings#do_action('my_split')<cr>
-  let s:my_action = { 'is_selectable' : 1 }
-  function! s:my_action.func(candidates)
-    wincmd p
-    exec 'split '. a:candidates[0].action__path
-  endfunction
-  call unite#custom_action('file', 'my_split', s:my_action)
-  unlet s:my_action
-
-  " Opent and split vertilacally window.
-  nnoremap <buffer> v :call vimfiler#mappings#do_action('my_vsplit')<cr>
-  let s:my_action = { 'is_selectable' : 1 }
-  function! s:my_action.func(candidates)
-    wincmd p
-    exec 'vsplit '. a:candidates[0].action__path
-  endfunction
-  call unite#custom_action('file', 'my_vsplit', s:my_action)
-  unlet s:my_action
-
-  " Migemo search.
-  if !empty(unite#get_filters('matcher_migemo'))
-    nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
-          \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
-  endif
-
-endfunction
-
 " yankround
 nmap p <Plug>(yankround-p)
 nmap P <Plug>(yankround-P)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 100
-nnoremap <Leader><C-p> :<C-u>Unite yankround<CR>
 
 " memolist
 let g:memolist_path = expand('~/vimdata/memolist')
@@ -1146,7 +582,6 @@ let g:tagbar_autoclose = 1
 " vim-better-whitespace
 let g:better_whitespace_filetypes_blacklist=['vimshell', 'vim', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
-
 
 
 " Sets how many lines of history VIM has to remember
@@ -1191,12 +626,6 @@ set encoding=utf-8
 set scrolloff=7
 set sidescrolloff=7
 
-" Avoid garbled characters in Chinese language windows OS
-" let $LANG='en'
-" set langmenu=en
-" source $VIMRUNTIME/delmenu.vim
-" source $VIMRUNTIME/menu.vim
-
 " Turn on the Wild menu
 set wildmenu
 
@@ -1204,11 +633,7 @@ set wildignorecase
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
-    set wildignore+=.git\*,.hg\*,.svn\*
-endif
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 "Always show current position
 set ruler
@@ -1218,7 +643,7 @@ set ruler
 set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
-set hid
+set hidden
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -1355,11 +780,11 @@ map <C-Right> <C-W>l
 " map <leader>ba :bufdo bd<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+" map <leader>tn :tabnew<cr>
+" map <leader>to :tabonly<cr>
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
+" map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -1555,11 +980,6 @@ cnoremap <C-K>      <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
-" Map ½ to something useful
-" map ½ $
-" cmap ½ $
-" imap ½ $
-
 
 " vnoremap $1 <esc>`>a)<esc>`<i(<esc>
 " vnoremap $2 <esc>`>a]<esc>`<i[<esc>
@@ -1624,7 +1044,7 @@ au FileType python syn keyword pythonDecorator True None False self
 au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 au BufNewFile,BufRead *.mako setlocal ft=mako
 
-au Filetype python setlocal tabstop=8
+au Filetype python setlocal tabstop=4
 
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
@@ -1771,4 +1191,3 @@ map [Tag]e :tabedit
 map [Tag]m :tabmove
 " tg, tabnext <tabnum>
 map [Tag]g :tabnext
-
