@@ -763,8 +763,8 @@ map <silent> <leader>n :tabnext<CR>
 map <silent> [Tag]b :tabprevious<CR>
 map <silent> <leader>b :tabprevious<CR>
 " te, tab edit
-map [Tag]e :tabedit
+map [Tag]e :tabedit<Space>
 " tm, tab move
-map [Tag]m :tabmove
+map [Tag]m :tabmove<Space>
 " tg, tabnext <tabnum>
-map [Tag]g :tabnext
+map [Tag]g :tabnext<Space>
