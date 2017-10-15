@@ -81,3 +81,6 @@ export PATH
 PATH="${HOME}/Library/Python/3.6/bin:${PATH}"
 export PATH
 
+# Setting fzf environment variables
+FZF_DEFAULT_OPTS='--multi --no-mouse --height=40% --reverse --inline-info --ansi --tabstop=4 --preview='\''file {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -11 {}'\'''
+export FZF_DEFAULT_OPTS

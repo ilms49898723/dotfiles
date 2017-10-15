@@ -113,6 +113,10 @@ fi
 # Editor environment variables
 export EDITOR=$(which vim)
 
+# Filter environment variables
+export FILTER=$(which fzf)
+
+# Pager settings
 export LESS='ij.5KMRX'
 export PAGER='less'
 

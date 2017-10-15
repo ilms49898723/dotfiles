@@ -53,8 +53,11 @@ alias gdf='env LC_ALL=C /usr/local/bin/df'    # gnu df
 
 # vi -> vim
 # use tabs by default
-alias vi='vim -p'
-alias vim='vim -p'
+alias vi='$(which vim) -p'
+alias vim='$(which vim) -p'
+
+alias vifzf='$(which vim) -p $(fzf)'
+alias vimfzf='$(which vim) -p $(fzf)'
 
 # tree alias
 alias tree='tree -C -N'
