@@ -4,11 +4,12 @@ set nocompatible
 let mapleader = ","
 let g:mapleader = ","
 
-" Plug.vim
+" Vim-plug Plugin Manager
 let s:base_dir = expand('~/.vim')
 let s:plugin_dir = s:base_dir . '/plugged'
 
-" Plug Scripts
+" Vim-plug script begin
+
 if &compatible
   set nocompatible
 endif
@@ -37,7 +38,6 @@ Plug 'tomasr/molokai'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/Smart-Home-Key'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
@@ -49,7 +49,7 @@ call plug#end()
 " Required:
 filetype plugin indent on
 
-" End Plug Scripts
+" Vim-plug script end
 
 " Plugin Settings
 
@@ -482,10 +482,6 @@ let g:gitgutter_max_signs = 1024
 map ]h <Plug>GitGutterNextHunk
 map [h <Plug>GitGutterPrevHunk
 
-" Smart-Home-Key
-map <silent> <Home> :SmartHomeKey <CR>
-imap <silent> <Home> <C-O>:SmartHomeKey<CR>
-
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
@@ -507,7 +503,7 @@ let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
-" map for tcomment
+" tcomment
 map <silent> <leader>/ :TComment<CR>
 
 " vim-better-whitespace
