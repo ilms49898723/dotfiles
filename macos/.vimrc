@@ -397,12 +397,9 @@ endif
 
 " vimshell
 let g:vimshell_environment_term = 'xterm256'
-
 let g:vimshell_disable_escape_highlight = 1
 let g:vimshell_interactive_update_time = 500
-
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-
 let g:vimshell_prompt = $USER."$ "
 
 " Initialize execute file list.
@@ -510,6 +507,9 @@ let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
+" map for tcomment
+map <silent> <leader>/ :TComment<CR>
+
 " vim-better-whitespace
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
@@ -591,14 +591,6 @@ set background=dark
 " Maximum number of lines to try and highlight
 set synmaxcol=500
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
@@ -629,10 +621,10 @@ set shiftround
 set lbr
 set tw=500
 
+" Auto indent
 set autoindent
 
 set wrap
-
 set display=lastline
 
 " Smart way to move between windows
@@ -640,11 +632,6 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
-map <C-Down>  <C-W>j
-map <C-Up>    <C-W>k
-map <C-Left>  <C-W>h
-map <C-Right> <C-W>l
 
 " Specify the behavior when switching between buffers
 try
@@ -708,22 +695,12 @@ syntax on
 " color scheme
 colorscheme molokai
 highlight Normal ctermbg=none
+
 " cursor line
 set cursorline
 highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
 highlight CursorLine term=none cterm=none ctermfg=none ctermbg=233
 highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=233
-
-
-" map for :make
-nmap <C-F9> :make<CR>
-nmap <leader>m :make<CR>
-
-" map for :VimShellTab
-nmap <C-F12> :VimShellTab<CR>
-
-" map for tcomment
-map <silent> <leader>/ :TComment<CR>
 
 " update time
 set updatetime=200
@@ -752,14 +729,13 @@ noremap K <Nop>
 noremap q <Nop>
 
 " remap space
-nnoremap <Space> <C-d>
-nnoremap <leader><Space> <C-u>
+nnoremap <Space> <Esc>zz
 
 " remap W and Q
 nnoremap W :w<CR>
 nnoremap Q :q<CR>
 
-" remap Y
+" remap Y to make it act like C, D
 nnoremap Y y$
 
 " reselect after shift
