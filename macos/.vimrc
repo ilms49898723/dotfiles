@@ -699,8 +699,15 @@ au FileType c,cpp,cc setlocal cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n
 syntax enable
 syntax on
 
+" color scheme
 colorscheme molokai
 highlight Normal ctermbg=none
+" cursor line
+set cursorline
+highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
+highlight CursorLine term=none cterm=none ctermfg=none ctermbg=233
+highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=233
+
 
 " map for :make
 nmap <C-F9> :make<CR>
@@ -757,12 +764,6 @@ vnoremap > >gv
 set diffopt=vertical
 
 let g:is_posix = 1
-
-" cursor line
-set cursorline
-highlight LineNr ctermfg=none ctermbg=none guibg=bg guifg=bg
-highlight CursorLine cterm=none ctermbg=none ctermfg=none
-highlight CursorLineNr term=bold cterm=none ctermfg=226 ctermbg=none
 
 " The prefix key.
 nnoremap [Tag] <Nop>
