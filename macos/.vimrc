@@ -17,8 +17,11 @@ endif
 call plug#begin(s:plugin_dir)
 
 Plug 'airblade/vim-gitgutter'
+Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
 Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'majutsushi/tagbar'
@@ -423,10 +426,24 @@ nnoremap <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 
+" easymotion
+map  <leader>f <Plug>(easymotion-bd-f)
+nmap <leader>f <Plug>(easymotion-overwin-f)
+map  <leader>s <Plug>(easymotion-bd-f2)
+nmap <leader>s <Plug>(easymotion-overwin-f2)
+map  <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
+map  <leader>l <Plug>(easymotion-bd-jk)
+nmap <leader>l <Plug>(easymotion-overwin-line)
+
 " incsearch
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+" incsearch with fuzzy & easymotion
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
 
 " anzu
 nmap n <Plug>(anzu-n-with-echo)
@@ -460,7 +477,7 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 0
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeMouseMode = 0
-let g:NERDTreeWinSize = 35
+let g:NERDTreeWinSize = 36
 
 " gitgutter
 set signcolumn=yes
@@ -507,14 +524,6 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
-
-" Fast saving
-nmap <leader>w :w<cr>
-nmap <leader>W :w!<cr>
-
-" Quit
-nmap <leader>q :q<cr>
-nmap <leader>Q :q!<cr>
 
 set ttyfast
 
@@ -652,9 +661,6 @@ set laststatus=2
 
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
 
 " Toggle paste mode on and off
 map <leader>p :setlocal paste!<cr>
