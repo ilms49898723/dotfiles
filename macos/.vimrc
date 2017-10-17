@@ -628,6 +628,7 @@ map j gj
 map k gk
 map <Down> gj
 map <Up> gk
+
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -647,8 +648,10 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-" Remap VIM 0 to first non-blank character
-map 0 ^
+" Remap 0, ^, $
+map 0 g^
+map ^ g^
+map $ g$
 
 " Toggle paste mode on and off
 map <leader>p :setlocal paste!<cr>
