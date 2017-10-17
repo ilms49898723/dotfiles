@@ -623,6 +623,11 @@ set autoindent
 set wrap
 set display=lastline
 
+" Smart cursor moving
+map j gj
+map k gk
+map <Down> gj
+map <Up> gk
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
