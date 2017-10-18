@@ -1,11 +1,11 @@
-# Source ~/.bashrc if exists
-if [ -f "${HOME}/.bashrc" ]; then
-    source ${HOME}/.bashrc
-fi
-
 # bash-completion
 if [ -f /usr/local/share/bash-completion/bash_completion ]; then
   . /usr/local/share/bash-completion/bash_completion
+fi
+
+# Source ~/.bashrc if exists
+if [ -f "${HOME}/.bashrc" ]; then
+    source ${HOME}/.bashrc
 fi
 
 PATH="/usr/local/sbin:${PATH}"
