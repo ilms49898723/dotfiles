@@ -30,6 +30,16 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 # shopt -s globstar
 
+# other settings
+shopt -s checkjobs
+
+shopt -s checkhash
+
+shopt -s dotglob
+shopt -s extglob
+
+shopt -s globasciiranges
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -60,9 +70,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='\n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='\n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='\n${debian_chroot:+($debian_chroot)}\u:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -89,7 +99,6 @@ fi
 # umask 077
 
 # Functions
-#
 if [ -f "${HOME}/.bash_functions" ]; then
   source "${HOME}/.bash_functions"
 fi
@@ -121,7 +130,6 @@ export LESS='ij.5KMRX'
 export PAGER='less'
 
 # locale settings
-
 export LANG="ja_JP.UTF-8"
 export LC_COLLATE="ja_JP.UTF-8"
 export LC_CTYPE="ja_JP.UTF-8"
