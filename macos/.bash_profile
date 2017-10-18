@@ -1,13 +1,3 @@
-# bash-completion
-if [ -f /usr/local/share/bash-completion/bash_completion ]; then
-  . /usr/local/share/bash-completion/bash_completion
-fi
-
-# Source ~/.bashrc if exists
-if [ -f "${HOME}/.bashrc" ]; then
-    source ${HOME}/.bashrc
-fi
-
 PATH="/usr/local/sbin:${PATH}"
 export PATH
 
@@ -84,3 +74,14 @@ export PATH
 # Setting fzf environment variables
 FZF_DEFAULT_OPTS='--multi --no-mouse --height=40% --reverse --inline-info --tabstop=4 --preview='\''[ -f {} ] && file {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -11 {}'\'''
 export FZF_DEFAULT_OPTS
+
+# bash-completion
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+  . /usr/local/share/bash-completion/bash_completion
+fi
+
+# Source ~/.bashrc if exists
+if [ -f "${HOME}/.bashrc" ]; then
+    source ${HOME}/.bashrc
+fi
+
