@@ -42,7 +42,7 @@ zstyle ":completion:*:*:-subscript-:*" tag-order indexes parameters
 zstyle ":completion:*" list-separator "-->"
 zstyle ":completion:*:manuals" separate-sections true
 # LS_COLORS
-export CLICOLOR=1
+export CLICOLOR=true
 eval $(dircolors -b)
 zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 

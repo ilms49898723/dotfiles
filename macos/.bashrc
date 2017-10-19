@@ -92,7 +92,7 @@ xterm*|rxvt*)
 esac
 
 # dircolors
-export CLICOLORS=true
+export CLICOLOR=true
 eval $(dircolors -b)
 
 # Aliases
