@@ -19,8 +19,9 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=2048
+HISTFILESIZE=2048
+HISTCONTROL=ignoreboth
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -37,8 +38,18 @@ shopt -s checkhash
 
 shopt -s dotglob
 shopt -s extglob
+shopt -s nocaseglob
 
 shopt -s globasciiranges
+
+shopt -s cdspell
+shopt -s dirspell
+
+shopt -s cmdhist
+shopt -s histreedit
+shopt -s histverify
+
+shopt -s no_empty_cmd_completion
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -81,6 +92,7 @@ xterm*|rxvt*)
 esac
 
 # dircolors
+export CLICOLORS=true
 eval $(dircolors -b)
 
 # Aliases

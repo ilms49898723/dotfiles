@@ -1,3 +1,4 @@
+# /usr/local/sbin
 PATH="/usr/local/sbin:${PATH}"
 export PATH
 
@@ -74,6 +75,9 @@ export PATH
 # Setting fzf environment variables
 FZF_DEFAULT_OPTS='--multi --no-mouse --height=40% --reverse --inline-info --tabstop=4 --preview='\''[ -f {} ] && file {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -11 {}'\'''
 export FZF_DEFAULT_OPTS
+
+# Homebrew
+fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)

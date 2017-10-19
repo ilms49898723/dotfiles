@@ -24,7 +24,9 @@ zstyle ":zle:*" word-style unspecified
 export WORDCHARS=" ,./|:;()[]{}<>~+-=_!@#$%^&*?"
 
 # auto-completion
-mkdir -p "${HOME}/.cache/zsh-completion"
+if [[ ! -d "${HOME}/.cache/zsh-completion" ]]; then
+    mkdir -p "${HOME}/.cache/zsh-completion"
+fi
 autoload -Uz compinit
 compinit
 zstyle ":completion:*:default" menu select=2
@@ -40,11 +42,14 @@ zstyle ":completion:*:*:-subscript-:*" tag-order indexes parameters
 zstyle ":completion:*" list-separator "-->"
 zstyle ":completion:*:manuals" separate-sections true
 # LS_COLORS
-eval $(dircolors)
+export CLICOLOR=1
+eval $(dircolors -b)
 zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 
 # cdr
-mkdir -p "${HOME}/.cache/zsh-cdr"
+if [[ ! -d "${HOME}/.cache/zsh-cdr" ]]; then
+    mkdir -p "${HOME}/.cache/zsh-cdr"
+fi
 autoload -Uz add-zsh-hook
 autoload -Uz chpwd_recent_dirs
 autoload -Uz cdr
@@ -60,9 +65,22 @@ autoload -Uz zmv
 
 # misc
 autoload -Uz modify-current-argument
-autoload -Uz smart-insert-last-word
 autoload -Uz terminfo
+autoload -Uz vcs_info
 autoload -Uz zcalc
+
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svn
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+autoload -Uz smart-insert-last-word
+zle -N insert-last-word smart-insert-last-word
 
 # common settings
 setopt no_beep
@@ -90,6 +108,8 @@ setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt extended_history
 
+setopt correct
+
 setopt extended_glob
 
 setopt complete_aliases
@@ -106,7 +126,9 @@ setopt notify
 setopt auto_param_slash
 setopt mark_dirs
 setopt complete_in_word
+
 setopt always_last_prompt
+setopt transient_rprompt
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
