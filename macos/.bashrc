@@ -21,7 +21,6 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=2048
 HISTFILESIZE=2048
-HISTCONTROL=ignoreboth
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -50,6 +49,9 @@ shopt -s histreedit
 shopt -s histverify
 
 shopt -s no_empty_cmd_completion
+
+set -o notify
+set -o ignoreeof
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
