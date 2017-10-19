@@ -8,9 +8,10 @@ colors
 bindkey -e
 
 # history
-HISTFILE=~/.zsh_history
-HISTSIZE=1024
-SAVEHIST=2048
+export HISTFILE=~/.zsh_history
+export HISTSIZE=2048
+export SAVEHIST=2048
+export LISTMAX=2048
 
 # prompt
 PROMPT=$'\n%{\e[01;32m%}%n%{\e[00m%}:%{\e[01;34m%}%~%{\e[00m%}$ '
@@ -27,6 +28,9 @@ mkdir -p "${HOME}/.cache/zsh-completion"
 autoload -Uz compinit
 compinit
 zstyle ":completion:*:default" menu select=2
+zstyle ":completion:*:options" description "yes"
+zstyle ":completion:*:descriptions" format "%F{yellow}Completing %B%d%b%f"
+zstyle ":completion:*" group-name ""
 zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}"
 zstyle ":completion:*" verbose yes
 zstyle ":completion:*" completer _expand _complete _match _prefix _approximate _list
@@ -34,7 +38,7 @@ zstyle ":completion:*" use-cache true
 zstyle ":completion:*" cache-path "${HOME}/.cache/zsh-completion"
 zstyle ":completion:*:*:-subscript-:*" tag-order indexes parameters
 zstyle ":completion:*" list-separator "-->"
-zstyle ":completion:*:manuals" seperate-sections true
+zstyle ":completion:*:manuals" separate-sections true
 # LS_COLORS
 eval $(dircolors)
 zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
@@ -46,7 +50,7 @@ autoload -Uz chpwd_recent_dirs
 autoload -Uz cdr
 add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ":completion:*" recent-dirs-insert both
-zstyle ":chpwd:*" recent-dirs-max 1024
+zstyle ":chpwd:*" recent-dirs-max 2048
 zstyle ":chpwd:*" recent-dirs-file "${HOME}/.cache/zsh-cdr/recent-dirs"
 zstyle ":chpwd:*" recent-dirs-default true
 zstyle ":chpwd:*" recent-dirs-pushd true
@@ -54,8 +58,15 @@ zstyle ":chpwd:*" recent-dirs-pushd true
 # zmv
 autoload -Uz zmv
 
+# misc
+autoload -Uz modify-current-argument
+autoload -Uz smart-insert-last-word
+autoload -Uz terminfo
+autoload -Uz zcalc
+
 # common settings
 setopt no_beep
+setopt no_list_beep
 
 setopt print_eight_bit
 setopt combining_chars
@@ -69,11 +80,15 @@ setopt interactive_comments
 setopt auto_pushd
 setopt pushd_ignore_dups
 
+setopt equals
+
 setopt append_history
 setopt share_history
+setopt hist_save_no_dups
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
+setopt extended_history
 
 setopt extended_glob
 
@@ -83,9 +98,11 @@ setopt auto_menu
 setopt auto_list
 setopt list_packed
 setopt list_types
+setopt prompt_subst
 setopt magic_equal_subst
 
 setopt no_auto_remove_slash
+setopt notify
 setopt auto_param_slash
 setopt mark_dirs
 setopt complete_in_word
