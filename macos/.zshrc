@@ -39,6 +39,7 @@ if [[ ! -d "${HOME}/.cache/zsh-completion" ]]; then
 fi
 autoload -Uz compinit
 compinit
+zmodload -i zsh/complist
 zstyle ":completion:*" original true
 zstyle ":completion:*" group-name ""
 zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}"
@@ -95,7 +96,6 @@ zle -N self-insert url-quote-magic
 autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 
-zmodload -i zsh/complist
 zmodload -i zsh/mathfunc
 
 # common settings
