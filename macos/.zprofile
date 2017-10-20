@@ -82,6 +82,3 @@ fpath=(/usr/local/share/zsh/site-functions $fpath)
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# zsh-syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR
