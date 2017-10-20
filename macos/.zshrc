@@ -39,22 +39,27 @@ if [[ ! -d "${HOME}/.cache/zsh-completion" ]]; then
 fi
 autoload -Uz compinit
 compinit
-zstyle ":completion:*:default" menu select=2
-zstyle ":completion:*:options" description "yes"
-zstyle ":completion:*:messages" format "%F{cyan}%d%f"
-zstyle ":completion:*:warnings" format "%F{red}No matches for:%f %F{yellow}%d%f"
-zstyle ":completion:*:corrections" format "%F{yellow}%d%f %F{red}(error: %e)%f"
-zstyle ":completion:*:descriptions" format "%F{yellow}Completing %B%d%b%f"
+zstyle ":completion:*" original true
 zstyle ":completion:*" group-name ""
 zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}"
+zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
+zstyle ":completion:*" list-separator "-->"
 zstyle ":completion:*" verbose yes
-zstyle ":completion:*" completer _expand _complete _match _prefix _approximate _list _history
 zstyle ":completion:*" use-cache true
 zstyle ":completion:*" cache-path "${HOME}/.cache/zsh-completion"
-zstyle ":completion:*:*:-subscript-:*" tag-order local-directories path-directories indexes parameters
-zstyle ":completion:*" list-separator "-->"
+zstyle ":completion:*" completer _expand _complete _match _prefix _approximate _list _history
+zstyle ":completion:*:default" menu select=2
+zstyle ":completion:*:matches" group "yes"
+zstyle ":completion:*:options" description "yes"
+zstyle ":completion:*:options" auto-description "%d"
+zstyle ":completion:*:messages" format "%F{cyan}%d%f"
+zstyle ":completion:*:warnings" format "%F{red}No matches for:%f %F{yellow}%d%f"
+zstyle ":completion:*:corrections" format "%F{yellow}Completing %B%d%b%f %F{red}(errors: %e)%f"
+zstyle ":completion:*:descriptions" format "%F{yellow}Completing %B%d%b%f"
 zstyle ":completion:*:manuals" separate-sections true
-zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
+zstyle ":completion:*:manuals.*" insert-sections true
+zstyle ":completion:*:expand:*" tag-order all-expansions
+zstyle ":completion:*:*:-subscript-:*" tag-order local-directories path-directories indexes parameters
 
 # cdr
 if [[ ! -d "${HOME}/.cache/zsh-cdr" ]]; then
