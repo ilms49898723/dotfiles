@@ -5,6 +5,9 @@
 # application.  To override the alias instruction use a \ before, ie
 # \rm will call the real rm not the alias.
 
+# sudo
+alias sudo='sudo'
+
 # easy navigation
 alias cd..='cd ../'
 
@@ -20,19 +23,19 @@ alias untar='tar -xvf'
 alias ltar='tar -tvf'
 
 # enable color support of ls and also add handy aliases
-alias ls='ls -F --color=auto'
-alias dir='ls -F --color=auto'
+alias ls='ls -F --color=always'
+alias dir='ls -F --color=always'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias grep='grep --color=always'
+alias fgrep='fgrep --color=always'
+alias egrep='egrep --color=always'
 
-alias diff='diff --color'
+alias diff='diff --color=always'
 
 # some more ls aliases
-alias l='ls -CF --color=auto'
-alias la='ls -A --color=auto'
-alias ll='ls -alF --color=auto'
+alias l='ls -CF --color=always'
+alias la='ls -A --color=always'
+alias ll='ls -alF --color=always'
 
 # Interactive operation...
 alias rm='rm -i'
@@ -49,15 +52,14 @@ alias whence='type -a'                        # where, of a sort
 
 # df aliases
 alias df='/bin/df'                            # df in macos
-alias gdf='env LC_ALL=C /usr/local/bin/df'    # gnu df
 
 # vi -> vim
 # use tabs by default
-alias vi='$(which vim) -p'
-alias vim='$(which vim) -p'
+alias vi='vim -p'
+alias vim='vim -p'
 
-alias vifzf='$(which vim) -p $(fzf)'
-alias vimfzf='$(which vim) -p $(fzf)'
+alias vifzf='vim -p $(fzf)'
+alias vimfzf='vim -p $(fzf)'
 
 # tree alias
 alias tree='tree -C -N'

@@ -70,7 +70,6 @@ set completion-map-case on
 set completion-map-case on
 set editing-mode emacs
 set visible-stats on
-set mark-modified-lines on
 
 # Expand homedir name
 #set expand-tilde on
