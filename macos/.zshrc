@@ -110,8 +110,6 @@ setopt brace_ccl
 setopt combining_chars
 setopt complete_aliases
 setopt complete_in_word
-setopt correct
-setopt correct_all
 setopt equals
 setopt extended_glob
 setopt extended_history

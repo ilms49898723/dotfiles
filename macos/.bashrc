@@ -41,9 +41,6 @@ shopt -s nocaseglob
 
 shopt -s globasciiranges
 
-shopt -s cdspell
-shopt -s dirspell
-
 shopt -s cmdhist
 shopt -s histreedit
 shopt -s histverify
