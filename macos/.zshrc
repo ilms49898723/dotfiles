@@ -162,11 +162,23 @@ export LC_TIME="ja_JP.UTF-8"
 export LC_ALL="ja_JP.UTF-8"
 
 # zsh alias
-[ -f ~/.zalias ] && source ~/.zalias
+if [ -f ~/.zalias ]; then
+    source ~/.zalias
+fi
+
+# zsh function
+if [ -f ~/.zfunction ]; then
+    source ~/.zfunction
+fi
 
 # zsh-auto-suggestion
 if [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# fzf
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
 fi
 
 # zsh-syntax-highlighting
@@ -175,7 +187,4 @@ if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; 
 fi
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 ZSH_HIGHLIGHT_STYLES[path]=''
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

@@ -47,11 +47,12 @@ alias df='df -h'
 alias du='du -h'
 
 # Misc :)
-alias less='less -r'                          # raw control characters
-alias whence='type -a'                        # where, of a sort
+alias less='less -r'
+alias whence='type -a'
 
 # df aliases
-alias df='/bin/df'                            # df in macos
+alias df='/bin/df'
+alias gdf='/usr/local/opt/coreutils/libexec/gnubin/df'
 
 # vi -> vim
 # use tabs by default
