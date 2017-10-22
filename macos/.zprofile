@@ -73,7 +73,7 @@ PATH="${HOME}/Library/Python/3.6/bin:${PATH}"
 export PATH
 
 # Setting fzf environment variables
-FZF_DEFAULT_OPTS='--multi --no-mouse --height=40% --reverse --inline-info --tabstop=4 --preview='\''[ -f {} ] && file -b {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -11 {}'\'''
+FZF_DEFAULT_OPTS='--multi --no-mouse --height=17 --reverse --inline-info --tabstop=4 --preview='\''[ -f {} ] && file -b {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -13 {}'\'''
 export FZF_DEFAULT_OPTS
 
 # Homebrew

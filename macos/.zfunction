@@ -1,7 +1,7 @@
 # fda - cd into selected directory (including hidden directories)
 fda() {
     local dir
-    dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m --preview='ls -AF1 --color=always {} | head -13') && cd "$dir"
+    dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m --preview='ls -AF1 --color=always {} | head -15') && cd "$dir"
 }
 
 alias fd=fda
