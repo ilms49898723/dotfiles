@@ -171,24 +171,14 @@ if [ -f ~/.zfunction ]; then
     source ~/.zfunction
 fi
 
-# zsh-auto-suggestion
-if [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
 # fzf
 if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
 fi
 
-# z
-if [ -f /usr/local/etc/profile.d/z.sh ]; then
-    source /usr/local/etc/profile.d/z.sh
-fi
-
-# fz
-if [ -f ~/.zsh/fz/fz.plugin.zsh ]; then
-    source ~/.zsh/fz/fz.plugin.zsh
+# zsh-auto-suggestion
+if [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # zsh-syntax-highlighting
