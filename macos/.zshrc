@@ -181,6 +181,16 @@ if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
 fi
 
+# z
+if [ -f /usr/local/etc/profile.d/z.sh ]; then
+    source /usr/local/etc/profile.d/z.sh
+fi
+
+# fz
+if [ -f ~/.zsh/fz/fz.plugin.zsh ]; then
+    source ~/.zsh/fz/fz.plugin.zsh
+fi
+
 # zsh-syntax-highlighting
 if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
