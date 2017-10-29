@@ -1,3 +1,5 @@
+# zprofile
+
 # /usr/local/sbin
 PATH="/usr/local/sbin:${PATH}"
 export PATH
@@ -44,6 +46,10 @@ export PATH
 
 # flex
 PATH="/usr/local/opt/flex/bin:${PATH}"
+export PATH
+
+# zip
+PATH="/usr/local/opt/zip/bin:${PATH}"
 export PATH
 
 # unzip
