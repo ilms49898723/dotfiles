@@ -80,9 +80,12 @@ export PATH
 
 # Setting fzf environment variables
 FZF_DEFAULT_COMMAND='rg --files'
-FZF_DEFAULT_OPTS='--multi --no-mouse --height=17 --reverse --inline-info --tabstop=4 --preview='\''[ -f {} ] && file -b {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -13 {}'\'''
+FZF_DEFAULT_OPTS='--multi --no-mouse --height=17 --reverse --inline-info --tabstop=4'
 export FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS
+
+FZF_COMPLETION_OPTS='--preview='\''[ -f {} ] && file -b {} && [[ "$(file -b {})" =~ "text" ]] && echo && head -13 {}'\'''
+export FZF_COMPLETION_OPTS
 
 FZF_CTRL_T_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND
