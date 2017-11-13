@@ -138,6 +138,9 @@ setopt share_history
 setopt transient_rprompt
 setopt zle
 
+# Suffix removing behavior
+export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n&;'
+
 # Editor environment variables
 export EDITOR='vim'
 export GIT_EDITOR='vim'
