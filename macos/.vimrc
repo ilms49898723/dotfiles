@@ -1,3 +1,5 @@
+" vimrc
+
 set nocompatible
 
 " leader settings
@@ -30,12 +32,12 @@ Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'osyo-manga/vim-anzu'
+Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
 Plug 'sjl/gundo.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'tomasr/molokai'
-Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 
@@ -447,7 +449,6 @@ nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " emmet-vim
 let g:user_zen_removetag_key = ''
@@ -463,6 +464,17 @@ nnoremap <leader>gC :<C-u>Git commit -v --amend<cr>
 nnoremap <leader>gb :<C-u>Gblame<cr>
 nnoremap <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <leader>gN :<C-u>w<CR>:Git now --all<CR>
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDAltDelims_java = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+
+nmap <silent> <leader>/ :NERDComToggleComment<CR>
+vmap <silent> <leader>/ :NERDComToggleComment<CR>
 
 " nerdtree
 nnoremap <leader>t :NERDTreeToggle<CR>
@@ -502,9 +514,6 @@ nnoremap <silent><leader>o :TagbarToggle<CR>
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
-
-" tcomment
-map <silent> <leader>/ :TComment<CR>
 
 " vim-better-whitespace
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
