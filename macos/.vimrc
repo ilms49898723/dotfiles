@@ -473,8 +473,7 @@ let g:NERDAltDelims_java = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
-nmap <silent> <leader>/ :NERDComToggleComment<CR>
-vmap <silent> <leader>/ :NERDComToggleComment<CR>
+map <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " nerdtree
 nnoremap <leader>t :NERDTreeToggle<CR>
