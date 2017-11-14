@@ -740,8 +740,8 @@ noremap <F1> <Nop>
 noremap K <Nop>
 noremap q <Nop>
 
-" <leader> + h to turn on/off highlight search
-noremap <leader>h :setlocal hls!<CR>
+" <leader> + m to turn on/off highlight search
+noremap <silent> <leader>m :setlocal hls!<CR>
 
 " remap space
 nnoremap <Space> <Esc>zz
