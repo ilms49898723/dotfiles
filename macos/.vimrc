@@ -722,7 +722,7 @@ set splitright
 set splitbelow
 
 set noshowcmd
-set nohlsearch
+set hlsearch
 set noshowmode
 set nojoinspaces
 
@@ -740,8 +740,8 @@ noremap <F1> <Nop>
 noremap K <Nop>
 noremap q <Nop>
 
-" <leader> + m to turn on/off highlight search
-noremap <silent> <leader>m :setlocal hls!<CR>
+" <leader> + m to turn off search highlight
+noremap <silent> <leader>m :nohls<CR>
 
 " remap space
 nnoremap <Space> <Esc>zz
