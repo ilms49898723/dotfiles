@@ -161,6 +161,10 @@ function! MyFilename()
 endfunction
 
 function! MyLineInfo()
+  if winwidth('.') <= 70
+    let shortinfo = printf('%d/%d', line('.'), col('.'))
+    return shortinfo
+  endif
   let lineinfo = printf('%3d/%d : %2d/%-2d', line('.'), line('$'), col('.'), col('$'))
   return lineinfo
 endfunction
@@ -485,7 +489,6 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 0
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeMouseMode = 0
-let g:NERDTreeWinSize = 36
 
 " gitgutter
 set signcolumn=yes
