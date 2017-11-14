@@ -662,7 +662,7 @@ map ^ g^
 map $ g$
 
 " Toggle paste mode on and off
-map <leader>p :setlocal paste!<cr>
+map <leader>p :setlocal paste!<CR>
 
 let s:undo_dir = expand('~/.vim/undodir')
 if !isdirectory(s:undo_dir)
@@ -739,6 +739,9 @@ set nostartofline
 noremap <F1> <Nop>
 noremap K <Nop>
 noremap q <Nop>
+
+" <leader> + h to turn on/off highlight search
+noremap <leader>h :setlocal hls!<CR>
 
 " remap space
 nnoremap <Space> <Esc>zz
