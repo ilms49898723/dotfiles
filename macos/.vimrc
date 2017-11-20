@@ -708,6 +708,7 @@ syntax enable
 syntax on
 
 " color scheme
+let g:rehash256 = 1
 colorscheme molokai
 highlight Normal ctermbg=none
 
