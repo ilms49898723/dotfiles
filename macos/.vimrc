@@ -386,6 +386,8 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType cc setlocal omnifunc=ccomplete#Complete
+autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " Enable heavy omni completion.
@@ -681,6 +683,21 @@ cnoremap <C-K> <C-U>
 
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
+
+" Completion options
+set completeopt=longest,menuone,preview
+
+" Clever tab
+function! CleverTab()
+    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+        return "\<Tab>"
+    else
+        return "\<C-N>"
+    endif
+endfunction
+inoremap <Tab> <C-R>=CleverTab()<CR>
+
+" File type completion options
 
 let python_highlight_all = 1
 
