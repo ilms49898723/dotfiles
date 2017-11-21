@@ -322,14 +322,16 @@ let g:neocomplete#enable_camel_case_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" auto popup candidate number
+" Auto popup candidate number
 let g:neocomplete#max_list = 10
-" auto popup minimum words
+" Auto popup minimum words
 let g:neocomplete#auto_completion_start_length = 2
-" auto select candidate
-let g:neocomplete#enable_auto_select = 1
-" Disable auto popup
-let g:neocomplete#disable_auto_complete = 1
+" Disable auto select candidate
+let g:neocomplete#enable_auto_select = 0
+" Enable auto popup
+let g:neocomplete#disable_auto_complete = 0
+" Auto completion delay
+let g:neocomplete#auto_complete_delay = 0
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -354,10 +356,15 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
   " For no inserting <CR> key.
-  return pumvisible() ? "\<C-y>" : "\<CR>"
+  " return pumvisible() ? "\<C-y>" : "\<CR>"
+  " Or just treat it as a normal <CR> key.
+  return (pumvisible() ? "\<C-e>" : "") . "\<CR>"
 endfunction
 " <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
+" inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
+" <TAB>: completion (select with tab).
+"        disabling auto select is recommended for this option.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -688,14 +695,14 @@ cnoremap <C-N> <Down>
 set completeopt=longest,menuone,preview
 
 " Clever tab
-function! CleverTab()
-    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-        return "\<Tab>"
-    else
-        return "\<C-N>"
-    endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
+" function! CleverTab()
+"     if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+"         return "\<Tab>"
+"     else
+"         return "\<C-N>"
+"     endif
+" endfunction
+" inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " File type completion options
 
