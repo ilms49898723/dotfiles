@@ -326,12 +326,14 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#max_list = 10
 " Auto popup minimum words
 let g:neocomplete#auto_completion_start_length = 2
-" Disable auto select candidate
-let g:neocomplete#enable_auto_select = 0
+" Enable auto select candidate
+let g:neocomplete#enable_auto_select = 1
 " Enable auto popup
 let g:neocomplete#disable_auto_complete = 0
 " Auto completion delay
 let g:neocomplete#auto_complete_delay = 0
+" Use vim proc
+let g:neocomplete#use_vimproc = 1
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -356,15 +358,15 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
   " For no inserting <CR> key.
-  " return pumvisible() ? "\<C-y>" : "\<CR>"
+  return pumvisible() ? "\<C-y>" : "\<CR>"
   " Or just treat it as a normal <CR> key.
-  return (pumvisible() ? "\<C-e>" : "") . "\<CR>"
+  " return (pumvisible() ? "\<C-e>" : "") . "\<CR>"
 endfunction
 " <TAB>: completion.
-" inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
+inoremap <expr><TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 " <TAB>: completion (select with tab).
 "        disabling auto select is recommended for this option.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -401,6 +403,8 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+" Disable omni on auto popup in python file
+let g:neocomplete#sources#omni#input_patterns.python = ''
 " let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 " let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 " let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
