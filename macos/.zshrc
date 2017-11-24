@@ -134,6 +134,7 @@ setopt numeric_glob_sort
 setopt print_eight_bit
 setopt prompt_subst
 setopt pushd_ignore_dups
+setopt rm_star_silent
 setopt share_history
 setopt transient_rprompt
 setopt zle
