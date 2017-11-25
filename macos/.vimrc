@@ -712,6 +712,7 @@ set completeopt=longest,menuone,preview
 " Fold method
 " (use indent as default)
 set foldmethod=indent
+set foldlevelstart=99
 
 " File type completion options
 
