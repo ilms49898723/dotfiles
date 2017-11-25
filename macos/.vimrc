@@ -709,6 +709,10 @@ set completeopt=longest,menuone,preview
 " endfunction
 " inoremap <Tab> <C-R>=CleverTab()<CR>
 
+" Fold method
+" (use indent as default)
+set foldmethod=indent
+
 " File type completion options
 
 let python_highlight_all = 1
@@ -716,7 +720,6 @@ let python_highlight_all = 1
 au FileType python setlocal completeopt-=preview
 au FileType python setlocal tabstop=4
 au FileType python syn keyword pythonDecorator True None False self
-au FileType python map <buffer> F :set foldmethod=indent<cr>
 
 au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 au BufNewFile,BufRead *.mako setlocal ft=mako
