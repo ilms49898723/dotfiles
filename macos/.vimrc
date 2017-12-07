@@ -484,7 +484,7 @@ nnoremap <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <leader>gN :<C-u>w<CR>:Git now --all<CR>
 
 " nerdcommenter
-let g:NERDSpaceDelims = 1
+let g:NERDSpaceDelims = 0
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDAltDelims_java = 1
