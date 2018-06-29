@@ -15,7 +15,6 @@
 --min-conditional-indent=1
 
 # padding options
---break-blocks
 --pad-oper
 --pad-header
 --align-pointer=type
