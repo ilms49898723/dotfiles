@@ -66,7 +66,7 @@ export PATH
 
 # Go Environment Variables
 PATH="/usr/local/opt/go/libexec/bin:${PATH}"
-GOPATH="${HOME}/.go:${HOME}/Workspace/go"
+GOPATH="${HOME}/.golang:${HOME}/Workspace/golang"
 export PATH
 export GOPATH
 
@@ -74,8 +74,8 @@ export GOPATH
 PATH="/Applications/MATLAB_R2017b.app/bin:${PATH}"
 export PATH
 
-# Setting PATH for Python 3.6
-PATH="${HOME}/Library/Python/3.6/bin:${PATH}"
+# Setting PATH for Python 3.7
+PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
 export PATH
 
 # Setting fzf environment variables

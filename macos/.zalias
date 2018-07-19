@@ -23,19 +23,19 @@ alias untar='tar -xvf'
 alias ltar='tar -tvf'
 
 # enable color support of ls and also add handy aliases
-alias ls='ls -F --color=always'
-alias dir='ls -F --color=always'
+alias ls='ls -F --color=auto'
+alias dir='ls -F --color=auto'
 
-alias grep='grep --color=always'
-alias fgrep='fgrep --color=always'
-alias egrep='egrep --color=always'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
-alias diff='diff --color=always'
+alias diff='diff --color=auto'
 
 # some more ls aliases
-alias l='ls -CF --color=always'
-alias la='ls -A --color=always'
-alias ll='ls -alF --color=always'
+alias l='ls -CF --color=auto'
+alias la='ls -A --color=auto'
+alias ll='ls -alF --color=auto'
 
 # Interactive operation...
 alias rm='rm -i'
