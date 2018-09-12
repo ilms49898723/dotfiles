@@ -1,0 +1,14 @@
+# fda - cd into selected directory (including hidden directories)
+fda() {
+    local dir
+    dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m --preview='ls -AF1 --color=always {} | head -15') && cd "$dir"
+}
+
+alias fd=fda
+
+# cdf - cd into the directory of the selected file
+cdf() {
+    local file
+    local dir
+    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
