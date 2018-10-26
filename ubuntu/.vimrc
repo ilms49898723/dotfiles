@@ -750,9 +750,15 @@ highlight Normal ctermbg=none
 
 " cursor line
 set cursorline
-highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
-highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237
-highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237
+if empty($SSH_CLIENT)
+    highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
+    highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237
+    highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237
+else
+    highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
+    highlight CursorLine term=none cterm=none ctermfg=none ctermbg=233
+    highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=233
+endif
 
 " update time
 set updatetime=200
