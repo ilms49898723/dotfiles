@@ -491,6 +491,8 @@ let g:NERDAltDelims_java = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
+let g:NERDCustomDelimiters = {'python': {'left': '#'}}
+
 map <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " nerdtree
@@ -749,8 +751,8 @@ highlight Normal ctermbg=none
 " cursor line
 set cursorline
 highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
-highlight CursorLine term=none cterm=none ctermfg=none ctermbg=none
-highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=none
+highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237
+highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237
 
 " update time
 set updatetime=200
