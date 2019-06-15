@@ -607,11 +607,11 @@ map $ g$
 " Toggle paste mode on and off
 map <leader>p :setlocal paste!<CR>
 
-let s:undo_dir = expand('~/.vim/undodir')
+let s:undo_dir = expand('~/.local/share/nvim/undodir')
 if !isdirectory(s:undo_dir)
     call mkdir(s:undo_dir, 'p')
 endif
-set undodir=~/.vim/undodir
+set undodir=~/.local/share/nvim/undodir
 set undofile
 
 " Bash like keys for the command line
