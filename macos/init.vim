@@ -41,7 +41,7 @@ Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 
-Plug 'Shougo/deoplete.nvim', {'do' : ':UpdateRemotePlugins'}
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -308,63 +308,19 @@ endfunction
 
 let g:vimshell_force_overwrite_statusline = 0
 
-" Deoplete.nvim
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use Deoplete
+" deoplete
 let g:deoplete#enable_at_startup = 1
-" Ignore case
-let g:deoplete#enable_ignore_case = 1
-" Smart case
-let g:deoplete#enable_smart_case = 1
-" Camel case
-let g:deoplete#enable_camel_case = 1
-" Auto completion start length
-let g:deoplete#auto_complete_start_length = 2
-" Auto popup candidate number
-let g:deoplete#max_list = 10
-" Auto completion delay
-let g:deoplete#auto_complete_delay = 0
-" Auto refresh delay
-let g:deoplete#auto_refresh_delay = 50
+call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 
-" Keyword
-if !exists('g:deoplete#keyword_patterns')
-    let g:deoplete#keyword_patterns = {}
-endif
-let g:deoplete#keyword_patterns['default'] = '\h\w*'
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#mappings#manual_complete()
 
-" Plugin key-mappings.
-inoremap <expr><C-g> deoplete#undo_completion()
-inoremap <expr><C-l> deoplete#complete_common_string()
-inoremap <expr><C-p> deoplete#manual_complete()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  return pumvisible() ? "\<C-y>" : "\<CR>"
-  " Or just treat it as a normal <CR> key.
-  " return (pumvisible() ? "\<C-e>" : "") . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
-" <TAB>: completion (select with tab).
-"        disabling auto select is recommended for this option.
-" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-" Select by <Space>.
-" inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
-" Select by dot.
-" inoremap <expr>. pumvisible() ? "\<C-y>." : "."
-" Close popup by <Space>.
-" inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
-" Close popup by <Esc> (not recommended)
-" inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -458,6 +414,8 @@ let g:NERDAltDelims_java = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
+let g:NERDCustomDelimiters = {'python': {'left': '#'}}
+
 map <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " nerdtree
@@ -486,10 +444,11 @@ let s:ctags_dir = expand('~/.ctags_files')
 if !isdirectory(s:ctags_dir)
     call mkdir(s:ctags_dir, 'p')
 endif
-let g:auto_ctags = 1
-let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn', '.' ]
+let g:auto_ctags = 0
+let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn' ]
 let g:auto_ctags_filetype_mode = 1
-let g:auto_ctags_tags_args = '--tag-relative --sort=yes'
+let g:auto_ctags_tags_name = 'tags'
+let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " tagbar
 nnoremap <silent><F9> :TagbarToggle<CR>
@@ -665,7 +624,6 @@ cnoremap <C-N> <Down>
 
 " Completion options
 set completeopt=longest,menuone,preview
-set completeopt+=noinsert
 
 " Clever tab
 " function! CleverTab()
@@ -740,7 +698,10 @@ set modelines=2
 
 set nostartofline
 
-" neovim disable cursor styling
+" disable ins-completion-menu messages
+set shortmess+=c
+
+" disable gui cursor
 set guicursor=
 
 " disable F1, K, q
