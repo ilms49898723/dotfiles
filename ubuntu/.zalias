@@ -59,8 +59,16 @@ alias gdf='/usr/local/opt/coreutils/libexec/gnubin/df'
 alias vi='vim -p'
 alias vim='vim -p'
 
-alias vifzf='vim -p $(fzf)'
-alias vimfzf='vim -p $(fzf)'
+# vim fzf
+alias vif='vim -p $(fzf)'
+alias vimf='vim -p $(fzf)'
+
+# nvim
+# use tabs by default
+alias nvim='nvim -p'
+
+# fzf
+alias nvimf='nvim -p $(fzf)'
 
 # tree alias
 alias tree='tree -C -N'
