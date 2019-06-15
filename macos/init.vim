@@ -377,13 +377,13 @@ map  <leader>l <Plug>(easymotion-bd-jk)
 nmap <leader>l <Plug>(easymotion-overwin-line)
 
 " incsearch
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" map / <Plug>(incsearch-forward)
+" map ? <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
 " incsearch with fuzzy & easymotion
-map z/ <Plug>(incsearch-fuzzy-/)
-map z? <Plug>(incsearch-fuzzy-?)
-map zg/ <Plug>(incsearch-fuzzy-stay)
+" map z/ <Plug>(incsearch-fuzzy-/)
+" map z? <Plug>(incsearch-fuzzy-?)
+" map zg/ <Plug>(incsearch-fuzzy-stay)
 
 " anzu
 nmap n <Plug>(anzu-n-with-echo)
@@ -515,6 +515,7 @@ set smartcase
 
 " Makes search act like search in modern browsers
 set incsearch
+set inccommand=nosplit
 
 " For regular expressions turn magic on
 set magic
