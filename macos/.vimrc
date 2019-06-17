@@ -16,6 +16,12 @@ if &compatible
   set nocompatible
 endif
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Required:
 call plug#begin(s:plugin_dir)
 
@@ -58,50 +64,50 @@ filetype plugin indent on
 
 " lightline
 let g:lightline = {
-        \ 'colorscheme': 'jellybeans',
-        \ 'active': {
-        \   'left': [
-        \     ['mode', 'paste'],
-        \     ['filename', 'fugitive', 'gitgutter'],
-        \   ],
-        \   'right': [
-        \     ['lineinfo'],
-        \     ['percent'],
-        \     ['charcode', 'fileencoding', 'fileformat', 'filetype'],
-        \   ]
-        \ },
-        \ 'tabline': {
-        \   'left': [ [ 'tabsinfo' ], [ 'tabs' ] ],
-        \   'right': [ ],
-        \ },
-        \ 'tab': {
-        \   'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
-        \ },
-        \ 'component': {
-        \   'tagbartags': '%{tagbar#currenttag("%s", "", "f")}',
-        \ },
-        \ 'component_function': {
-        \   'tabsinfo': 'MyTabsInfo',
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'lineinfo': 'MyLineInfo',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'charcode': 'MyCharCode',
-        \   'utf8code': 'MyUTF8Code',
-        \   'gitgutter': 'MyGitGutter',
-        \   'anzu': 'anzu#search_status',
-        \ },
-        \ 'tab_component_function': {
-        \   'filename': 'MyTabFilename',
-        \   'readonly': 'MyTabReadonly',
-        \   'modified': 'MyTabModified',
-        \ }
-        \}
+  \   'colorscheme': 'jellybeans',
+  \   'active': {
+  \     'left': [
+  \       ['mode', 'paste'],
+  \       ['filename', 'fugitive', 'gitgutter'],
+  \     ],
+  \     'right': [
+  \       ['lineinfo'],
+  \       ['percent'],
+  \       ['charcode', 'fileencoding', 'fileformat', 'filetype'],
+  \     ]
+  \   },
+  \   'tabline': {
+  \     'left': [ [ 'tabsinfo' ], [ 'tabs' ] ],
+  \     'right': [ ],
+  \   },
+  \   'tab': {
+  \     'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
+  \   },
+  \   'component': {
+  \     'tagbartags': '%{tagbar#currenttag("%s", "", "f")}',
+  \   },
+  \   'component_function': {
+  \     'tabsinfo': 'MyTabsInfo',
+  \     'modified': 'MyModified',
+  \     'readonly': 'MyReadonly',
+  \     'lineinfo': 'MyLineInfo',
+  \     'fugitive': 'MyFugitive',
+  \     'filename': 'MyFilename',
+  \     'fileformat': 'MyFileformat',
+  \     'filetype': 'MyFiletype',
+  \     'fileencoding': 'MyFileencoding',
+  \     'mode': 'MyMode',
+  \     'charcode': 'MyCharCode',
+  \     'utf8code': 'MyUTF8Code',
+  \     'gitgutter': 'MyGitGutter',
+  \     'anzu': 'anzu#search_status',
+  \   },
+  \   'tab_component_function': {
+  \     'filename': 'MyTabFilename',
+  \     'readonly': 'MyTabReadonly',
+  \     'modified': 'MyTabModified',
+  \   }
+  \ }
 
 " let inactive = active
 let g:lightline.inactive = g:lightline.active
@@ -418,7 +424,7 @@ endif
 " vimshell
 let g:vimshell_environment_term = 'xterm256'
 let g:vimshell_disable_escape_highlight = 1
-let g:vimshell_interactive_update_time = 500
+let g:vimshell_interactive_update_time = 200
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt = $USER."$ "
 
@@ -613,7 +619,7 @@ syntax enable
 set background=dark
 
 " Maximum number of lines to try and highlight
-set synmaxcol=500
+set synmaxcol=1024
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -641,9 +647,9 @@ set tabstop=4
 set softtabstop=4
 set shiftround
 
-" Linebreak on 500 characters
+" Linebreak on 1024 characters
 set lbr
-set tw=500
+set tw=1024
 
 " Auto indent
 set autoindent
@@ -745,7 +751,12 @@ syntax on
 
 " color scheme
 let g:rehash256 = 1
-colorscheme molokai
+
+try
+  colorscheme molokai
+catch
+endtry
+
 highlight Normal ctermbg=none
 
 " cursor line
