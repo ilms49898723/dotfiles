@@ -396,13 +396,13 @@ let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
 
 " fugitive
-nnoremap <leader>gd :<C-u>Gdiff<cr>
-nnoremap <leader>gs :<C-u>Gstatus<cr>GM
-nnoremap <leader>gl :<C-u>Glog<cr>
-nnoremap <leader>ga :<C-u>Gwrite<cr>
-nnoremap <leader>gc :<C-u>Gcommit -v<cr>
-nnoremap <leader>gC :<C-u>Git commit -v --amend<cr>
-nnoremap <leader>gb :<C-u>Gblame<cr>
+nnoremap <leader>gd :<C-u>Gdiff<CR>
+nnoremap <leader>gs :<C-u>Gstatus<CR>GM
+nnoremap <leader>gl :<C-u>Glog<CR>
+nnoremap <leader>ga :<C-u>Gwrite<CR>
+nnoremap <leader>gc :<C-u>Gcommit -v<CR>
+nnoremap <leader>gC :<C-u>Git commit -v --amend<CR>
+nnoremap <leader>gb :<C-u>Gblame<CR>
 nnoremap <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <leader>gN :<C-u>w<CR>:Git now --all<CR>
 
