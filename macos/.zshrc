@@ -151,7 +151,7 @@ export CVSEDITOR='vim'
 export FILTER='fzf'
 
 # Pager settings
-export LESS='iJM'
+export LESS='iJMR'
 export PAGER='less'
 
 # locale settings
