@@ -701,7 +701,7 @@ highlight GitGutterChange guibg=none
 highlight GitGutterDelete guibg=none
 
 " Autocompletion popup menu
-highlight PmenuSel guibg=#3d2525
+highlight PmenuSel guibg=#303030
 
 " update time
 set updatetime=200
