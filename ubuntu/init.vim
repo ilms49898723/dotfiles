@@ -682,23 +682,26 @@ syntax on
 let g:rehash256 = 1
 
 try
+  set termguicolors
   colorscheme molokai
 catch
 endtry
 
-highlight Normal ctermbg=none
+highlight Normal ctermbg=none guibg=none
 
 " cursor line
 set cursorline
-if empty($SSH_CLIENT)
-    highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
-    highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237
-    highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237
-else
-    highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none
-    highlight CursorLine term=none cterm=none ctermfg=none ctermbg=233
-    highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=233
-endif
+highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none guibg=none
+highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#3f3030
+highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#3f3030
+
+" gitgutter
+highlight GitGutterAdd guibg=none
+highlight GitGutterChange guibg=none
+highlight GitGutterDelete guibg=none
+
+" Autocompletion popup menu
+highlight PmenuSel guibg=#3d2525
 
 " update time
 set updatetime=200
