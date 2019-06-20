@@ -111,7 +111,6 @@ setopt combining_chars
 setopt complete_aliases
 setopt complete_in_word
 setopt equals
-setopt extended_glob
 setopt extended_history
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
@@ -152,7 +151,7 @@ export CVSEDITOR='vim'
 export FILTER='fzf'
 
 # Pager settings
-export LESS='ij.5KMR'
+export LESS='iJM'
 export PAGER='less'
 
 # locale settings

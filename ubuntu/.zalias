@@ -14,8 +14,6 @@ alias cd..='cd ../'
 # easy navigation
 alias ..='cd ../'
 alias ....='cd ../../'
-alias ......='cd ../../../'
-alias ........='cd ../../../../'
 
 # archives
 alias mktar='tar -czvf'
@@ -23,19 +21,19 @@ alias untar='tar -xvf'
 alias ltar='tar -tvf'
 
 # enable color support of ls and also add handy aliases
-alias ls='ls -F --color=auto'
-alias dir='ls -F --color=auto'
+alias ls='ls -vF --color=always'
+alias dir='ls -vF --color=always'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias grep='grep -i --color=always'
+alias fgrep='fgrep -i --color=always'
+alias egrep='egrep -i --color=always'
 
-alias diff='diff --color=auto'
+alias diff='diff --color=always'
 
 # some more ls aliases
-alias l='ls -CF --color=auto'
-alias la='ls -A --color=auto'
-alias ll='ls -alF --color=auto'
+alias l='ls -vCF --color=always'
+alias la='ls -vA --color=always'
+alias ll='ls -alvF --color=always'
 
 # Interactive operation...
 alias rm='rm -i'
@@ -43,11 +41,9 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Default to human readable figures
-alias df='df -h'
 alias du='du -h'
 
 # Misc :)
-alias less='less -r'
 alias whence='type -a'
 
 # df aliases

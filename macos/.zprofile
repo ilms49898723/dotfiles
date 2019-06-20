@@ -1,5 +1,15 @@
 # zprofile
 
+# NVIDIA Cuda 10.0
+PATH="/usr/local/cuda-10.0/bin:${PATH}"
+export PATH
+LD_LIBRARY_PATH="/usr/local/cuda-10.0/lib64:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH
+
+# linux local bin (user)
+PATH="${HOME}/.local/bin:${PATH}"
+export PATH
+
 # /usr/local/sbin
 PATH="/usr/local/sbin:${PATH}"
 export PATH
