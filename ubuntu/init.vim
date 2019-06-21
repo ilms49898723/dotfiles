@@ -598,6 +598,11 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+map <C-Down>  <C-W>j
+map <C-Up>    <C-W>k
+map <C-Left>  <C-W>h
+map <C-Right> <C-W>l
+
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
