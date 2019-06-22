@@ -593,15 +593,35 @@ map <Down> gj
 map <Up> gk
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <A-h> <C-W>h
+nnoremap <A-j> <C-W>j
+nnoremap <A-k> <C-W>k
+nnoremap <A-l> <C-W>l
 
-map <C-Down>  <C-W>j
-map <C-Up>    <C-W>k
-map <C-Left>  <C-W>h
-map <C-Right> <C-W>l
+nnoremap <A-Left>  <C-W>h
+nnoremap <A-Down>  <C-W>j
+nnoremap <A-Up>    <C-W>k
+nnoremap <A-Right> <C-W>l
+
+inoremap <A-h> <C-\><C-N><C-W>h
+inoremap <A-j> <C-\><C-N><C-W>j
+inoremap <A-k> <C-\><C-N><C-W>k
+inoremap <A-l> <C-\><C-N><C-W>l
+
+inoremap <A-Left>  <C-\><C-N><C-W>h
+inoremap <A-Down>  <C-\><C-N><C-W>j
+inoremap <A-Up>    <C-\><C-N><C-W>k
+inoremap <A-Right> <C-\><C-N><C-W>l
+
+tnoremap <A-h> <C-\><C-N><C-W>h
+tnoremap <A-j> <C-\><C-N><C-W>j
+tnoremap <A-k> <C-\><C-N><C-W>k
+tnoremap <A-l> <C-\><C-N><C-W>l
+
+tnoremap <A-Left>  <C-\><C-N><C-W>h
+tnoremap <A-Down>  <C-\><C-N><C-W>j
+tnoremap <A-Up>    <C-\><C-N><C-W>k
+tnoremap <A-Right> <C-\><C-N><C-W>l
 
 " Specify the behavior when switching between buffers
 try
@@ -708,6 +728,10 @@ highlight GitGutterDelete guibg=none
 " Autocompletion popup menu
 highlight PmenuSel guibg=#303030
 
+" error msg
+highlight Error ctermbg=none guibg=none
+highlight ErrorMsg ctermbg=none guibg=none
+
 " update time
 set updatetime=200
 
@@ -789,17 +813,21 @@ map [Tag]m :tabmove<Space>
 " tg, tabnext <tabnum>
 map [Tag]g :tabnext<Space>
 
-" mappings to move lines
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+" Ctrl+N and Ctrl+P to switch tab in normal mode
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-p> :tabprevious<CR>
 
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
-inoremap <A-Down> <Esc>:m .+1<CR>==gi
-inoremap <A-Up> <Esc>:m .-2<CR>==gi
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
+" mappings to move lines
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+nnoremap <C-Down> :m .+1<CR>==
+nnoremap <C-Up> :m .-2<CR>==
+inoremap <C-Down> <Esc>:m .+1<CR>==gi
+inoremap <C-Up> <Esc>:m .-2<CR>==gi
+vnoremap <C-Down> :m '>+1<CR>gv=gv
+vnoremap <C-Up> :m '<-2<CR>gv=gv
