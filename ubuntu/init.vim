@@ -659,6 +659,9 @@ cnoremap <C-K> <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
+" Map ; as : in normal mode
+nnoremap ; :
+
 " Completion options
 set completeopt=longest,menuone,preview
 
@@ -721,9 +724,9 @@ highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#3f3030
 highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#3f3030
 
 " gitgutter
-highlight GitGutterAdd guibg=none
-highlight GitGutterChange guibg=none
-highlight GitGutterDelete guibg=none
+highlight GitGutterAdd ctermbg=none guibg=none
+highlight GitGutterChange ctermbg=none guibg=none
+highlight GitGutterDelete ctermbg=none guibg=none
 
 " Autocompletion popup menu
 highlight PmenuSel guibg=#303030
@@ -733,7 +736,10 @@ highlight Error ctermbg=none guibg=none
 highlight ErrorMsg ctermbg=none guibg=none
 
 " update time
-set updatetime=200
+set updatetime=100
+
+" report
+set report=65535
 
 " split settings
 set splitright
