@@ -736,6 +736,13 @@ highlight PmenuSel guibg=#303030
 highlight Error ctermbg=none guibg=none
 highlight ErrorMsg ctermbg=none guibg=none
 
+" folding
+highlight Folded ctermbg=none guibg=none
+highlight FoldColumn ctermbg=none guibg=none
+
+" fillchars
+set fillchars=fold:\ ,
+
 " update time
 set updatetime=100
 
