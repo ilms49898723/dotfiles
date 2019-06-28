@@ -659,8 +659,9 @@ cnoremap <C-K> <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
-" Map ; as : in normal mode
+" Map ; as : in normal mode and visual mode
 nnoremap ; :
+vnoremap ; :
 
 " Completion options
 set completeopt=longest,menuone,preview
