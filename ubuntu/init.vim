@@ -437,7 +437,7 @@ nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <silent> <leader>gN :<C-u>w<CR>:Git now --all<CR>
 
-" gv
+" vim-gv
 nnoremap <silent> <leader>b :GV<CR>
 
 " nerdcommenter
@@ -495,6 +495,10 @@ let g:tagbar_autoclose = 1
 " vim-better-whitespace
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
+
+" vim-journal
+autocmd BufNewFile,BufRead *.note setlocal ft=journal
+autocmd BufNewFile,BufRead *.journal setlocal ft=journal
 
 " Sets how many lines of history VIM has to remember
 set history=10000
@@ -709,23 +713,23 @@ set foldlevelstart=99
 
 let python_highlight_all = 1
 
-au FileType python setlocal completeopt-=preview
-au FileType python setlocal tabstop=4
-au FileType python syn keyword pythonDecorator True None False self
+autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python setlocal tabstop=4
+autocmd FileType python syn keyword pythonDecorator True None False self
 
-au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
-au BufNewFile,BufRead *.mako setlocal ft=mako
+autocmd BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
+autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 
-au FileType javascript setlocal fen
-au FileType javascript setlocal nocindent
+autocmd FileType javascript setlocal fen
+autocmd FileType javascript setlocal nocindent
 
-au FileType gitcommit call setpos('.', [0, 1, 1, 0])
+autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
 " makefile
-au FileType Makefile setlocal noexpandtab
+autocmd FileType Makefile setlocal noexpandtab
 
 " c, cpp
-au FileType c,cpp,cc setlocal cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+autocmd FileType c,cpp,cc setlocal cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
 
 " general
 syntax enable
@@ -885,3 +889,4 @@ inoremap <C-l> <C-o>l
 nnoremap <C-d> <Esc>
 inoremap <C-d> <Esc>
 vnoremap <C-d> <Esc>
+cnoremap <C-d> <Esc>
