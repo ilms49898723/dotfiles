@@ -387,22 +387,22 @@ endfunction
 
 " FZF
 noremap <A-f> :FZF<CR>
-noremap <F6>  :FZF<CR>
+noremap <F9>  :FZF<CR>
 
 " Gundo
-nnoremap <silent> <leader>u :GundoToggle<CR>
+noremap <silent> <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 
 " easymotion
-noremap  <leader>f <Plug>(easymotion-bd-f)
-nnoremap <leader>f <Plug>(easymotion-overwin-f)
-noremap  <leader>s <Plug>(easymotion-bd-f2)
-nnoremap <leader>s <Plug>(easymotion-overwin-f2)
-noremap  <leader>w <Plug>(easymotion-bd-w)
-nnoremap <leader>w <Plug>(easymotion-overwin-w)
-noremap  <leader>l <Plug>(easymotion-bd-jk)
-nnoremap <leader>l <Plug>(easymotion-overwin-line)
+map  <leader>f <Plug>(easymotion-bd-f)
+nmap <leader>f <Plug>(easymotion-overwin-f)
+map  <leader>s <Plug>(easymotion-bd-f2)
+nmap <leader>s <Plug>(easymotion-overwin-f2)
+map  <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
+map  <leader>l <Plug>(easymotion-bd-jk)
+nmap <leader>l <Plug>(easymotion-overwin-line)
 
 " incsearch
 " map / <Plug>(incsearch-forward)
@@ -414,13 +414,16 @@ nnoremap <leader>l <Plug>(easymotion-overwin-line)
 " map zg/ <Plug>(incsearch-fuzzy-stay)
 
 " anzu
-noremap n <Plug>(anzu-n-with-echo)
-noremap N <Plug>(anzu-N-with-echo)
-noremap * <Plug>(anzu-star-with-echo)
-noremap # <Plug>(anzu-sharp-with-echo)
+map n <Plug>(anzu-n-with-echo)
+map N <Plug>(anzu-N-with-echo)
+map * <Plug>(anzu-star-with-echo)
+map # <Plug>(anzu-sharp-with-echo)
+
+let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
+let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 
 " vim-slash with anzu
-noremap <silent> <Plug>(slash-after) :AnzuUpdateSearchStatusOutput<CR>
+map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
 
 " emmet-vim
 let g:user_zen_removetag_key = ''
@@ -447,10 +450,11 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDAltDelims_java = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
 
 let g:NERDCustomDelimiters = {'python': {'left': '#'}}
 
-noremap <silent> <leader>/ <Plug>NERDCommenterToggle
+map <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " nerdtree
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -467,12 +471,12 @@ let g:NERDTreeMouseMode = 0
 " gitgutter
 set signcolumn=yes
 let g:gitgutter_max_signs = 1024
-noremap ]h <Plug>GitGutterNextHunk
-noremap [h <Plug>GitGutterPrevHunk
+map ]h <Plug>GitGutterNextHunk
+map [h <Plug>GitGutterPrevHunk
 
 " vim-easy-align
-vnoremap <Enter> <Plug>(EasyAlign)
-nnoremap <leader>a <Plug>(EasyAlign)
+vmap <Enter> <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
 
 " auto-ctags
 let s:ctags_dir = expand('~/.ctags_files')
@@ -486,13 +490,13 @@ let g:auto_ctags_tags_name = 'tags'
 let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " tagbar
-nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
 " vim-better-whitespace
+let g:current_line_whitespace_disabled_soft = 1
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
 
@@ -841,7 +845,7 @@ set diffopt=vertical
 let g:is_posix = 1
 
 " clear command output buffer once cursor moved
-autocmd CursorMoved,CursorMovedI * echo ''
+autocmd CursorMoved,InsertEnter,InsertLeave * echo ''
 
 " The prefix key.
 nnoremap [Tag] <Nop>
