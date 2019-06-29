@@ -142,10 +142,10 @@ setopt zle
 export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n&;'
 
 # Editor environment variables
-export EDITOR='vim'
-export GIT_EDITOR='vim'
-export SVN_EDITOR='vim'
-export CVSEDITOR='vim'
+export EDITOR='nvim'
+export GIT_EDITOR='nvim'
+export SVN_EDITOR='nvim'
+export CVSEDITOR='nvim'
 
 # Filter environment variables
 export FILTER='fzf'

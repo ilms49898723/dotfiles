@@ -1,4 +1,4 @@
-" vimrc
+" NeoVim
 
 set nocompatible
 
@@ -26,14 +26,19 @@ endif
 " Required:
 call plug#begin(s:plugin_dir)
 
+Plug 'Shougo/context_filetype.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
-Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-journal'
+Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-slash'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
@@ -41,7 +46,6 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'osyo-manga/vim-anzu'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'Shougo/context_filetype.vim'
 Plug 'sjl/gundo.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'tomasr/molokai'
@@ -51,7 +55,11 @@ Plug 'tpope/vim-surround'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
-Plug '~/.fzf' | Plug 'junegunn/fzf.vim'
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug '~/.fzf' | Plug 'junegunn/fzf.vim'
+endif
 
 " Required:
 call plug#end()
@@ -78,11 +86,11 @@ let g:lightline = {
   \     ]
   \   },
   \   'tabline': {
-  \     'left': [ [ 'tabsinfo' ], [ 'tabs' ] ],
-  \     'right': [ ],
+  \     'left': [['tabsinfo'], ['tabs']],
+  \     'right': [],
   \   },
   \   'tab': {
-  \     'active': [ 'tabnum', 'filename', 'readonly', 'modified' ]
+  \     'active': ['tabnum', 'filename', 'readonly', 'modified']
   \   },
   \   'component': {
   \     'tagbartags': '%{tagbar#currenttag("%s", "", "f")}',
@@ -129,6 +137,7 @@ function! MyTabFilename(n)
        \ fname =~ '__Gundo__' ? '[Gundo]' :
        \ fname =~ '__Gundo_Preview__' ? '[Gundo Preview]' :
        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+       \ fname =~ '#FZF' ? '[FZF]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]')
 endfunction
@@ -162,6 +171,7 @@ function! MyFilename()
        \ fname =~ '__Gundo__' ? '[Gundo]' :
        \ fname =~ '__Gundo_Preview__' ? '[Gundo Preview]' :
        \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+       \ fname =~ '#FZF' ? '[FZF]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]') .
        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
@@ -178,6 +188,9 @@ function! MyLineInfo()
 endfunction
 
 function! MyFugitive()
+  if winwidth('.') <= 70
+    return ''
+  endif
   try
     if expand('%:t') !~? 'Tagbar\|NERD' && exists('*fugitive#head')
       let mark = '# '
@@ -316,17 +329,17 @@ endfunction
 let g:vimshell_force_overwrite_statusline = 0
 
 " deoplete
-let g:deoplete#enable_at_startup = 1
-
 try
+  let g:deoplete#enable_at_startup = 1
+
   call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+
+  inoremap <silent> <expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
 catch
 endtry
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
 
 function! s:check_back_space() abort "{{{
   let col = col('.') - 1
@@ -372,20 +385,24 @@ autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
 
+" FZF
+noremap <A-f> :FZF<CR>
+noremap <F6>  :FZF<CR>
+
 " Gundo
-nnoremap <leader>u :GundoToggle<CR>
+nnoremap <silent> <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 
 " easymotion
-map  <leader>f <Plug>(easymotion-bd-f)
-nmap <leader>f <Plug>(easymotion-overwin-f)
-map  <leader>s <Plug>(easymotion-bd-f2)
-nmap <leader>s <Plug>(easymotion-overwin-f2)
-map  <leader>w <Plug>(easymotion-bd-w)
-nmap <leader>w <Plug>(easymotion-overwin-w)
-map  <leader>l <Plug>(easymotion-bd-jk)
-nmap <leader>l <Plug>(easymotion-overwin-line)
+noremap  <leader>f <Plug>(easymotion-bd-f)
+nnoremap <leader>f <Plug>(easymotion-overwin-f)
+noremap  <leader>s <Plug>(easymotion-bd-f2)
+nnoremap <leader>s <Plug>(easymotion-overwin-f2)
+noremap  <leader>w <Plug>(easymotion-bd-w)
+nnoremap <leader>w <Plug>(easymotion-overwin-w)
+noremap  <leader>l <Plug>(easymotion-bd-jk)
+nnoremap <leader>l <Plug>(easymotion-overwin-line)
 
 " incsearch
 " map / <Plug>(incsearch-forward)
@@ -397,25 +414,31 @@ nmap <leader>l <Plug>(easymotion-overwin-line)
 " map zg/ <Plug>(incsearch-fuzzy-stay)
 
 " anzu
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+noremap n <Plug>(anzu-n-with-echo)
+noremap N <Plug>(anzu-N-with-echo)
+noremap * <Plug>(anzu-star-with-echo)
+noremap # <Plug>(anzu-sharp-with-echo)
+
+" vim-slash with anzu
+noremap <silent> <Plug>(slash-after) :AnzuUpdateSearchStatusOutput<CR>
 
 " emmet-vim
 let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
 
 " fugitive
-nnoremap <leader>gd :<C-u>Gdiff<CR>
-nnoremap <leader>gs :<C-u>Gstatus<CR>GM
-nnoremap <leader>gl :<C-u>Glog<CR>
-nnoremap <leader>ga :<C-u>Gwrite<CR>
-nnoremap <leader>gc :<C-u>Gcommit -v<CR>
-nnoremap <leader>gC :<C-u>Git commit -v --amend<CR>
-nnoremap <leader>gb :<C-u>Gblame<CR>
-nnoremap <leader>gn :<C-u>w<CR>:Git now<CR>
-nnoremap <leader>gN :<C-u>w<CR>:Git now --all<CR>
+nnoremap <silent> <leader>gd :<C-u>Gdiff<CR>
+nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>GM
+nnoremap <silent> <leader>gl :<C-u>Glog<CR>
+nnoremap <silent> <leader>ga :<C-u>Gwrite<CR>
+nnoremap <silent> <leader>gc :<C-u>Gcommit -v<CR>
+nnoremap <silent> <leader>gC :<C-u>Git commit -v --amend<CR>
+nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
+nnoremap <silent> <leader>gn :<C-u>w<CR>:Git now<CR>
+nnoremap <silent> <leader>gN :<C-u>w<CR>:Git now --all<CR>
+
+" gv
+nnoremap <silent> <leader>b :GV<CR>
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -427,10 +450,11 @@ let g:NERDTrimTrailingWhitespace = 1
 
 let g:NERDCustomDelimiters = {'python': {'left': '#'}}
 
-map <silent> <leader>/ <Plug>NERDCommenterToggle
+noremap <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " nerdtree
-nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <F5> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore = [
       \ '\.clean$', '\.swp$', '\.bak$', '\~$',
       \ '\.svn$', '\.git$',
@@ -443,12 +467,12 @@ let g:NERDTreeMouseMode = 0
 " gitgutter
 set signcolumn=yes
 let g:gitgutter_max_signs = 1024
-map ]h <Plug>GitGutterNextHunk
-map [h <Plug>GitGutterPrevHunk
+noremap ]h <Plug>GitGutterNextHunk
+noremap [h <Plug>GitGutterPrevHunk
 
 " vim-easy-align
-vmap <Enter> <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
+vnoremap <Enter> <Plug>(EasyAlign)
+nnoremap <leader>a <Plug>(EasyAlign)
 
 " auto-ctags
 let s:ctags_dir = expand('~/.ctags_files')
@@ -462,8 +486,8 @@ let g:auto_ctags_tags_name = 'tags'
 let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " tagbar
-nnoremap <silent><F9> :TagbarToggle<CR>
-nnoremap <silent><leader>o :TagbarToggle<CR>
+nnoremap <silent> <F9> :TagbarToggle<CR>
+nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
@@ -473,7 +497,7 @@ let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitco
 autocmd BufWritePre * StripWhitespace
 
 " Sets how many lines of history VIM has to remember
-set history=1000
+set history=10000
 
 " Enable filetype plugins
 filetype on
@@ -528,12 +552,14 @@ set smartcase
 set incsearch
 set inccommand=nosplit
 
+" Make global as default
+set gdefault
+
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
-" How many tenths of a second to blink when matching brackets
 set matchtime=2
 
 " No annoying sound on errors
@@ -587,10 +613,11 @@ set wrap
 set display=lastline
 
 " Smart cursor moving
-map j gj
-map k gk
-map <Down> gj
-map <Up> gk
+noremap <Down> gj
+noremap <Up> gk
+
+noremap j gj
+noremap k gk
 
 " Smart way to move between windows
 nnoremap <A-h> <C-W>h
@@ -623,6 +650,10 @@ tnoremap <A-Down>  <C-\><C-N><C-W>j
 tnoremap <A-Up>    <C-\><C-N><C-W>k
 tnoremap <A-Right> <C-\><C-N><C-W>l
 
+" Ctrl-F and Ctrl-B mapped to Ctrl-D and Ctrl-U
+noremap <C-f> <C-d>
+noremap <C-b> <C-u>
+
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
@@ -636,13 +667,12 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-" Remap 0, ^, $
-map 0 g^
-map ^ g^
-map $ g$
+" Map H and L to Home and End (^ and $)
+noremap H ^
+noremap L $
 
 " Toggle paste mode on and off
-map <leader>p :setlocal paste!<CR>
+map <silent> <leader>p :setlocal paste!<CR>
 
 let s:undo_dir = expand('~/.local/share/nvim/undodir')
 if !isdirectory(s:undo_dir)
@@ -650,6 +680,9 @@ if !isdirectory(s:undo_dir)
 endif
 set undodir=~/.local/share/nvim/undodir
 set undofile
+
+" Map U to redo
+nnoremap U <C-r>
 
 " Bash like keys for the command line
 cnoremap <C-A> <Home>
@@ -666,18 +699,9 @@ vnoremap ; :
 " Completion options
 set completeopt=longest,menuone,preview
 
-" Clever tab
-" function! CleverTab()
-"     if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-"         return "\<Tab>"
-"     else
-"         return "\<C-N>"
-"     endif
-" endfunction
-" inoremap <Tab> <C-R>=CleverTab()<CR>
-
 " Fold method
 " (use indent as default)
+set foldenable
 set foldmethod=indent
 set foldlevelstart=99
 
@@ -729,8 +753,11 @@ highlight GitGutterAdd ctermbg=none guibg=none
 highlight GitGutterChange ctermbg=none guibg=none
 highlight GitGutterDelete ctermbg=none guibg=none
 
-" Autocompletion popup menu
+" autocompletion popup menu
 highlight PmenuSel guibg=#303030
+
+" warning msg
+highlight WarningMsg ctermbg=none guibg=none
 
 " error msg
 highlight Error ctermbg=none guibg=none
@@ -739,6 +766,9 @@ highlight ErrorMsg ctermbg=none guibg=none
 " folding
 highlight Folded ctermbg=none guibg=none
 highlight FoldColumn ctermbg=none guibg=none
+
+" fillchars for vertical split
+highlight VertSplit ctermbg=none guibg=none
 
 " fillchars
 set fillchars=fold:\ ,
@@ -795,10 +825,17 @@ nnoremap Y y$
 vnoremap < <gv
 vnoremap > >gv
 
+" using tab to jumping between matching pairs
+nnoremap <Tab> %
+vnoremap <Tab> %
+
 " vimdiff option
 set diffopt=vertical
 
 let g:is_posix = 1
+
+" clear command output buffer once cursor moved
+autocmd CursorMoved,CursorMovedI * echo ''
 
 " The prefix key.
 nnoremap [Tag] <Nop>
@@ -809,39 +846,42 @@ for n in range(1, 9)
 endfor
 
 " tc, tablast (new tab at last)
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
+noremap <silent> [Tag]c :tablast <bar> tabnew<CR>
 " tx, tabclose (close tab)
-map <silent> [Tag]x :tabclose<CR>
+noremap <silent> [Tag]x :tabclose<CR>
 " tn, tabnext (next tab)
-" also <leader>n
-map <silent> [Tag]n :tabnext<CR>
-map <silent> <leader>n :tabnext<CR>
+noremap <silent> [Tag]n :tabnext<CR>
 " tb, tabprevious (previous tab)
-" also <leader>b
-map <silent> [Tag]b :tabprevious<CR>
-map <silent> <leader>b :tabprevious<CR>
+noremap <silent> [Tag]b :tabprevious<CR>
 " te, tab edit
-map [Tag]e :tabedit<Space>
+noremap [Tag]e :tabedit<Space>
 " tm, tab move
-map [Tag]m :tabmove<Space>
+noremap [Tag]m :tabmove<Space>
 " tg, tabnext <tabnum>
-map [Tag]g :tabnext<Space>
+noremap [Tag]g :tabnext<Space>
 
 " Ctrl+N and Ctrl+P to switch tab in normal mode
-nnoremap <C-n> :tabnext<CR>
-nnoremap <C-p> :tabprevious<CR>
+noremap <silent> <C-n> :tabnext<CR>
+noremap <silent> <C-p> :tabprevious<CR>
 
 " mappings to move lines
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+nnoremap <silent> <C-j> :m .+1<CR>==
+nnoremap <silent> <C-k> :m .-2<CR>==
+vnoremap <silent> <C-j> :m '>+1<CR>gv=gv
+vnoremap <silent> <C-k> :m '<-2<CR>gv=gv
 
-nnoremap <C-Down> :m .+1<CR>==
-nnoremap <C-Up> :m .-2<CR>==
-inoremap <C-Down> <Esc>:m .+1<CR>==gi
-inoremap <C-Up> <Esc>:m .-2<CR>==gi
-vnoremap <C-Down> :m '>+1<CR>gv=gv
-vnoremap <C-Up> :m '<-2<CR>gv=gv
+nnoremap <silent> <C-Down> :m .+1<CR>==
+nnoremap <silent> <C-Up> :m .-2<CR>==
+vnoremap <silent> <C-Down> :m '>+1<CR>gv=gv
+vnoremap <silent> <C-Up> :m '<-2<CR>gv=gv
+
+" moving in insert mode
+inoremap <C-h> <C-o>h
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+inoremap <C-l> <C-o>l
+
+" map C-d to Esc
+nnoremap <C-d> <Esc>
+inoremap <C-d> <Esc>
+vnoremap <C-d> <Esc>
