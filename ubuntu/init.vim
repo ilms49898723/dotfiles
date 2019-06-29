@@ -498,7 +498,9 @@ autocmd BufWritePre * StripWhitespace
 
 " vim-journal
 autocmd BufNewFile,BufRead *.note setlocal ft=journal
+autocmd BufNewFile,BufRead *.note setlocal tw=0
 autocmd BufNewFile,BufRead *.journal setlocal ft=journal
+autocmd BufNewFile,BufRead *.journal setlocal tw=0
 
 " Sets how many lines of history VIM has to remember
 set history=10000
@@ -606,9 +608,9 @@ set tabstop=4
 set softtabstop=4
 set shiftround
 
-" Linebreak on 1024 characters
+" Linebreak
 set lbr
-set tw=1024
+set tw=0
 
 " Auto indent
 set autoindent
