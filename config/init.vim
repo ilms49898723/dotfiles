@@ -135,8 +135,8 @@ function! MyTabFilename(n)
   let fname = expand('#'.buflist[winnr - 1].':t')
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
        \ fname =~ '__Gundo__' ? '[Gundo]' :
-       \ fname =~ '__Gundo_Preview__' ? '[Gundo Preview]' :
-       \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+       \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
+       \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]')
@@ -169,8 +169,8 @@ function! MyFilename()
   let fname = expand('%:t')
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
        \ fname =~ '__Gundo__' ? '[Gundo]' :
-       \ fname =~ '__Gundo_Preview__' ? '[Gundo Preview]' :
-       \ fname =~ 'NERD_tree' ? '[NERD Tree]' :
+       \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
+       \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ ('' != fname ? fname : '[New File]') .
@@ -183,7 +183,7 @@ function! MyLineInfo()
     let shortinfo = printf('%d/%d:%d/%d', col('.'), col('$'), line('.'), line('$'))
     return shortinfo
   endif
-  let lineinfo = printf('%2d/%-2d : %2d/%d', col('.'), col('$'), line('.'), line('$'))
+  let lineinfo = printf('%2d/%-2d : %d/%d', col('.'), col('$'), line('.'), line('$'))
   return lineinfo
 endfunction
 
