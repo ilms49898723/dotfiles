@@ -463,6 +463,7 @@ let g:NERDTreeIgnore = [
       \ '\.clean$', '\.swp$', '\.bak$', '\~$',
       \ '\.svn$', '\.git$',
       \ ]
+let g:NERDTreeWinSize = 32
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeNaturalSort = 1
 let g:NERDTreeMinimalUI = 0
@@ -496,9 +497,8 @@ let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " tagbar
 nnoremap <silent> <leader>o :TagbarToggle<CR>
-let g:tagbar_left = 1
+let g:tagbar_width = 32
 let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
 
 " vim-better-whitespace
 let g:current_line_whitespace_disabled_soft = 1
