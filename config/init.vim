@@ -183,7 +183,7 @@ function! MyLineInfo()
     let shortinfo = printf('%d/%d:%d/%d', col('.'), col('$'), line('.'), line('$'))
     return shortinfo
   endif
-  let lineinfo = printf('%2d/%-2d : %3d/%d', col('.'), col('$'), line('.'), line('$'))
+  let lineinfo = printf('%2d/%-2d : %2d/%d', col('.'), col('$'), line('.'), line('$'))
   return lineinfo
 endfunction
 
