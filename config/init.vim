@@ -82,7 +82,7 @@ let g:lightline = {
   \     'right': [
   \       ['lineinfo'],
   \       ['percent'],
-  \       ['charcode', 'fileencoding', 'fileformat', 'filetype'],
+  \       ['fileencoding', 'fileformat', 'filetype'],
   \     ]
   \   },
   \   'tabline': {
@@ -179,7 +179,7 @@ function! MyFilename()
 endfunction
 
 function! MyLineInfo()
-  if winwidth('.') <= 70
+  if winwidth('.') < 100
     let shortinfo = printf('%d/%d', line('.'), col('.'))
     return shortinfo
   endif
@@ -188,7 +188,7 @@ function! MyLineInfo()
 endfunction
 
 function! MyFugitive()
-  if winwidth('.') <= 70
+  if winwidth('.') < 100
     return ''
   endif
   try
@@ -203,15 +203,15 @@ function! MyFugitive()
 endfunction
 
 function! MyFileformat()
-  return winwidth('.') > 70 ? &fileformat : ''
+  return winwidth('.') >= 100 ? &fileformat : ''
 endfunction
 
 function! MyFiletype()
-  return winwidth('.') > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  return winwidth('.') >= 100 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth('.') > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+  return winwidth('.') >= 100 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
 
 function! MyMode()
@@ -221,7 +221,7 @@ function! MyMode()
        \ fname =~ '__Gundo_Preview__' ? '' :
        \ fname =~ 'NERD_tree' ? '' :
        \ &ft =~ 'vimshell' ? 'VimShell' :
-       \ winwidth(0) > 60 ? lightline#mode() : ''
+       \ lightline#mode()
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
@@ -234,7 +234,7 @@ endfunction
 function! MyGitGutter()
   if ! exists('*GitGutterGetHunkSummary')
         \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 100
+        \ || winwidth('.') < 100
     return ''
   endif
   let symbols = [
@@ -253,7 +253,7 @@ function! MyGitGutter()
 endfunction
 
 function! MyCharCode()
-  if winwidth('.') <= 70
+  if winwidth('.') < 100
     return ''
   endif
 
@@ -292,7 +292,7 @@ function! MyCharCode()
 endfunction
 
 function! MyUTF8Code()
-  if winwidth('.') <= 70
+  if winwidth('.') < 100
     return ''
   endif
 
@@ -464,9 +464,14 @@ let g:NERDTreeIgnore = [
       \ '\.svn$', '\.git$',
       \ ]
 let g:NERDTreeShowHidden = 1
+let g:NERDTreeNaturalSort = 1
 let g:NERDTreeMinimalUI = 0
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeMouseMode = 0
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
+  \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 " gitgutter
 set signcolumn=yes
