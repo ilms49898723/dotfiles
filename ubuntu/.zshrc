@@ -155,14 +155,14 @@ export LESS='iJMR'
 export PAGER='less'
 
 # locale settings
-export LANG="ja_JP.UTF-8"
-export LC_COLLATE="ja_JP.UTF-8"
-export LC_CTYPE="ja_JP.UTF-8"
-export LC_MESSAGES="ja_JP.UTF-8"
-export LC_MONETARY="ja_JP.UTF-8"
-export LC_NUMERIC="ja_JP.UTF-8"
-export LC_TIME="ja_JP.UTF-8"
-export LC_ALL="ja_JP.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # zsh alias
 if [ -f ~/.zalias ]; then
@@ -180,14 +180,25 @@ if [ -f ~/.fzf.zsh ]; then
 fi
 
 # zsh-auto-suggestion
-if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+if [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # zsh-syntax-highlighting
-if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=~/.zsh/zsh-syntax-highlighting/highlighters
+
+# zsh-syntax-highlighting highlighters
+if [ -d /usr/local/share/zsh-syntax-highlighting/highlighters ]; then
+    export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+elif [ -d ~/.zsh/zsh-syntax-highlighting/highlighters ]; then
+    export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=~/.zsh/zsh-syntax-highlighting/highlighters
+fi
+
 ZSH_HIGHLIGHT_STYLES[path]=''
 

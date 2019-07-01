@@ -50,7 +50,11 @@ Plug 'tpope/vim-surround'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
-Plug '~/.fzf' | Plug 'junegunn/fzf.vim'
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug '~/.fzf' | Plug 'junegunn/fzf.vim'
+endif
 
 " Required:
 call plug#end()

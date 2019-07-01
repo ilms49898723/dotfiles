@@ -8,6 +8,9 @@
 # sudo
 alias sudo='sudo'
 
+# quit
+alias quit='exit'
+
 # easy navigation
 alias cd..='cd ../'
 
@@ -54,17 +57,35 @@ alias gdf='/usr/local/opt/coreutils/libexec/gnubin/df'
 # use tabs by default
 alias vi='vim -p'
 alias vim='vim -p'
-
 # vim fzf
 alias vif='vim -p $(fzf)'
 alias vimf='vim -p $(fzf)'
 
+# vim view
+alias vimv='vim -R -M -m'
+# vim view fzf
+alias vimvf='vim -R -M -m $(fzf)'
+
+# vim diff
+alias vimd='vimdiff'
+# vim diff fzf
+alias vimdf='vimdiff $(fzf)'
+
 # nvim
 # use tabs by default
 alias nvim='nvim -p'
-
-# fzf
+# nvim fzf
 alias nvimf='nvim -p $(fzf)'
+
+# nvim view
+alias nvimv='nvim -R -M -m'
+# nvim view fzf
+alias nvimvf='nvim -R -M -m $(fzf)'
+
+# nvim diff
+alias nvimd='\nvim -d'
+# nvim diff fzf
+alias nvimdf='\nvim -d $(fzf)'
 
 # tree alias
 alias tree='tree -C -N'
