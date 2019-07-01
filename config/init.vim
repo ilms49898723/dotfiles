@@ -180,10 +180,10 @@ endfunction
 
 function! MyLineInfo()
   if winwidth('.') < 100
-    let shortinfo = printf('%d/%d', line('.'), col('.'))
+    let shortinfo = printf('%d/%d:%d/%d', col('.'), col('$'), line('.'), line('$'))
     return shortinfo
   endif
-  let lineinfo = printf('%3d/%d : %2d/%-2d', line('.'), line('$'), col('.'), col('$'))
+  let lineinfo = printf('%2d/%-2d : %3d/%d', col('.'), col('$'), line('.'), line('$'))
   return lineinfo
 endfunction
 
