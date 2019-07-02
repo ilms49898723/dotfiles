@@ -36,6 +36,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
@@ -508,6 +509,7 @@ let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitco
 autocmd BufWritePre * StripWhitespace
 
 " matchup
+let g:matchup_enabled = 0
 let g:matchup_delim_noskips = 2
 let g:matchup_matchparen_status_offscreen = 0
 let g:matchup_matchparen_deferred = 1
