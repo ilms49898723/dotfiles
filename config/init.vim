@@ -181,7 +181,7 @@ function! MyFilename()
 endfunction
 
 function! MyLineInfo()
-  if winwidth('.') < 100
+  if winwidth('.') < 50
     let shortinfo = printf('%d/%d:%d/%d', col('.'), col('$'), line('.'), line('$'))
     return shortinfo
   endif
@@ -190,7 +190,7 @@ function! MyLineInfo()
 endfunction
 
 function! MyFugitive()
-  if winwidth('.') < 100
+  if winwidth('.') < 90
     return ''
   endif
   try
@@ -204,16 +204,16 @@ function! MyFugitive()
   return ''
 endfunction
 
-function! MyFileformat()
-  return winwidth('.') >= 100 ? &fileformat : ''
+function! MyFiletype()
+  return winwidth('.') >= 60 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
-function! MyFiletype()
-  return winwidth('.') >= 100 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+function! MyFileformat()
+  return winwidth('.') >= 70 ? &fileformat : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth('.') >= 100 ? (&fenc !=# '' ? &fenc : &enc) : ''
+  return winwidth('.') >= 80 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
 
 function! MyMode()
