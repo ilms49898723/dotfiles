@@ -523,6 +523,12 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
 
+" limelight
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
 " vim-journal
 autocmd BufNewFile,BufRead *.note setlocal ft=journal
 autocmd BufNewFile,BufRead *.note setlocal tw=0
