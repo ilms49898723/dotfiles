@@ -701,7 +701,7 @@ noremap H ^
 noremap L $
 
 " Toggle paste mode on and off
-map <silent> <leader>p :setlocal paste!<CR>
+noremap <silent> <leader>p :setlocal paste!<CR>
 
 let s:undo_dir = expand('~/.local/share/nvim/undodir')
 if !isdirectory(s:undo_dir)
@@ -855,8 +855,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 " using tab to jumping between matching pairs
-nnoremap <Tab> %
-vnoremap <Tab> %
+nmap <Tab> %
+vmap <Tab> %
 
 " vimdiff option
 set diffopt=vertical
