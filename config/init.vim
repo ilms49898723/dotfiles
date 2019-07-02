@@ -28,6 +28,7 @@ call plug#begin(s:plugin_dir)
 
 Plug 'Shougo/context_filetype.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'andymass/vim-matchup'
 Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
 Plug 'haya14busa/incsearch-easymotion.vim'
@@ -35,6 +36,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
@@ -504,6 +506,20 @@ let g:tagbar_autofocus = 1
 let g:current_line_whitespace_disabled_soft = 1
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
+
+" matchup
+let g:matchup_delim_noskips = 2
+let g:matchup_matchparen_status_offscreen = 0
+let g:matchup_matchparen_deferred = 1
+let g:matchup_matchparen_hi_surround_always = 1
+let g:matchup_matchparen_deferred_show_delay = 50
+let g:matchup_matchparen_deferred_hide_delay = 50
+
+" rainbow parentheses
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+
+autocmd FileType * RainbowParentheses
 
 " vim-journal
 autocmd BufNewFile,BufRead *.note setlocal ft=journal
