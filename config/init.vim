@@ -782,9 +782,9 @@ highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#3f3030
 highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#3f3030
 
 " gitgutter
-highlight GitGutterAdd ctermbg=none guibg=none
-highlight GitGutterChange ctermbg=none guibg=none
-highlight GitGutterDelete ctermbg=none guibg=none
+highlight GitGutterAdd ctermfg=2 ctermbg=none guifg=#009900 guibg=none
+highlight GitGutterChange ctermfg=3 ctermbg=none guifg=#bbbb00 guibg=none
+highlight GitGutterDelete ctermfg=1 ctermbg=none guifg=#ff2222 guibg=none
 
 " autocompletion popup menu
 highlight PmenuSel guibg=#303030
