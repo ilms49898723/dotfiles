@@ -141,7 +141,7 @@ function! MyTabFilename(n)
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && len(fname) > 30 ? fname[0:6] :
+       \ &ft == 'git' && len(fname) == 40 ? 'Commit ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -176,7 +176,7 @@ function! MyFilename()
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && len(fname) > 30 ? fname[0:6] :
+       \ &ft == 'git' && len(fname) == 40 ? 'Commit ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]') .
        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
        \ ('' != MyModified() ? ' ' . MyModified() : '')
