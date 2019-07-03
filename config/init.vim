@@ -140,8 +140,9 @@ function! MyTabFilename(n)
        \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
+       \ fname =~ '--graph' ? 'Git Graph' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && len(fname) == 40 ? 'Commit ' . fname[0:6] :
+       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit' :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -175,8 +176,9 @@ function! MyFilename()
        \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
+       \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && len(fname) == 40 ? 'Commit ' . fname[0:6] :
+       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]') .
        \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
        \ ('' != MyModified() ? ' ' . MyModified() : '')
