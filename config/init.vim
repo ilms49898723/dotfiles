@@ -27,6 +27,9 @@ endif
 call plug#begin(s:plugin_dir)
 
 Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
@@ -53,8 +56,12 @@ Plug 'soramugi/auto-ctags.vim'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'xolox/vim-notes'
 
+Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
 if isdirectory('/usr/local/opt/fzf')
@@ -338,7 +345,7 @@ let g:vimshell_force_overwrite_statusline = 0
 try
   let g:deoplete#enable_at_startup = 1
 
-  call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+  call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 
   inoremap <silent> <expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
@@ -524,10 +531,24 @@ let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
 " vim-journal
-autocmd BufNewFile,BufRead *.note setlocal ft=journal
-autocmd BufNewFile,BufRead *.note setlocal tw=0
 autocmd BufNewFile,BufRead *.journal setlocal ft=journal
 autocmd BufNewFile,BufRead *.journal setlocal tw=0
+
+" vim-notes
+let s:vim_note_dir = expand('~/Documents/Notes')
+if !isdirectory(s:vim_note_dir)
+    call mkdir(s:vim_note_dir, 'p')
+fi
+
+let g:notes_directories = ['~/Documents/Notes']
+let g:notes_suffix = '.note'
+let g:notes_word_boundaries = 1
+let g:notes_smart_quotes = 0
+let g:notes_tab_indents = 0
+let g:notes_alt_indents = 0
+
+autocmd BufNewFile,BufRead *.note setlocal ft=notes
+autocmd BufNewFile,BufRead *.note setlocal tw=0
 
 " Sets how many lines of history VIM has to remember
 set history=10000
@@ -787,7 +808,7 @@ highlight GitGutterChange cterm=bold gui=bold ctermfg=3 ctermbg=none guifg=#bbbb
 highlight GitGutterDelete cterm=bold gui=bold ctermfg=1 ctermbg=none guifg=#ff2222 guibg=none
 
 " autocompletion popup menu
-highlight Pmenu guifg=#808080 guibg=#3a3a3a
+highlight Pmenu guifg=#8a8a8a guibg=#3a3a3a
 highlight PmenuSel guifg=#efefef guibg=#2c2c2c
 highlight PmenuSBar guifg=#2f2f2f guibg=#2f2f2f
 
