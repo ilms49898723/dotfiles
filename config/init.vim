@@ -566,9 +566,9 @@ set shell=$SHELL
 set termencoding=utf-8
 set encoding=utf-8
 
-" Set 11 lines to the cursor - when moving vertically using j/k
-set scrolloff=11
-set sidescrolloff=11
+" Set lines to the cursor - when moving vertically using j/k
+set scrolloff=10
+set sidescrolloff=10
 
 " Turn on the Wild menu
 set wildmenu
