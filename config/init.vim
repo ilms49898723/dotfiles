@@ -797,8 +797,8 @@ highlight Normal ctermbg=none guibg=none
 " cursor line
 set cursorline
 highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none guibg=none
-highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#3f3030
-highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#3f3030
+highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#323232
+highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#323232
 
 " gitgutter
 highlight GitGutterAdd cterm=bold gui=bold ctermfg=2 ctermbg=none guifg=#009900 guibg=none
