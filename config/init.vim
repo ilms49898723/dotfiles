@@ -28,8 +28,6 @@ call plug#begin(s:plugin_dir)
 
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
@@ -56,6 +54,7 @@ Plug 'soramugi/auto-ctags.vim'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 
 Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
@@ -329,13 +328,13 @@ function! MyUTF8Code()
 
   let command_result = matchstr(utfseq, '\v[0-9a-zA-Z]+([ ][0-9a-zA-Z]+)*([ ][0-9a-zA-Z]+)*')
   if len(command_result) <= 2
-      return '0x0000' . command_result
+    return '0x0000' . command_result
   elseif len(command_result) <= 5
-      let codes = split(command_result, ' ', 0)
-      return '0x00' . join(codes, '')
+    let codes = split(command_result, ' ', 0)
+    return '0x00' . join(codes, '')
   else
-      let codes = split(command_result, ' ', 0)
-      return '0x' . join(codes, '')
+    let codes = split(command_result, ' ', 0)
+    return '0x' . join(codes, '')
   endif
 endfunction
 
@@ -344,15 +343,14 @@ let g:vimshell_force_overwrite_statusline = 0
 " deoplete
 try
   let g:deoplete#enable_at_startup = 1
-
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
-
-  inoremap <silent> <expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
 catch
 endtry
+
+inoremap <silent> <expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#mappings#manual_complete()
 
 function! s:check_back_space() abort "{{{
   let col = col('.') - 1
@@ -500,7 +498,7 @@ nmap <leader>a <Plug>(EasyAlign)
 " auto-ctags
 let s:ctags_dir = expand('~/.ctags_files')
 if !isdirectory(s:ctags_dir)
-    call mkdir(s:ctags_dir, 'p')
+  call mkdir(s:ctags_dir, 'p')
 endif
 let g:auto_ctags = 0
 let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn' ]
@@ -537,7 +535,7 @@ autocmd BufNewFile,BufRead *.journal setlocal tw=0
 " vim-notes
 let s:vim_note_dir = expand('~/Documents/Notes')
 if !isdirectory(s:vim_note_dir)
-    call mkdir(s:vim_note_dir, 'p')
+  call mkdir(s:vim_note_dir, 'p')
 endif
 
 let g:notes_directories = ['~/Documents/Notes']
@@ -730,7 +728,7 @@ noremap <silent> <leader>p :setlocal paste!<CR>
 
 let s:undo_dir = expand('~/.local/share/nvim/undodir')
 if !isdirectory(s:undo_dir)
-    call mkdir(s:undo_dir, 'p')
+  call mkdir(s:undo_dir, 'p')
 endif
 set undodir=~/.local/share/nvim/undodir
 set undofile
