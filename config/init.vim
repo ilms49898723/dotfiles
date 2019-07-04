@@ -806,8 +806,8 @@ highlight GitGutterChange cterm=bold gui=bold ctermfg=3 ctermbg=none guifg=#bbbb
 highlight GitGutterDelete cterm=bold gui=bold ctermfg=1 ctermbg=none guifg=#ff2222 guibg=none
 
 " autocompletion popup menu
-highlight Pmenu guifg=#8a8a8a guibg=#3a3a3a
-highlight PmenuSel guifg=#efefef guibg=#2c2c2c
+highlight Pmenu guifg=#8a8a8a guibg=#3a3535
+highlight PmenuSel guifg=#fafafa guibg=#2a2a2a
 highlight PmenuSBar guifg=#2f2f2f guibg=#2f2f2f
 
 " warning msg
