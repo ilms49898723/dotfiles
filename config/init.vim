@@ -567,8 +567,8 @@ set termencoding=utf-8
 set encoding=utf-8
 
 " Set 7 lines to the cursor - when moving vertically using j/k
-set scrolloff=7
-set sidescrolloff=7
+set scrolloff=10
+set sidescrolloff=10
 
 " Turn on the Wild menu
 set wildmenu
@@ -750,6 +750,9 @@ vnoremap ; :
 
 " Completion options
 set completeopt=longest,menuone,preview
+
+" Pop up menu height
+set pumheight=9
 
 " Fold method
 " (use indent as default)
