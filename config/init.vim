@@ -806,9 +806,11 @@ highlight GitGutterChange cterm=bold gui=bold ctermfg=3 ctermbg=none guifg=#bbbb
 highlight GitGutterDelete cterm=bold gui=bold ctermfg=1 ctermbg=none guifg=#ff2222 guibg=none
 
 " autocompletion popup menu
-highlight Pmenu guifg=#858585 guibg=#3f3635
-highlight PmenuSel guifg=#fafafa guibg=#2e2c2c
-highlight PmenuSBar guifg=#2f2f2f guibg=#2f2f2f
+" referenced from jetBrains IDE
+highlight Pmenu guifg=#88898a guibg=#3c3f41
+highlight PmenuSel guifg=#fafafa guibg=#4b4e50
+highlight PmenuSBar guifg=#3c3f41 guibg=#3c3f41
+highlight PmenuThumb guifg=#595b5d guibg=#595b5d
 
 " warning msg
 highlight WarningMsg ctermbg=none guibg=none
