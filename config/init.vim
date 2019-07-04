@@ -752,7 +752,7 @@ vnoremap ; :
 set completeopt=longest,menuone,preview
 
 " Pop up menu height
-set pumheight=10
+set pumheight=9
 
 " Fold method
 " (use indent as default)
