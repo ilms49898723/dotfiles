@@ -538,7 +538,7 @@ autocmd BufNewFile,BufRead *.journal setlocal tw=0
 let s:vim_note_dir = expand('~/Documents/Notes')
 if !isdirectory(s:vim_note_dir)
     call mkdir(s:vim_note_dir, 'p')
-fi
+endif
 
 let g:notes_directories = ['~/Documents/Notes']
 let g:notes_suffix = '.note'
