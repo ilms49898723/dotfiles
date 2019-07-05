@@ -759,8 +759,10 @@ set pumheight=9
 set foldenable
 set foldmethod=indent
 set foldlevelstart=99
+set foldignore=''
+set foldminlines=0
 
-noremap zz <Esc>za
+noremap zz za
 
 " File type completion options
 
