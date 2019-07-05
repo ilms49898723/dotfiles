@@ -487,7 +487,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 " gitgutter
 set signcolumn=yes
-let g:gitgutter_max_signs = 1024
+let g:gitgutter_max_signs = 2048
 map ]h <Plug>GitGutterNextHunk
 map [h <Plug>GitGutterPrevHunk
 
@@ -517,7 +517,7 @@ let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitco
 autocmd BufWritePre * StripWhitespace
 
 " rainbow parentheses
-let g:rainbow#max_level = 16
+let g:rainbow#max_level = 32
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
@@ -541,7 +541,7 @@ endif
 let g:notes_directories = ['~/Documents/Notes']
 let g:notes_suffix = '.note'
 let g:notes_word_boundaries = 1
-let g:notes_smart_quotes = 0
+let g:notes_smart_quotes = 1
 let g:notes_tab_indents = 0
 let g:notes_alt_indents = 0
 
@@ -625,8 +625,8 @@ syntax enable
 
 set background=dark
 
-" Maximum number of lines to try and highlight
-set synmaxcol=1024
+" Maximum number of columns to try and highlight
+set synmaxcol=2048
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -760,13 +760,15 @@ set foldenable
 set foldmethod=indent
 set foldlevelstart=99
 
+noremap zz <Esc>za
+
 " File type completion options
 
 let python_highlight_all = 1
 
 autocmd FileType python setlocal completeopt-=preview
 autocmd FileType python setlocal tabstop=4
-autocmd FileType python syn keyword pythonDecorator True None False self
+autocmd FileType python syn keyword pythonDecorator True False None self
 
 autocmd BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
@@ -787,7 +789,7 @@ syntax enable
 syntax on
 
 " color scheme
-let g:rehash256 = 1
+" let g:rehash256 = 1
 
 try
   set termguicolors
@@ -795,6 +797,7 @@ try
 catch
 endtry
 
+" Overwrite some highlighting
 highlight Normal ctermbg=none guibg=none
 
 " cursor line
@@ -848,8 +851,6 @@ set noshowmode
 set nojoinspaces
 
 set virtualedit=block
-
-set secure
 
 set modeline
 set modelines=2
