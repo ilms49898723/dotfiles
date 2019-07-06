@@ -2,6 +2,12 @@
 
 set nocompatible
 
+" True color
+try
+  set termguicolors
+catch
+endtry
+
 " leader settings
 let mapleader = ","
 let g:mapleader = ","
@@ -177,6 +183,9 @@ endfunction
 
 function! MyFilename()
   let fname = expand('%:t')
+  if winwidth('.') < 20
+    return ''
+  endif
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
        \ fname =~ '__Gundo__' ? '[Gundo]' :
        \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
@@ -191,6 +200,9 @@ function! MyFilename()
 endfunction
 
 function! MyLineInfo()
+  if winwidth('.') < 35
+    return ''
+  endif
   if winwidth('.') < 50
     let shortinfo = printf('%d/%d:%d/%d', col('.'), col('$'), line('.'), line('$'))
     return shortinfo
