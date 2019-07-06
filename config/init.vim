@@ -586,9 +586,14 @@ autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
 
-" FZF
-noremap <A-f> :FZF<CR>
-noremap <F9>  :FZF<CR>
+" FZF.vim
+noremap <silent> <A-f> :FZF<CR>
+
+function! s:fzf_statusline()
+  return ''
+endfunction
+
+autocmd User FzfStatusLine call <SID>fzf_statusline()
 
 " Gundo
 noremap <silent> <leader>u :GundoToggle<CR>
@@ -697,6 +702,7 @@ let g:auto_ctags_tags_name = 'tags'
 let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " tagbar
+nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_width = 32
 let g:tagbar_autofocus = 1
