@@ -120,6 +120,7 @@ let g:lightline = {
   \     'filetype': 'MyFileType',
   \     'fileencoding': 'MyFileEncoding',
   \     'mode': 'MyMode',
+  \     'percent': 'MyPercent',
   \     'charcode': 'MyCharCode',
   \     'utf8code': 'MyUTF8Code',
   \     'gitgutter': 'MyGitGutter',
@@ -244,6 +245,14 @@ endfunction
 
 function! MyRawFileEncoding()
   return (&fenc !=# '' ? &fenc : &enc)
+endfunction
+
+function! MyPercent()
+  let required_space = 6
+  if winwidth('.') < required_space
+    return ''
+  endif
+  return printf('%3d%%', 100 * line('.') / line('$'))
 endfunction
 
 function! MyMode()
@@ -764,9 +773,6 @@ set ruler
 
 " Height of the command bar
 set cmdheight=1
-
-" Window min width
-set winminwidth=8
 
 " A buffer becomes hidden when it is abandoned
 set hidden
