@@ -116,9 +116,9 @@ let g:lightline = {
   \     'lineinfo': 'MyLineInfo',
   \     'fugitive': 'MyFugitive',
   \     'filename': 'MyFilename',
-  \     'fileformat': 'MyFileformat',
-  \     'filetype': 'MyFiletype',
-  \     'fileencoding': 'MyFileencoding',
+  \     'fileformat': 'MyFileFormat',
+  \     'filetype': 'MyFileType',
+  \     'fileencoding': 'MyFileEncoding',
   \     'mode': 'MyMode',
   \     'charcode': 'MyCharCode',
   \     'utf8code': 'MyUTF8Code',
@@ -142,6 +142,10 @@ let g:lightline.subseparator = {'left': '>', 'right': '<'}
 " setting tab seperator
 let g:lightline.tabline_separator = {'left': '', 'right': ''}
 let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
+
+" lazy update some variables
+autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_current_filename = MyRawFileName()
+autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_mode_length = (MyRawMode() == '' ? 0 : 10)
 
 function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
@@ -173,18 +177,10 @@ function! MyTabsInfo()
   return tabsinfo
 endfunction
 
-function! MyModified()
-  return &ft =~ 'help' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
-endfunction
-
-function! MyReadonly()
-  return &ft !~? 'help' && &readonly ? '[R]' : ''
-endfunction
-
-function! MyFilename()
-  let fname = expand('%:t')
-  if winwidth('.') < 30
-    return ''
+function! MyFilenameGetter()
+  let fname = get(b:, 'raw_current_filename', '')
+  if fname != ''
+    return fname
   endif
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
        \ fname =~ '__Gundo__' ? '[Gundo]' :
@@ -194,25 +190,208 @@ function! MyFilename()
        \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
        \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
-       \ ('' != fname ? fname : '[New File]') .
-       \ ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
-       \ ('' != MyModified() ? ' ' . MyModified() : '')
+       \ ('' != fname ? fname : '[New File]')
+endfunction
+
+function! MyRawMode()
+  let fname = expand('%:t')
+  return fname =~ '__Tagbar__' ? '' :
+       \ fname =~ '__Gundo__' ? '' :
+       \ fname =~ '__Gundo_Preview__' ? '' :
+       \ fname =~ 'NERD_tree' ? '' :
+       \ &ft =~ 'vimshell' ? '' :
+       \ 'RawMode'
+endfunction
+
+function! MyRawFileName()
+  let fname = expand('%:t')
+  return fname =~ '__Tagbar__' ? '[Tagbar]' :
+       \ fname =~ '__Gundo__' ? '[Gundo]' :
+       \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
+       \ fname =~ 'NERD_tree' ? '[NERDTree]' :
+       \ fname =~ '#FZF' ? '[FZF]' :
+       \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
+       \ &ft =~ 'vimshell' ? '[VimShell]' :
+       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
+       \ ('' != fname ? fname : '[New File]')
+endfunction
+
+function! MyRawReadonly()
+  return (&readonly ? ' [R]' : '')
+endfunction
+
+function! MyRawModifiable()
+  return (&modifiable ? '' : ' [-]')
+endfunction
+
+function! MyRawFileStat()
+  let is_modifiable = &modifiable
+  let is_readonly = &readonly
+  if is_modifiable || is_readonly
+    return ' [x] [x]'
+  else
+    return ' [x]'
+  endif
+endfunction
+
+function! MyRawFileType()
+  return (&filetype !=# '' ? &filetype : 'none')
+endfunction
+
+function! MyRawFileFormat()
+  return &fileformat
+endfunction
+
+function! MyRawFileEncoding()
+  return (&fenc !=# '' ? &fenc : &enc)
+endfunction
+
+function! MyMode()
+  let required_space = 16
+  if winwidth('.') < required_space
+    return ''
+  endif
+  let fname = expand('%:t')
+  return fname =~ '__Tagbar__' ? '' :
+       \ fname =~ '__Gundo__' ? '' :
+       \ fname =~ '__Gundo_Preview__' ? '' :
+       \ fname =~ 'NERD_tree' ? '' :
+       \ &ft =~ 'vimshell' ? '' :
+       \ lightline#mode()
+endfunction
+
+function! MyFilename()
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let required_space = len(fname) + mode_space + 8
+  if winwidth('.') < required_space
+    return ''
+  endif
+  let fname = expand('%:t')
+  let ret_fname = fname =~ '__Tagbar__' ? '[Tagbar]' :
+                \ fname =~ '__Gundo__' ? '[Gundo]' :
+                \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
+                \ fname =~ 'NERD_tree' ? '[NERDTree]' :
+                \ fname =~ '#FZF' ? '[FZF]' :
+                \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
+                \ &ft =~ 'vimshell' ? '[VimShell]' :
+                \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
+                \ ('' != fname ? fname : '[New File]')
+  let ret_fname = ret_fname . ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
+                \ ('' != MyModified() ? ' ' . MyModified() : '')
+  return ret_fname
+endfunction
+
+function! MyReadonly()
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + mode_space + readmodify_space + 8
+  if winwidth('.') < required_space
+    return ''
+  endif
+  return (&readonly ? '[R]' : '')
+endfunction
+
+function! MyModified()
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + mode_space + readmodify_space + 8
+  if winwidth('.') < required_space
+    return ''
+  endif
+  return (&modified ? '[+]' : &modifiable ? '' : '[-]')
 endfunction
 
 function! MyLineInfo()
-  if winwidth('.') < 40
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = 0
+  " Not enough
+  let required_space = len(fname) + mode_space + readmodify_space + 18
+  if winwidth('.') < required_space
     return ''
   endif
-  if winwidth('.') < 50
+  " VeryShort
+  let required_space = len(fname) + mode_space + readmodify_space + 27
+  if winwidth('.') < required_space
+    let shortinfo = printf('%d:%d', col('.'), line('.'))
+    return shortinfo
+  endif
+  " Short
+  let required_space = len(fname) + mode_space + readmodify_space + 29
+  if winwidth('.') < required_space
     let shortinfo = printf('%d/%d:%d/%d', col('.'), col('$'), line('.'), line('$'))
     return shortinfo
   endif
+  " Long
   let lineinfo = printf('%2d/%-2d : %d/%d', col('.'), col('$'), line('.'), line('$'))
   return lineinfo
 endfunction
 
+function! MyFileType()
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b) +
+  "   line(21) + ft(z) + ftsp(2)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let ftype = MyRawFileType()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + len(ftype) + mode_space + readmodify_space + 31
+  if winwidth('.') < required_space
+    return ''
+  endif
+  return (&filetype !=# '' ? &filetype : 'none')
+endfunction
+
+function! MyFileFormat()
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b) +
+  "   line(21) + ft(z) + ftsp(2) + ff(w) + ffsp(2) + sep(1)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let ftype = MyRawFileType()
+  let fformat = MyRawFileFormat()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + len(ftype) + len(fformat) + mode_space + readmodify_space + 34
+  if winwidth('.') < required_space
+    return ''
+  endif
+  return &fileformat
+endfunction
+
+function! MyFileEncoding()
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b) + line(21) +
+  "   ft(z) + ftsp(2) + ff(w) + ffsp(2) + fe(u) + fesp(2) + sep(2)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let ftype = MyRawFileType()
+  let fformat = MyRawFileFormat()
+  let fencoding = MyRawFileEncoding()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + len(ftype) + len(fformat) + len(fencoding) + mode_space + readmodify_space + 37
+  if winwidth('.') < required_space
+    return ''
+  endif
+  return (&fenc !=# '' ? &fenc : &enc)
+endfunction
+
 function! MyFugitive()
-  if winwidth('.') < 90
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b) + line(21)
+  "   ft(z) + ftsp(2) + ff(w) + ffsp(2) + fe(u) + fesp(2) +
+  "   br(12) + brsp(2) + sep(3)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let ftype = MyRawFileType()
+  let fformat = MyRawFileFormat()
+  let fencoding = MyRawFileEncoding()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + len(ftype) + len(fformat) + len(fencoding) + mode_space + readmodify_space + 52
+  if winwidth('.') < required_space
     return ''
   endif
   try
@@ -226,39 +405,22 @@ function! MyFugitive()
   return ''
 endfunction
 
-function! MyFiletype()
-  return winwidth('.') >= 60 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-  return winwidth('.') >= 70 ? &fileformat : ''
-endfunction
-
-function! MyFileencoding()
-  return winwidth('.') >= 80 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! MyMode()
-  let fname = expand('%:t')
-  return fname =~ '__Tagbar__' ? '' :
-       \ fname =~ '__Gundo__' ? '' :
-       \ fname =~ '__Gundo_Preview__' ? '' :
-       \ fname =~ 'NERD_tree' ? '' :
-       \ &ft =~ 'vimshell' ? 'VimShell' :
-       \ lightline#mode()
-endfunction
-
-let g:tagbar_status_func = 'TagbarStatusFunc'
-
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-  let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
 function! MyGitGutter()
-  if ! exists('*GitGutterGetHunkSummary')
+  if !exists('*GitGutterGetHunkSummary')
         \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') < 100
+    return ''
+  endif
+  " percent(6) + mode(x) + Fn(y) + Fnsp(2) + Read(a) + Mod(b) + line(21) +
+  "   ft(z) + ftsp(2) + ff(w) + ffsp(2) + fe(u) + fesp(2) +
+  "   br(12) + brsp(2) + gut(17) + gutsp(2) + sep(4)
+  let mode_space = get(b:, 'raw_mode_length', 0)
+  let fname = MyFilenameGetter()
+  let ftype = MyRawFileType()
+  let fformat = MyRawFileFormat()
+  let fencoding = MyRawFileEncoding()
+  let readmodify_space = len(MyRawFileStat())
+  let required_space = len(fname) + len(ftype) + len(fformat) + len(fencoding) + mode_space + readmodify_space + 72
+  if winwidth('.') < required_space
     return ''
   endif
   let symbols = [
@@ -349,6 +511,13 @@ function! MyUTF8Code()
     return '0x' . join(codes, '')
   endif
 endfunction
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+  let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
 
 let g:vimshell_force_overwrite_statusline = 0
 
@@ -595,6 +764,9 @@ set ruler
 
 " Height of the command bar
 set cmdheight=1
+
+" Window min width
+set winminwidth=8
 
 " A buffer becomes hidden when it is abandoned
 set hidden
