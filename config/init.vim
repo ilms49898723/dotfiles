@@ -183,7 +183,7 @@ endfunction
 
 function! MyFilename()
   let fname = expand('%:t')
-  if winwidth('.') < 20
+  if winwidth('.') < 30
     return ''
   endif
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
@@ -200,7 +200,7 @@ function! MyFilename()
 endfunction
 
 function! MyLineInfo()
-  if winwidth('.') < 35
+  if winwidth('.') < 40
     return ''
   endif
   if winwidth('.') < 50
