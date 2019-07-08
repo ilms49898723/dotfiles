@@ -587,10 +587,17 @@ function! s:interactive_settings()
 endfunction
 
 " FZF.vim
-noremap <silent> <A-f> :FZF<CR>
+" Open files
+noremap <silent> <A-o> :FZF<CR>
+" List windows
+noremap <silent> <A-w> :Windows<CR>
+" List buffers
+noremap <silent> <A-b> :Buffers<CR>
+" Find line in current buffer
+noremap <silent> <A-f> :BLines<CR>
 
 function! s:fzf_statusline()
-  return ''
+  return
 endfunction
 
 autocmd User FzfStatusLine call <SID>fzf_statusline()
@@ -814,7 +821,9 @@ set matchtime=2
 set noerrorbells
 set novisualbell
 set t_vb=
-set tm=500
+
+" Timeout length
+set timeoutlen=500
 
 " Enable syntax highlighting
 syntax enable
@@ -1071,6 +1080,9 @@ noremap <silent> <leader>m :nohls<CR>
 
 " remap space
 nnoremap <Space> <Esc>zz
+
+" remap B to build using :make!
+nnoremap B :make!<CR>
 
 " remap W and Q
 nnoremap W :w<CR>
