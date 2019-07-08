@@ -1067,6 +1067,12 @@ set nostartofline
 " disable ins-completion-menu messages
 set shortmess+=c
 
+" disable search messages (when reach top or bottom)
+set shortmess+=s
+
+" re-enable some messages
+set shortmess-=n
+
 " disable gui cursor
 set guicursor=
 
