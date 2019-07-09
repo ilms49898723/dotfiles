@@ -8,7 +8,7 @@ try
 catch
 endtry
 
-" leader settings
+" Leader key settings
 let mapleader = ","
 let g:mapleader = ","
 
@@ -85,7 +85,7 @@ filetype plugin indent on
 
 " Plugin Settings
 
-" lightline
+" Plugin: lightline
 let g:lightline = {
   \   'colorscheme': 'jellybeans',
   \   'active': {
@@ -133,18 +133,18 @@ let g:lightline = {
   \   }
   \ }
 
-" let inactive = active
+" Let inactive = active
 let g:lightline.inactive = g:lightline.active
-" let tab.inactive = tab.active
+" Let tab.inactive = tab.active
 let g:lightline.tab.inactive = g:lightline.tab.active
-" setting seperator
+" Setting separator
 let g:lightline.separator = {'left': '', 'right': ''}
 let g:lightline.subseparator = {'left': '>', 'right': '<'}
-" setting tab seperator
+" Setting tab separator
 let g:lightline.tabline_separator = {'left': '', 'right': ''}
 let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 
-" lazy update some variables
+" Lazy update useful variables
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_current_filename = MyRawFileName()
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_mode_length = (MyRawMode() == '' ? 0 : 10)
 
@@ -530,7 +530,7 @@ let g:tagbar_status_func = 'TagbarStatusFunc'
 
 let g:vimshell_force_overwrite_statusline = 0
 
-" deoplete
+" Plugin: deoplete
 try
   let g:deoplete#enable_at_startup = 1
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
@@ -542,12 +542,12 @@ inoremap <silent> <expr> <TAB>
   \ <SID>check_back_space() ? "\<TAB>" :
   \ deoplete#mappings#manual_complete()
 
-function! s:check_back_space() abort "{{{
+function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
-endfunction "}}}
+endfunction
 
-" Enable omni completion.
+" Enable omni completion
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -558,19 +558,19 @@ autocmd FileType cc setlocal omnifunc=ccomplete#Complete
 autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-" For conceal markers.
+" For conceal markers
 if has('conceal')
   set conceallevel=0 concealcursor=niv
 endif
 
-" vimshell
+" Plugin: vimshell
 let g:vimshell_environment_term = 'xterm256'
 let g:vimshell_disable_escape_highlight = 1
 let g:vimshell_interactive_update_time = 200
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt = $USER."$ "
 
-" Initialize execute file list.
+" Initialize execute file list
 let g:vimshell_execute_file_list = {}
 let g:vimshell_execute_file_list['rb'] = 'ruby'
 let g:vimshell_execute_file_list['pl'] = 'perl'
@@ -586,7 +586,7 @@ autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
 
-" FZF.vim
+" Plugin: FZF.vim
 " Open files
 noremap <silent> <A-o> :FZF<CR>
 " List windows
@@ -603,12 +603,12 @@ endfunction
 
 autocmd User FzfStatusLine call <SID>fzf_statusline()
 
-" Gundo
+" Plugin: Gundo
 noremap <silent> <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 
-" easymotion
+" Plugin: easymotion
 map  <leader>f <Plug>(easymotion-bd-f)
 nmap <leader>f <Plug>(easymotion-overwin-f)
 map  <leader>s <Plug>(easymotion-bd-f2)
@@ -618,16 +618,17 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 map  <leader>l <Plug>(easymotion-bd-jk)
 nmap <leader>l <Plug>(easymotion-overwin-line)
 
-" incsearch
+" Plugin: incsearch
 " map / <Plug>(incsearch-forward)
 " map ? <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
-" incsearch with fuzzy & easymotion
+
+" With fuzzy & easymotion
 " map z/ <Plug>(incsearch-fuzzy-/)
 " map z? <Plug>(incsearch-fuzzy-?)
 " map zg/ <Plug>(incsearch-fuzzy-stay)
 
-" anzu
+" Plugin: anzu
 map n <Plug>(anzu-n-with-echo)
 map N <Plug>(anzu-N-with-echo)
 map * <Plug>(anzu-star-with-echo)
@@ -638,14 +639,15 @@ let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 
 let g:anzu_status_format = 'Search for %p (%i of %l)'
 
-" vim-slash with anzu
+" Plugin: vim-slash
+" Work with anzu
 map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
 
-" emmet-vim
+" Plugin: emmet-vim
 let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
 
-" fugitive
+" Plugin: fugitive
 nnoremap <silent> <leader>gd :<C-u>Gdiff<CR>
 nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>GM
 nnoremap <silent> <leader>gl :<C-u>Glog<CR>
@@ -656,11 +658,11 @@ nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <silent> <leader>gN :<C-u>w<CR>:Git now --all<CR>
 
-" vim-gv
+" Plugin: vim-gv
 nnoremap <silent> <C-h> :GV<CR>
 nnoremap <silent> <leader>b :GV<CR>
 
-" nerdcommenter
+" Plugin: NERDCommenter
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
@@ -673,7 +675,7 @@ let g:NERDCustomDelimiters = {'python': {'left': '#'}}
 
 map <silent> <leader>/ <Plug>NERDCommenterToggle
 
-" nerdtree
+" Plugin: NERDTree
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore = [
@@ -691,17 +693,17 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
   \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-" gitgutter
+" Plugin: gitgutter
 set signcolumn=yes
 let g:gitgutter_max_signs = 2048
 map ]h <Plug>GitGutterNextHunk
 map [h <Plug>GitGutterPrevHunk
 
-" vim-easy-align
+" Plugin: vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
 
-" auto-ctags
+" Plugin: auto-ctags
 let s:ctags_dir = expand('~/.ctags_files')
 if !isdirectory(s:ctags_dir)
   call mkdir(s:ctags_dir, 'p')
@@ -712,24 +714,24 @@ let g:auto_ctags_filetype_mode = 1
 let g:auto_ctags_tags_name = 'tags'
 let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
-" tagbar
+" Plugin: tagbar
 nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_width = 32
 let g:tagbar_autofocus = 1
 
-" vim-better-whitespace
+" Plugin: vim-better-whitespace
 let g:current_line_whitespace_disabled_soft = 1
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
 
-" rainbow parentheses
+" Plugin: rainbow parentheses
 let g:rainbow#max_level = 32
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
 
-" limelight
+" Plugin: limelight
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
@@ -737,11 +739,11 @@ let g:limelight_conceal_guifg = '#777777'
 
 nnoremap <silent> <C-l> :Limelight!!<CR>
 
-" vim-journal
+" Plugin: vim-journal
 autocmd BufNewFile,BufRead *.journal setlocal ft=journal
 autocmd BufNewFile,BufRead *.journal setlocal tw=0
 
-" vim-notes
+" Plugin: vim-notes
 let s:vim_note_dir = expand('~/Documents/Notes')
 if !isdirectory(s:vim_note_dir)
   call mkdir(s:vim_note_dir, 'p')
@@ -757,7 +759,9 @@ let g:notes_alt_indents = 0
 autocmd BufNewFile,BufRead *.note setlocal ft=notes
 autocmd BufNewFile,BufRead *.note setlocal tw=0
 
-" Sets how many lines of history VIM has to remember
+" General Settings
+"
+" Set how many lines of history VIM has to remember
 set history=10000
 
 " Enable filetype plugins
@@ -768,9 +772,10 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" TTY Fast
 set ttyfast
 
-" shell
+" Shell
 set shell=$SHELL
 set termencoding=utf-8
 set encoding=utf-8
@@ -779,7 +784,7 @@ set encoding=utf-8
 set scrolloff=10
 set sidescrolloff=10
 
-" Turn on the Wild menu
+" Turn on the wild menu
 set wildmenu
 set wildignorecase
 
@@ -787,7 +792,7 @@ set wildignorecase
 set wildignore=*.o,*~,*.pyc
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
-"Always show current position
+" Always show current position
 set ruler
 
 " Height of the command bar
@@ -798,8 +803,11 @@ set hidden
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
+
+" Wrap settings
 set whichwrap+=<,>,h,l
 
+" Mouse settings
 set mouse=""
 set mousehide
 
@@ -834,18 +842,19 @@ set timeoutlen=500
 " Enable syntax highlighting
 syntax enable
 
+" Set dark background
 set background=dark
 
 " Maximum number of columns to try and highlight
 set synmaxcol=2048
 
-" Set utf8 as standard encoding and en_US as the standard language
+" Set utf8 as standard encoding
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,mac,dos
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off, since most stuff is in SVN, git, etc., anyway...
 set nobackup
 set nowb
 set noswapfile
@@ -856,7 +865,7 @@ set number
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" Be smart when using tabs
 set smarttab
 
 " 1 tab == 4 spaces
@@ -865,13 +874,14 @@ set tabstop=4
 set softtabstop=4
 set shiftround
 
-" Linebreak
+" Line break
 set lbr
 set tw=0
 
 " Auto indent
 set autoindent
 
+" Line wrap
 set wrap
 set display=lastline
 
@@ -937,6 +947,7 @@ noremap L $
 " Toggle paste mode on and off
 noremap <silent> <leader>p :setlocal paste!<CR>
 
+" Undo directory
 let s:undo_dir = expand('~/.local/share/nvim/undodir')
 if !isdirectory(s:undo_dir)
   call mkdir(s:undo_dir, 'p')
@@ -991,17 +1002,17 @@ autocmd FileType javascript setlocal nocindent
 
 autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
-" makefile
 autocmd FileType Makefile setlocal noexpandtab
 
-" c, cpp
-autocmd FileType c,cpp,cc setlocal cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+autocmd FileType c,cpp,cc setlocal cindent
+autocmd FileType c,cpp,cc setlocal comments=sr:/*,mb:*,el:*/,://
+autocmd FileType c,cpp,cc setlocal cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
 
-" general
+" Syntax
 syntax enable
 syntax on
 
-" color scheme
+" Colorscheme
 " let g:rehash256 = 1
 
 try
@@ -1013,51 +1024,52 @@ endtry
 " Overwrite some highlighting
 highlight Normal ctermbg=none guibg=none
 
-" cursor line
+" Cursor line
 set cursorline
 highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none guibg=none
 highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#323232
 highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#323232
 
-" gitgutter
+" Gitgutter
 highlight GitGutterAdd cterm=bold gui=bold ctermfg=2 ctermbg=none guifg=#009900 guibg=none
 highlight GitGutterChange cterm=bold gui=bold ctermfg=3 ctermbg=none guifg=#bbbb00 guibg=none
 highlight GitGutterDelete cterm=bold gui=bold ctermfg=1 ctermbg=none guifg=#ff2222 guibg=none
 
-" autocompletion popup menu
-" referenced from jetBrains IDE
+" Autocompletion popup menu
+" (referenced from jetBrains IDE)
 highlight Pmenu guifg=#88898a guibg=#3c3f41
 highlight PmenuSel guifg=#fafafa guibg=#4b4e50
 highlight PmenuSBar guifg=#3c3f41 guibg=#3c3f41
 highlight PmenuThumb guifg=#595b5d guibg=#595b5d
 
-" warning msg
+" Warning msg
 highlight WarningMsg ctermbg=none guibg=none
 
-" error msg
+" Error msg
 highlight Error ctermbg=none guibg=none
 highlight ErrorMsg ctermbg=none guibg=none
 
-" folding
+" Folding
 highlight Folded ctermbg=none guibg=none
 highlight FoldColumn ctermbg=none guibg=none
 
-" fillchars for vertical split
+" Fillchars for vertical split
 highlight VertSplit ctermbg=none guibg=none
 
-" fillchars
+" Fillchars for folding
 set fillchars=fold:\ ,
 
-" update time
+" Update time
 set updatetime=100
 
-" report
+" Report
 set report=65535
 
-" split settings
+" Split settings
 set splitright
 set splitbelow
 
+" Others
 set noshowcmd
 set hlsearch
 set noshowmode
@@ -1070,19 +1082,19 @@ set modelines=2
 
 set nostartofline
 
-" disable ins-completion-menu messages
+" Disable ins-completion-menu messages
 set shortmess+=c
 
-" disable search messages (when reach top or bottom)
+" Disable search messages (when reach top or bottom)
 set shortmess+=s
 
-" re-enable some messages
+" Re-enable some messages
 set shortmess-=n
 
-" disable gui cursor
+" Disable gui cursor
 set guicursor=
 
-" disable F1, K, q
+" Disable F1, K, q
 noremap <F1> <Nop>
 noremap K <Nop>
 noremap q <Nop>
@@ -1090,36 +1102,36 @@ noremap q <Nop>
 " <leader> + m to turn off search highlight
 noremap <silent> <leader>m :nohls<CR>
 
-" remap space
+" Remap space
 nnoremap <Space> <Esc>zz
 
-" remap B to build using :make!
+" Remap B to build using :make!
 nnoremap B :make!<CR>
 
-" remap W and Q
+" Remap W and Q
 nnoremap W :w<CR>
 nnoremap Q :q<CR>
 
-" remap Y to make it act like C, D
+" Remap Y to make it act like C, D
 nnoremap Y y$
 
-" reselect after shift
+" Reselect after shift
 vnoremap < <gv
 vnoremap > >gv
 
-" using tab to jumping between matching pairs
+" Using tab to jump between matching pairs
 nmap <Tab> %
 vmap <Tab> %
 
-" vimdiff option
+" Vimdiff option
 set diffopt=vertical
 
 let g:is_posix = 1
 
-" clear command output buffer once cursor moved
+" Clear command output buffer once cursor moved
 autocmd CursorMoved,InsertEnter,InsertLeave * echo ''
 
-" The prefix key.
+" The prefix key for tab operations
 nnoremap [Tag] <Nop>
 nmap t [Tag]
 " Tab jump, using t<tabnum>
@@ -1127,26 +1139,26 @@ for n in range(1, 9)
   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 
-" tc, tablast (new tab at last)
+" Operation: tc, tablast (new tab at last)
 noremap <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tx, tabclose (close tab)
+" Operation: tx, tabclose (close tab)
 noremap <silent> [Tag]x :tabclose<CR>
-" tn, tabnext (next tab)
+" Operation: tn, tabnext (next tab)
 noremap <silent> [Tag]n :tabnext<CR>
-" tb, tabprevious (previous tab)
+" Operation: tb, tabprevious (previous tab)
 noremap <silent> [Tag]b :tabprevious<CR>
-" te, tab edit
+" Operation: te, tab edit
 noremap [Tag]e :tabedit<Space>
-" tm, tab move
+" Operation: tm, tab move
 noremap [Tag]m :tabmove<Space>
-" tg, tabnext <tabnum>
+" Operation: tg, tabnext <tabnum>
 noremap [Tag]g :tabnext<Space>
 
 " Ctrl+N and Ctrl+P to switch tab in normal mode
 noremap <silent> <C-n> :tabnext<CR>
 noremap <silent> <C-p> :tabprevious<CR>
 
-" mappings to move lines
+" Mappings to move lines
 nnoremap <silent> <C-j> :m .+1<CR>==
 nnoremap <silent> <C-k> :m .-2<CR>==
 vnoremap <silent> <C-j> :m '>+1<CR>gv=gv
@@ -1157,13 +1169,13 @@ nnoremap <silent> <C-Up> :m .-2<CR>==
 vnoremap <silent> <C-Down> :m '>+1<CR>gv=gv
 vnoremap <silent> <C-Up> :m '<-2<CR>gv=gv
 
-" moving in insert mode
+" Moving cursor in insert mode
 inoremap <C-h> <C-o>h
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-l> <C-o>l
 
-" map C-d to Esc
+" Map C-d to Esc
 nnoremap <C-d> <Esc>
 inoremap <C-d> <Esc>
 vnoremap <C-d> <Esc>
