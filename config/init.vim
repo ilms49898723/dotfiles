@@ -595,6 +595,7 @@ noremap <silent> <A-w> :Windows<CR>
 noremap <silent> <A-b> :Buffers<CR>
 " Find line in current buffer
 noremap <silent> <A-f> :BLines<CR>
+noremap <silent> <C-g> :BLines<CR>
 
 function! s:fzf_statusline()
   return
@@ -635,6 +636,8 @@ map # <Plug>(anzu-sharp-with-echo)
 let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
 let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 
+let g:anzu_status_format = 'Searching %p (%i of %l)'
+
 " vim-slash with anzu
 map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
 
@@ -654,6 +657,7 @@ nnoremap <silent> <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <silent> <leader>gN :<C-u>w<CR>:Git now --all<CR>
 
 " vim-gv
+nnoremap <silent> <C-h> :GV<CR>
 nnoremap <silent> <leader>b :GV<CR>
 
 " nerdcommenter
@@ -730,6 +734,8 @@ let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
+
+nnoremap <silent> <C-l> :Limelight!!
 
 " vim-journal
 autocmd BufNewFile,BufRead *.journal setlocal ft=journal
@@ -975,7 +981,7 @@ let python_highlight_all = 1
 
 autocmd FileType python setlocal completeopt-=preview
 autocmd FileType python setlocal tabstop=4
-autocmd FileType python syn keyword pythonDecorator True False None self
+autocmd FileType python syn keyword pythonBuiltin self
 
 autocmd BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
