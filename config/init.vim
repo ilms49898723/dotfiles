@@ -79,7 +79,9 @@ endif
 call plug#end()
 
 " Required:
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 
 " Vim-plug script end
 
@@ -560,7 +562,8 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " For conceal markers
 if has('conceal')
-  set conceallevel=0 concealcursor=niv
+  set conceallevel=0
+  set concealcursor=niv
 endif
 
 " Plugin: vimshell
@@ -598,7 +601,6 @@ noremap <silent> <A-f> :BLines<CR>
 noremap <silent> <C-g> :BLines<CR>
 
 function! s:fzf_statusline()
-  return
 endfunction
 
 autocmd User FzfStatusLine call <SID>fzf_statusline()
@@ -1012,7 +1014,8 @@ autocmd FileType c,cpp,cc setlocal cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t
 syntax enable
 syntax on
 
-" Colorscheme
+" Colorscheme settings
+
 " let g:rehash256 = 1
 
 try
@@ -1041,6 +1044,12 @@ highlight Pmenu guifg=#88898a guibg=#3c3f41
 highlight PmenuSel guifg=#fafafa guibg=#4b4e50
 highlight PmenuSBar guifg=#3c3f41 guibg=#3c3f41
 highlight PmenuThumb guifg=#595b5d guibg=#595b5d
+
+" Statusline when wild menu popups
+highlight StatusLine gui=bold guifg=#88898a guibg=#2b2e30
+
+" Statusline wild menu selection
+highlight WildMenu gui=bold guifg=#fafafa guibg=#424547
 
 " Warning msg
 highlight WarningMsg ctermbg=none guibg=none
@@ -1098,6 +1107,9 @@ set guicursor=
 noremap <F1> <Nop>
 noremap K <Nop>
 noremap q <Nop>
+
+" <leader> + r to toggle relative line numbers
+noremap <silent> <leader>r :set rnu!<CR>
 
 " <leader> + m to turn off search highlight
 noremap <silent> <leader>m :nohls<CR>
