@@ -636,7 +636,7 @@ map # <Plug>(anzu-sharp-with-echo)
 let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
 let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 
-let g:anzu_status_format = 'Searching %p (%i of %l)'
+let g:anzu_status_format = 'Search for %p (%i of %l)'
 
 " vim-slash with anzu
 map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
@@ -735,7 +735,7 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
-nnoremap <silent> <C-l> :Limelight!!
+nnoremap <silent> <C-l> :Limelight!!<CR>
 
 " vim-journal
 autocmd BufNewFile,BufRead *.journal setlocal ft=journal
