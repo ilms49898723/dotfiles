@@ -1,5 +1,6 @@
 " NeoVim
 
+" Section: Preliminaries
 set nocompatible
 
 " True color
@@ -12,6 +13,7 @@ endtry
 let mapleader = ","
 let g:mapleader = ","
 
+" Section: Plugin Manager
 " Vim-plug Plugin Manager
 let s:base_dir = expand('~/.local/share/nvim')
 let s:plugin_dir = s:base_dir . '/plugged'
@@ -83,7 +85,7 @@ filetype on
 filetype plugin on
 filetype indent on
 
-" Plugin settings
+" Section: Plugin Settings
 " Plugin: lightline
 let g:lightline = {
   \   'colorscheme': 'jellybeans',
@@ -765,7 +767,7 @@ let g:notes_alt_indents = 0
 autocmd BufNewFile,BufRead *.note setlocal ft=notes
 autocmd BufNewFile,BufRead *.note setlocal tw=0
 
-" General settings
+" Section: General Settings
 " Set how many lines of history VIM has to remember
 set history=10000
 
@@ -996,7 +998,6 @@ let python_highlight_all = 1
 
 autocmd FileType python setlocal completeopt-=preview
 autocmd FileType python setlocal tabstop=4
-autocmd FileType python syn keyword pythonBuiltin self
 
 autocmd BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
