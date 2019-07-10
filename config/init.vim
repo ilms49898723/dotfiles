@@ -16,8 +16,7 @@ let g:mapleader = ","
 let s:base_dir = expand('~/.local/share/nvim')
 let s:plugin_dir = s:base_dir . '/plugged'
 
-" Vim-plug script begin
-
+" Vim-plug script
 if &compatible
   set nocompatible
 endif
@@ -84,10 +83,7 @@ filetype on
 filetype plugin on
 filetype indent on
 
-" Vim-plug script end
-
-" Plugin Settings
-
+" Plugin settings
 " Plugin: lightline
 let g:lightline = {
   \   'colorscheme': 'jellybeans',
@@ -643,7 +639,6 @@ let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 let g:anzu_status_format = 'Search for %p (%i of %l)'
 
 " Plugin: vim-slash
-
 let g:vim_slash_clear_command_output = 1
 let g:vim_slash_remap_n = 0
 
@@ -770,8 +765,7 @@ let g:notes_alt_indents = 0
 autocmd BufNewFile,BufRead *.note setlocal ft=notes
 autocmd BufNewFile,BufRead *.note setlocal tw=0
 
-" General Settings
-"
+" General settings
 " Set how many lines of history VIM has to remember
 set history=10000
 
@@ -879,7 +873,7 @@ set expandtab
 " Be smart when using tabs
 set smarttab
 
-" 1 tab == 4 spaces
+" Let 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
@@ -997,8 +991,7 @@ set foldminlines=0
 
 noremap zz za
 
-" File type completion options
-
+" File type options
 let python_highlight_all = 1
 
 autocmd FileType python setlocal completeopt-=preview
@@ -1024,9 +1017,6 @@ syntax enable
 syntax on
 
 " Colorscheme settings
-
-" let g:rehash256 = 1
-
 try
   set termguicolors
   colorscheme molokai
