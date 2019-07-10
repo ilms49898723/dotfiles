@@ -6,4 +6,4 @@
 syn keyword pythonSelfStatement self
 
 " Highlighting
-hi def link pythonSelfStatement Macro
+hi def pythonSelfStatement guifg=#C4BE89
