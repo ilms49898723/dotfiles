@@ -47,7 +47,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vim-slash'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
@@ -62,6 +61,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
+
+Plug 'ilms49898723/vim-slash'
 
 Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
@@ -642,8 +643,16 @@ let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 let g:anzu_status_format = 'Search for %p (%i of %l)'
 
 " Plugin: vim-slash
+
+let g:vim_slash_clear_command_output = 1
+let g:vim_slash_remap_n = 0
+
 " Work with anzu
 map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
+
+" Remap n and N to / and ? to suppress /pattern or ?pattern commandline output
+map <silent> n /<CR>
+map <silent> N ?<CR>
 
 " Plugin: emmet-vim
 let g:user_zen_removetag_key = ''
@@ -1078,9 +1087,11 @@ set report=65535
 set splitright
 set splitbelow
 
+" Highlight search
+set nohlsearch
+
 " Others
 set noshowcmd
-set hlsearch
 set noshowmode
 set nojoinspaces
 
@@ -1141,7 +1152,13 @@ set diffopt=vertical
 let g:is_posix = 1
 
 " Clear command output buffer once cursor moved
-autocmd CursorMoved,InsertEnter,InsertLeave * echo ''
+autocmd CursorMoved,InsertEnter,InsertLeave * call ClearCommandOutput()
+
+function! ClearCommandOutput()
+  if &hlsearch == 0
+    echo ''
+  endif
+endfunction
 
 " The prefix key for tab operations
 nnoremap [Tag] <Nop>
