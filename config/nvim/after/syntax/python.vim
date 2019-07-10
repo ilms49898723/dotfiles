@@ -6,4 +6,4 @@
 syn keyword pythonSelfStatement self
 
 " Highlighting
-hi def link pythonSelfStatement Define
+hi def link pythonSelfStatement Macro
