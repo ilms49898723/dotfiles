@@ -1190,13 +1190,21 @@ vnoremap <silent> <C-Down> :m '>+1<CR>gv=gv
 vnoremap <silent> <C-Up> :m '<-2<CR>gv=gv
 
 " Moving cursor in insert mode
-inoremap <C-h> <C-o>h
-inoremap <C-j> <C-o>j
-inoremap <C-k> <C-o>k
-inoremap <C-l> <C-o>l
+inoremap <C-h> <Left>
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
+inoremap <C-l> <Right>
 
-" Map C-d to Esc
+" C-a to the beginning of line, C-e to the end of line
+inoremap <C-a> <C-o>I
+inoremap <C-e> <C-o>A
+
+" Delete a word after or around the cursor (like opposite of C-w)
+inoremap <C-b> <C-o>daw
+
+" Map <C-d> to <Esc>
 nnoremap <C-d> <Esc>
 inoremap <C-d> <Esc>
 vnoremap <C-d> <Esc>
+snoremap <C-d> <Esc>
 cnoremap <C-d> <Esc>
