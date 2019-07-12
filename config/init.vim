@@ -1199,8 +1199,9 @@ inoremap <C-l> <Right>
 inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
 
-" Delete a word after or around the cursor (like opposite of C-w)
-inoremap <C-b> <C-o>daw
+" Delete a word around the cursor
+inoremap <C-w> <C-o>cw
+inoremap <C-b> <C-w>
 
 " Map <C-d> to <Esc>
 nnoremap <C-d> <Esc>
