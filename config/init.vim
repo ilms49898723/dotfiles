@@ -1,6 +1,10 @@
-" NeoVim
+" NeoVim Config File
+"
+" LittleBird
 
-" Section: Preliminaries
+
+" Section: Preliminaries {{{
+
 set nocompatible
 
 " True color
@@ -13,7 +17,11 @@ endtry
 let mapleader = ","
 let g:mapleader = ","
 
-" Section: Plugin Manager
+" }}}
+
+
+" Section: Plugin Manager {{{
+
 " Vim-plug Plugin Manager
 let s:base_dir = expand('~/.local/share/nvim')
 let s:plugin_dir = s:base_dir . '/plugged'
@@ -85,7 +93,11 @@ filetype on
 filetype plugin on
 filetype indent on
 
-" Section: Plugin Settings
+" }}}
+
+
+" Section: Plugin Settings {{{
+
 " Plugin: lightline
 let g:lightline = {
   \   'colorscheme': 'jellybeans',
@@ -528,7 +540,6 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
-
 let g:vimshell_force_overwrite_statusline = 0
 
 " Plugin: deoplete
@@ -588,7 +599,7 @@ autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
 
-" Plugin: FZF.vim
+" Plugin: fzf.vim
 " Open files
 noremap <silent> <A-o> :FZF<CR>
 " List windows
@@ -701,8 +712,12 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
   \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-autocmd FocusGained * silent NERDTreeRefreshRoot
-autocmd WinEnter * call CheckRefreshNERDTree()
+let g:LB_NERDTreeAutoRefresh = 0
+
+if g:LB_NERDTreeAutoRefresh == 1
+  autocmd FocusGained * silent NERDTreeRefreshRoot
+  autocmd WinEnter * call CheckRefreshNERDTree()
+endif
 
 function! CheckRefreshNERDTree()
   if &filetype =~ 'nerdtree'
@@ -776,7 +791,11 @@ let g:notes_alt_indents = 0
 autocmd BufNewFile,BufRead *.note setlocal ft=notes
 autocmd BufNewFile,BufRead *.note setlocal tw=0
 
-" Section: General Settings
+" }}}
+
+
+" Section: General Settings {{{
+
 " Set how many lines of history VIM has to remember
 set history=10000
 
@@ -887,9 +906,10 @@ set expandtab
 set smarttab
 
 " Let 1 tab == 4 spaces
-set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+
+set shiftwidth=4
 set shiftround
 
 " Line break
@@ -994,8 +1014,7 @@ set completeopt=longest,menuone,preview
 " Pop up menu height
 set pumheight=9
 
-" Fold method
-" (use indent as default)
+" Fold method (use indent as default)
 set foldenable
 set foldmethod=indent
 set foldlevelstart=99
@@ -1049,8 +1068,7 @@ highlight GitGutterAdd cterm=bold gui=bold ctermfg=2 ctermbg=none guifg=#009900 
 highlight GitGutterChange cterm=bold gui=bold ctermfg=3 ctermbg=none guifg=#bbbb00 guibg=none
 highlight GitGutterDelete cterm=bold gui=bold ctermfg=1 ctermbg=none guifg=#ff2222 guibg=none
 
-" Autocompletion popup menu
-" (referenced from jetBrains IDE)
+" Autocompletion popup menu (referenced from jetBrains IDE)
 highlight Pmenu guifg=#88898a guibg=#3c3f41
 highlight PmenuSel guifg=#fafafa guibg=#4b4e50
 highlight PmenuSBar guifg=#3c3f41 guibg=#3c3f41
@@ -1220,3 +1238,9 @@ inoremap <C-d> <Esc>
 vnoremap <C-d> <Esc>
 snoremap <C-d> <Esc>
 cnoremap <C-d> <Esc>
+
+" }}}
+
+
+" -----------------------------------------------------------
+" vim: tabstop=2:softtabstop=2:shiftwidth=2:foldmethod=marker
