@@ -77,6 +77,8 @@ Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
+Plug 'deoplete-plugins/deoplete-jedi'
+
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
 if isdirectory('/usr/local/opt/fzf')
@@ -545,6 +547,11 @@ let g:vimshell_force_overwrite_statusline = 0
 " Plugin: deoplete
 try
   let g:deoplete#enable_at_startup = 1
+
+  " Ignore syntaxes in comment or string
+  call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+
+  " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 catch
 endtry
@@ -575,6 +582,13 @@ if has('conceal')
   set conceallevel=0
   set concealcursor=niv
 endif
+
+" Plugin: deoplete-jedi
+try
+  let g:deoplete#sources#jedi#enable_typeinfo = 0
+  call deoplete#custom#option('sources', {'python': ['jedi', 'file']})
+catch
+endtry
 
 " Plugin: vimshell
 let g:vimshell_environment_term = 'xterm256'
@@ -741,10 +755,9 @@ if !isdirectory(s:ctags_dir)
   call mkdir(s:ctags_dir, 'p')
 endif
 let g:auto_ctags = 0
-let g:auto_ctags_directory_list = [ s:ctags_dir, '.git', '.svn' ]
-let g:auto_ctags_filetype_mode = 1
+let g:auto_ctags_directory_list = [ '.git', '.svn', '.' ]
 let g:auto_ctags_tags_name = 'tags'
-let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
+let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
 
 " Plugin: tagbar
 nnoremap <silent> <F9> :TagbarToggle<CR>
