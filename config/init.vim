@@ -760,7 +760,7 @@ let g:auto_ctags = 1
 let g:auto_ctags_search_recursively = 1
 let g:auto_ctags_directory_list = ['.git', '.svn', '.ctags.d']
 let g:auto_ctags_tags_name = '.ctags.tags'
-let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
+let g:auto_ctags_tags_args = ['--tag-relative=never', '--recurse=yes', '--sort=yes', '--links=no']
 
 set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;
 
