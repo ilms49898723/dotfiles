@@ -64,13 +64,13 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sjl/gundo.vim'
-Plug 'soramugi/auto-ctags.vim'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 
+Plug 'ilms49898723/auto-ctags.vim'
 Plug 'ilms49898723/vim-slash'
 
 Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
@@ -715,8 +715,7 @@ map <silent> <leader>/ <Plug>NERDCommenterToggle
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore = [
-      \ '\.clean$', '\.swp$', '\.bak$', '\~$',
-      \ '\.svn$', '\.git$',
+      \ '\.clean$', '\.swp$', '\.bak$', '\~$'
       \ ]
 let g:NERDTreeWinSize = 32
 let g:NERDTreeShowHidden = 1
@@ -757,10 +756,13 @@ let s:ctags_dir = expand('~/.ctags_files')
 if !isdirectory(s:ctags_dir)
   call mkdir(s:ctags_dir, 'p')
 endif
-let g:auto_ctags = 0
-let g:auto_ctags_directory_list = [ '.git', '.svn', '.' ]
-let g:auto_ctags_tags_name = 'tags'
+let g:auto_ctags = 1
+let g:auto_ctags_search_recursively = 1
+let g:auto_ctags_directory_list = ['.git', '.svn', '.ctags.d']
+let g:auto_ctags_tags_name = '.ctags.tags'
 let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
+
+set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;
 
 " Plugin: tagbar
 nnoremap <silent> <F9> :TagbarToggle<CR>
@@ -841,10 +843,6 @@ set sidescrolloff=10
 set wildmenu
 set wildignorecase
 
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-
 " Always show current position
 set ruler
 
@@ -907,7 +905,7 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,mac,dos
 
-" Turn backup off, since most stuff is in SVN, git, etc., anyway...
+" Turn backup off, since most stuff is in svn, git, etc., anyway...
 set nobackup
 set nowb
 set noswapfile
