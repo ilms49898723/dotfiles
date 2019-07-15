@@ -548,6 +548,11 @@ let g:vimshell_force_overwrite_statusline = 0
 try
   let g:deoplete#enable_at_startup = 1
 
+  " Deoplete settings
+  call deoplete#custom#option('auto_complete_delay', 0)
+  call deoplete#custom#option('auto_refresh_delay', 0)
+  call deoplete#custom#option('num_processes', 0)
+
   " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 catch
@@ -583,7 +588,8 @@ endif
 " Plugin: deoplete-jedi
 try
   let g:deoplete#sources#jedi#enable_typeinfo = 0
-  call deoplete#custom#option('sources', {'python': ['jedi', 'file']})
+  call deoplete#custom#option('ignore_sources', {'python': ['jedi']})
+  " call deoplete#custom#option('sources', {'python': ['jedi', 'file']})
 catch
 endtry
 
