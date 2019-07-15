@@ -548,9 +548,6 @@ let g:vimshell_force_overwrite_statusline = 0
 try
   let g:deoplete#enable_at_startup = 1
 
-  " Ignore syntaxes in comment or string
-  call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-
   " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 catch
