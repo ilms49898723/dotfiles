@@ -161,20 +161,22 @@ let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 
 " Lazy update useful variables
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_current_filename = MyRawFileName()
-autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_mode_length = (MyRawMode() == '' ? 0 : 10)
+autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_mode_length = (MyRawMode() == '' ? 2 : 10)
 
 function! MyTabFilename(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
   let fname = expand('#'.buflist[winnr - 1].':t')
+  let isdiff = gettabwinvar(a:n, winnr, '&diff')
   return fname =~ '__Tagbar__' ? '[Tagbar]' :
        \ fname =~ '__Gundo__' ? '[Gundo]' :
        \ fname =~ '__Gundo_Preview__' ? '[GundoPreview]' :
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
-       \ fname =~ '--graph' ? 'Git Graph' :
+       \ fname =~ '--graph' ? '[Git Graph]' :
+       \ isdiff == 1 ? '[File Diffs]' :
        \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit' :
+       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? '[Git Commit]' :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -1104,6 +1106,10 @@ highlight ErrorMsg ctermbg=none guibg=none
 " Folding
 highlight Folded ctermbg=none guibg=none
 highlight FoldColumn ctermbg=none guibg=none
+
+" Statusline
+highlight StatusLine guifg=#30302c guibg=#30302c
+highlight StatusLineNC guifg=#30302c guibg=#30302c
 
 " Fillchars for vertical split
 highlight VertSplit ctermbg=none guibg=none
