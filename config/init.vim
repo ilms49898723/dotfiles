@@ -1108,8 +1108,8 @@ highlight Folded ctermbg=none guibg=none
 highlight FoldColumn ctermbg=none guibg=none
 
 " Statusline
-highlight StatusLine guifg=#30302c guibg=#30302c
-highlight StatusLineNC guifg=#30302c guibg=#30302c
+highlight StatusLine guibg=#30302c
+highlight StatusLineNC guifg=#30302c
 
 " Fillchars for vertical split
 highlight VertSplit ctermbg=none guibg=none
