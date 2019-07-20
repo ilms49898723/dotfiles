@@ -64,13 +64,13 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sjl/gundo.vim'
-Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 
 Plug 'ilms49898723/auto-ctags.vim'
+Plug 'ilms49898723/molokai'
 Plug 'ilms49898723/vim-slash'
 
 Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
@@ -726,6 +726,9 @@ let g:NERDTreeMinimalUI = 0
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeMouseMode = 0
 
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
   \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
@@ -771,6 +774,8 @@ nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_width = 32
 let g:tagbar_autofocus = 1
+
+let g:tagbar_iconchars = ['▸', '▾']
 
 " Plugin: vim-better-whitespace
 let g:current_line_whitespace_disabled_soft = 1
@@ -1181,6 +1186,13 @@ nnoremap Y y$
 " Reselect after shift
 vnoremap < <gv
 vnoremap > >gv
+
+" Jumping
+noremap [] ][
+noremap ][ []
+
+noremap ` '
+noremap ' `
 
 " Using tab to jump between matching pairs
 nmap <Tab> %
