@@ -17,7 +17,7 @@ endtry
 let mapleader = ","
 let g:mapleader = ","
 
-" }}}
+" End: Preliminaries }}}
 
 
 " Section: Plugin Manager {{{
@@ -95,12 +95,12 @@ filetype on
 filetype plugin on
 filetype indent on
 
-" }}}
+" End: Plugin Manager }}}
 
 
 " Section: Plugin Settings {{{
 
-" Plugin: lightline
+" Plugin: lightline {{{
 let g:lightline = {
   \   'colorscheme': 'jellybeans',
   \   'active': {
@@ -545,8 +545,9 @@ endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
 let g:vimshell_force_overwrite_statusline = 0
+" End: lightline }}}
 
-" Plugin: deoplete
+" Plugin: deoplete {{{
 try
   let g:deoplete#enable_at_startup = 1
 
@@ -563,7 +564,7 @@ endtry
 inoremap <silent> <expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
+  \ deoplete#manual_complete()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -586,16 +587,18 @@ if has('conceal')
   set conceallevel=0
   set concealcursor=niv
 endif
+" End: deoplete }}}
 
-" Plugin: deoplete-jedi
+" Plugin: deoplete-jedi {{{
 try
   let g:deoplete#sources#jedi#enable_typeinfo = 0
   call deoplete#custom#option('ignore_sources', {'python': ['jedi']})
   " call deoplete#custom#option('sources', {'python': ['jedi', 'file']})
 catch
 endtry
+" End: deoplete-jedi }}}
 
-" Plugin: vimshell
+" Plugin: vimshell {{{
 let g:vimshell_environment_term = 'xterm256'
 let g:vimshell_disable_escape_highlight = 1
 let g:vimshell_interactive_update_time = 200
@@ -617,8 +620,9 @@ endfunction
 autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
+" End: vimshell }}}
 
-" Plugin: fzf.vim
+" Plugin: fzf.vim {{{
 " Open files
 noremap <silent> <A-o> :FZF<CR>
 " List windows
@@ -633,13 +637,15 @@ function! s:fzf_statusline()
 endfunction
 
 autocmd User FzfStatusLine call <SID>fzf_statusline()
+" End: fzf.vim }}}
 
-" Plugin: Gundo
+" Plugin: Gundo {{{
 noremap <silent> <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
+" End: Gundo }}}
 
-" Plugin: easymotion
+" Plugin: easymotion {{{
 map  <leader>f <Plug>(easymotion-bd-f)
 nmap <leader>f <Plug>(easymotion-overwin-f)
 map  <leader>s <Plug>(easymotion-bd-f2)
@@ -648,8 +654,9 @@ map  <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
 map  <leader>l <Plug>(easymotion-bd-jk)
 nmap <leader>l <Plug>(easymotion-overwin-line)
+" End: easymotion }}}
 
-" Plugin: incsearch
+" Plugin: incsearch {{{
 " map / <Plug>(incsearch-forward)
 " map ? <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
@@ -658,8 +665,9 @@ nmap <leader>l <Plug>(easymotion-overwin-line)
 " map z/ <Plug>(incsearch-fuzzy-/)
 " map z? <Plug>(incsearch-fuzzy-?)
 " map zg/ <Plug>(incsearch-fuzzy-stay)
+" End: incsearch }}}
 
-" Plugin: anzu
+" Plugin: anzu {{{
 map n <Plug>(anzu-n-with-echo)
 map N <Plug>(anzu-N-with-echo)
 map * <Plug>(anzu-star-with-echo)
@@ -669,8 +677,9 @@ let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
 let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 
 let g:anzu_status_format = 'Search for %p (%i of %l)'
+" End: anzu }}}
 
-" Plugin: vim-slash
+" Plugin: vim-slash {{{
 let g:vim_slash_clear_command_output = 1
 let g:vim_slash_remap_n = 0
 
@@ -680,12 +689,14 @@ map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
 " Remap n and N to / and ? to suppress /pattern or ?pattern commandline output
 map <silent> n /<CR>
 map <silent> N ?<CR>
+" End: vim-slash }}}
 
-" Plugin: emmet-vim
+" Plugin: emmet-vim {{{
 let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
+" End: emmet-vim }}}
 
-" Plugin: fugitive
+" Plugin: fugitive {{{
 nnoremap <silent> <leader>gd :<C-u>Gdiff<CR>
 nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>GM
 nnoremap <silent> <leader>gl :<C-u>Glog<CR>
@@ -695,12 +706,14 @@ nnoremap <silent> <leader>gC :<C-u>Git commit -v --amend<CR>
 nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <leader>gn :<C-u>w<CR>:Git now<CR>
 nnoremap <silent> <leader>gN :<C-u>w<CR>:Git now --all<CR>
+" End: fugitive }}}
 
-" Plugin: vim-gv
+" Plugin: vim-gv {{{
 nnoremap <silent> <C-h> :GV<CR>
 nnoremap <silent> <leader>b :GV<CR>
+" End: vim-gv }}}
 
-" Plugin: NERDCommenter
+" Plugin: NERDCommenter {{{
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
@@ -712,8 +725,9 @@ let g:NERDToggleCheckAllLines = 1
 let g:NERDCustomDelimiters = {'python': {'left': '#'}}
 
 map <silent> <leader>/ <Plug>NERDCommenterToggle
+" End: NERDCommenter }}}
 
-" Plugin: NERDTree
+" Plugin: NERDTree {{{
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore = [
@@ -733,9 +747,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
   \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-let g:LB_NERDTreeAutoRefresh = 0
-
-if g:LB_NERDTreeAutoRefresh == 1
+let g:LittleBird_NERDTreeAutoRefresh = 0
+if g:LittleBird_NERDTreeAutoRefresh == 1
   autocmd FocusGained * silent NERDTreeRefreshRoot
   autocmd WinEnter * call CheckRefreshNERDTree()
 endif
@@ -745,18 +758,21 @@ function! CheckRefreshNERDTree()
     silent NERDTreeRefreshRoot
   endif
 endfunction
+" End: NERDTree }}}
 
-" Plugin: gitgutter
+" Plugin: gitgutter {{{
 set signcolumn=yes
 let g:gitgutter_max_signs = 2048
 map ]h <Plug>GitGutterNextHunk
 map [h <Plug>GitGutterPrevHunk
+" End: gitgutter }}}
 
-" Plugin: vim-easy-align
+" Plugin: vim-easy-align {{{
 vmap <Enter> <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
+" End: vim-easy-align }}}
 
-" Plugin: auto-ctags
+" Plugin: auto-ctags {{{
 let s:ctags_dir = expand('~/.ctags_files')
 if !isdirectory(s:ctags_dir)
   call mkdir(s:ctags_dir, 'p')
@@ -768,39 +784,45 @@ let g:auto_ctags_tags_name = '.ctags.tags'
 let g:auto_ctags_tags_args = ['--tag-relative=never', '--recurse=yes', '--sort=yes', '--links=no']
 
 set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;
+" End: auto-ctags }}}
 
-" Plugin: tagbar
+" Plugin: tagbar {{{
 nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_width = 32
 let g:tagbar_autofocus = 1
 
 let g:tagbar_iconchars = ['▸', '▾']
+" End: tagbar }}}
 
-" Plugin: vim-better-whitespace
+" Plugin: vim-better-whitespace {{{
 let g:current_line_whitespace_disabled_soft = 1
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
+" End: vim-better-whitespace }}}
 
-" Plugin: rainbow parentheses
+" Plugin: rainbow parentheses {{{
 let g:rainbow#max_level = 32
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
+" End: rainbow parentheses }}}
 
-" Plugin: limelight
+" Plugin: limelight {{{
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
 nnoremap <silent> <C-l> :Limelight!!<CR>
+" End: limelight }}}
 
-" Plugin: vim-journal
+" Plugin: vim-journal {{{
 autocmd BufNewFile,BufRead *.journal setlocal ft=journal
 autocmd BufNewFile,BufRead *.journal setlocal tw=0
+" End: vim-journal }}}
 
-" Plugin: vim-notes
+" Plugin: vim-notes {{{
 let s:vim_note_dir = expand('~/Documents/Notes')
 if !isdirectory(s:vim_note_dir)
   call mkdir(s:vim_note_dir, 'p')
@@ -815,8 +837,9 @@ let g:notes_alt_indents = 0
 
 autocmd BufNewFile,BufRead *.note setlocal ft=notes
 autocmd BufNewFile,BufRead *.note setlocal tw=0
+" End: vim-notes }}}
 
-" }}}
+" End: Plugin Settings }}}
 
 
 " Section: General Settings {{{
@@ -1271,7 +1294,7 @@ vnoremap <C-d> <Esc>
 snoremap <C-d> <Esc>
 cnoremap <C-d> <Esc>
 
-" }}}
+" End: General Settings }}}
 
 
 " -----------------------------------------------------------
