@@ -2,6 +2,10 @@
 "
 " Author: LittleBird
 
+if !exists('b:undo_ftplugin')
+  let b:undo_ftplugin = ''
+endif
+
 " Indent list items using < and >
 nnoremap <buffer> <silent> << :<C-u>call xolox#notes#indent_list(-1, line('.'), line('.'))<CR>
 vnoremap <buffer> <silent> <  :<C-u>call xolox#notes#indent_list(-1, line("'<"), line("'>"))<CR>gv
