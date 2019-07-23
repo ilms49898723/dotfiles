@@ -1289,12 +1289,12 @@ inoremap <C-e> <C-o>A
 inoremap <C-w> <C-o>cw
 inoremap <C-b> <C-w>
 
-" Map <C-d> to <Esc>
-nnoremap <C-d> <Esc>
-inoremap <C-d> <Esc>
-vnoremap <C-d> <Esc>
-snoremap <C-d> <Esc>
-cnoremap <C-d> <Esc>
+" Map <C-d> to <C-\><C-n>
+nnoremap <C-d> <C-\><C-n>
+inoremap <C-d> <C-\><C-n>
+vnoremap <C-d> <C-\><C-n>
+snoremap <C-d> <C-\><C-n>
+cnoremap <C-d> <C-\><C-n>
 
 " End: General Settings }}}
 
