@@ -1289,6 +1289,15 @@ inoremap <C-e> <C-o>A
 inoremap <C-w> <C-o>cw
 inoremap <C-b> <C-w>
 
+" Indent using Alt
+nnoremap <A-,> <<
+nnoremap <A-.> >>
+vnoremap <A-,> <gv
+vnoremap <A-.> >gv
+
+inoremap <A-,> <C-d>
+inoremap <A-.> <C-t>
+
 " Map <C-d> to <C-\><C-n>
 nnoremap <C-d> <C-\><C-n>
 inoremap <C-d> <C-\><C-n>
