@@ -554,7 +554,11 @@ try
   " Deoplete settings
   call deoplete#custom#option('auto_complete_delay', 0)
   call deoplete#custom#option('auto_refresh_delay', 0)
+  call deoplete#custom#option('camel_case', 1)
+  call deoplete#custom#option('ignore_case', 1)
   call deoplete#custom#option('num_processes', 0)
+  call deoplete#custom#option('skip_chars', [])
+  call deoplete#custom#option('smart_case', 1)
 
   " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
