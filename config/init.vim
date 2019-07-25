@@ -77,7 +77,10 @@ Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neco-vim'
 Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-zsh'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
