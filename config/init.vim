@@ -605,6 +605,11 @@ catch
 endtry
 " End: deoplete-jedi }}}
 
+" Plugin: neco-syntax {{{
+let g:necosyntax#min_keyword_length = 2
+let g:necosyntax#max_syntax_lines = 4096
+" End: neco-syntax }}}
+
 " Plugin: vimshell {{{
 let g:vimshell_environment_term = 'xterm256'
 let g:vimshell_disable_escape_highlight = 1
