@@ -1249,6 +1249,24 @@ function! ClearCommandOutput()
   endif
 endfunction
 
+" Force redraw once cursor moved to another location (such as window or tab)
+autocmd BufEnter,BufWinEnter,TabEnter,WinEnter * let b:force_redraw_after_move = 3
+
+autocmd CursorMoved * call RedrawIfNecessary(1)
+autocmd InsertEnter,InsertLeave * call RedrawIfNecessary(0)
+
+function! RedrawIfNecessary(delta)
+  let redraw_times = get(b:, 'force_redraw_after_move', 0)
+  if redraw_times > 0
+    if a:delta > 0
+      let b:force_redraw_after_move = redraw_times - a:delta
+    elseif a:delta == 0
+      let b:force_redraw_after_move = 0
+    endif
+    redraw!
+  endif
+endfunction
+
 " The prefix key for tab operations
 nnoremap [Tag] <Nop>
 nmap t [Tag]
