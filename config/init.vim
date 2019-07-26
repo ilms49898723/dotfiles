@@ -979,7 +979,9 @@ set autoindent
 
 " Line wrap
 set wrap
-set display=lastline
+
+" The way text is displayed
+set display=lastline,msgsep
 
 " Smart cursor moving
 noremap <Down> gj
@@ -1157,7 +1159,7 @@ highlight StatusLineNC guifg=#30302c
 highlight VertSplit ctermbg=none guibg=none
 
 " Fillchars for folding
-set fillchars=fold:\ ,
+set fillchars=fold:\ ,msgsep:~
 
 " Update time
 set updatetime=100
