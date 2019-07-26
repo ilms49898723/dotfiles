@@ -1155,6 +1155,9 @@ highlight FoldColumn ctermbg=none guibg=none
 highlight StatusLine guibg=#30302c
 highlight StatusLineNC guifg=#30302c
 
+" Message Separator
+highlight MsgSeparator gui=bold guifg=#6a6c6f guibg=none
+
 " Fillchars for vertical split
 highlight VertSplit ctermbg=none guibg=none
 
