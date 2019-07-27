@@ -1156,7 +1156,7 @@ highlight StatusLine guibg=#30302c
 highlight StatusLineNC guifg=#30302c
 
 " Message Separator
-highlight MsgSeparator gui=bold guifg=#6a6c6f guibg=none
+highlight MsgSeparator gui=bold guifg=#af9c8a guibg=none
 
 " Fillchars for vertical split
 highlight VertSplit ctermbg=none guibg=none
