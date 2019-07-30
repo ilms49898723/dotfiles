@@ -162,6 +162,9 @@ let g:lightline.subseparator = {'left': '>', 'right': '<'}
 let g:lightline.tabline_separator = {'left': '', 'right': ''}
 let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 
+" Force update after Vim starts
+autocmd VimEnter * call lightline#update()
+
 " Lazy update useful variables
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_current_filename = MyRawFileName()
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_mode_length = (MyRawMode() == '' ? 2 : 10)
@@ -780,8 +783,9 @@ map [h <Plug>GitGutterPrevHunk
 " End: gitgutter }}}
 
 " Plugin: vim-easy-align {{{
+nmap <C-a> <Plug>(EasyAlign)
+vmap <C-a> <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
-nmap <leader>a <Plug>(EasyAlign)
 " End: vim-easy-align }}}
 
 " Plugin: auto-ctags {{{
@@ -816,7 +820,7 @@ autocmd BufWritePre * StripWhitespace
 " End: vim-better-whitespace }}}
 
 " Plugin: rainbow parentheses {{{
-let g:rainbow#max_level = 32
+let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
@@ -1230,8 +1234,11 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Jumping
-noremap [] ][
-noremap ][ []
+noremap <silent> [[ ?{<CR>w99[{
+noremap <silent> ]] j0?{<CR>w99[{%/{<CR>
+
+noremap <silent> [] /}<CR>b99]}
+noremap <silent> ][ k$/}<CR>b99]}%?}<CR>
 
 noremap ` '
 noremap ' `
