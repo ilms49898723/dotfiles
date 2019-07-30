@@ -163,7 +163,7 @@ let g:lightline.tabline_separator = {'left': '', 'right': ''}
 let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 
 " Force update after Vim starts
-autocmd VimEnter * call lightline#update()
+autocmd VimEnter,BufWinEnter,FileType * call lightline#update()
 
 " Lazy update useful variables
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_current_filename = MyRawFileName()
