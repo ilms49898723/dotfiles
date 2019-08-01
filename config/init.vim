@@ -1223,8 +1223,8 @@ nnoremap <Space> <Esc>zz
 nnoremap B :make!<CR>
 
 " Remap W and Q
-nnoremap W :w<CR>
-nnoremap Q :q<CR>
+nnoremap <silent> W :w<CR>
+nnoremap <silent> Q :q<CR>
 
 " Remap Y to make it act like C, D
 nnoremap Y y$
