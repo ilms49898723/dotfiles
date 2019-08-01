@@ -778,8 +778,8 @@ endfunction
 " Plugin: gitgutter {{{
 set signcolumn=yes
 let g:gitgutter_max_signs = 2048
-map ]h <Plug>GitGutterNextHunk
-map [h <Plug>GitGutterPrevHunk
+map <silent> ]h <Plug>GitGutterNextHunk
+map <silent> [h <Plug>GitGutterPrevHunk
 " End: gitgutter }}}
 
 " Plugin: vim-easy-align {{{
@@ -1057,8 +1057,14 @@ endif
 set undodir=~/.local/share/nvim/undodir
 set undofile
 
-" Map U to redo
-nnoremap U <C-r>
+" Map u to undo silently
+nnoremap <silent> u :execute ":silent undo"<CR>
+
+" Map U to redo silently
+nnoremap <silent> U :execute ":silent redo"<CR>
+
+" Map <C-r> to redo silently
+nnoremap <silent> <C-r> :execute ":silent redo"<CR>
 
 " Bash like keys for the command line
 cnoremap <C-a> <Home>
