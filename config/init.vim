@@ -59,7 +59,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'osyo-manga/vim-anzu'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -71,6 +70,7 @@ Plug 'xolox/vim-notes'
 
 Plug 'ilms49898723/auto-ctags.vim'
 Plug 'ilms49898723/molokai'
+Plug 'ilms49898723/vim-better-whitespace'
 Plug 'ilms49898723/vim-slash'
 
 Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
@@ -816,7 +816,14 @@ let g:tagbar_iconchars = ['▸', '▾']
 " Plugin: vim-better-whitespace {{{
 let g:current_line_whitespace_disabled_soft = 1
 let g:better_whitespace_filetypes_blacklist = ['vimshell', 'diff', 'gitcommit', 'qf', 'help']
-autocmd BufWritePre * StripWhitespace
+autocmd BufWritePre * call ClearWhitespaceInFile()
+
+function! ClearWhitespaceInFile()
+  let retv = StripWhitespaceWholeFile()
+  if retv == 1
+    let g:suppress_clear_message = 1
+  endif
+endfunction
 " End: vim-better-whitespace }}}
 
 " Plugin: rainbow parentheses {{{
@@ -1261,13 +1268,14 @@ set diffopt=vertical
 let g:is_posix = 1
 
 " Clear command output buffer once cursor moved
-autocmd BufEnter,BufLeave * call ClearCommandOutput()
-autocmd BufWinEnter,BufWinLeave * call ClearCommandOutput()
-autocmd WinEnter,WinLeave * call ClearCommandOutput()
-autocmd TabEnter,TabLeave * call ClearCommandOutput()
-autocmd InsertEnter,InsertLeave * call ClearCommandOutput()
+autocmd CursorMoved,InsertEnter,InsertLeave * call ClearCommandOutput()
 
 function! ClearCommandOutput()
+  let whether_skip = get(g:, 'suppress_clear_message', 0)
+  if whether_skip > 0
+    let g:suppress_clear_message = 0
+    return
+  endif
   if &hlsearch == 0
     echo ''
   endif
