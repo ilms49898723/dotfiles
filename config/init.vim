@@ -1255,7 +1255,11 @@ set diffopt=vertical
 let g:is_posix = 1
 
 " Clear command output buffer once cursor moved
-autocmd CursorMoved,InsertEnter,InsertLeave * call ClearCommandOutput()
+autocmd BufEnter,BufLeave * call ClearCommandOutput()
+autocmd BufWinEnter,BufWinLeave * call ClearCommandOutput()
+autocmd WinEnter,WinLeave * call ClearCommandOutput()
+autocmd TabEnter,TabLeave * call ClearCommandOutput()
+autocmd InsertEnter,InsertLeave * call ClearCommandOutput()
 
 function! ClearCommandOutput()
   if &hlsearch == 0
