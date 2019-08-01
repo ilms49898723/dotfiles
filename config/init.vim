@@ -571,9 +571,9 @@ try
 catch
 endtry
 
-inoremap <silent> <expr> <TAB>
+inoremap <silent> <expr> <Tab>
   \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
+  \ <SID>check_back_space() ? "\<Tab>" :
   \ deoplete#manual_complete()
 
 function! s:check_back_space() abort
@@ -1061,12 +1061,12 @@ set undofile
 nnoremap U <C-r>
 
 " Bash like keys for the command line
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-K> <C-U>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-k> <C-u>
 
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 " Map ; as : in normal mode and visual mode
 nnoremap ; :
@@ -1205,10 +1205,12 @@ set shortmess-=n
 " Disable gui cursor
 set guicursor=
 
-" Disable F1, K, q
+" Disable F1, K
 noremap <F1> <Nop>
 noremap K <Nop>
-noremap q <Nop>
+
+" Map K to split lines in normal mode
+nnoremap K <Esc>i<CR><Esc>^
 
 " <leader> + r to toggle relative line numbers
 noremap <silent> <leader>r :set rnu!<CR>
@@ -1288,7 +1290,7 @@ for n in range(1, 9)
 endfor
 
 " Operation: tc, tablast (new tab at last)
-noremap <silent> [Tag]c :tablast <bar> tabnew<CR>
+noremap <silent> [Tag]c :tablast <Bar> tabnew<CR>
 " Operation: tx, tabclose (close tab)
 noremap <silent> [Tag]x :tabclose<CR>
 " Operation: tn, tabnext (next tab)
@@ -1346,6 +1348,11 @@ inoremap <C-d> <C-\><C-n>
 vnoremap <C-d> <C-\><C-n>
 snoremap <C-d> <C-\><C-n>
 cnoremap <C-d> <C-\><C-n>
+
+" Map q to <C-\><C-n> in normal and visual mode
+nnoremap q <C-\><C-n>
+vnoremap q <C-\><C-n>
+snoremap q <C-\><C-n>
 
 " End: General Settings }}}
 
