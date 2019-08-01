@@ -819,7 +819,7 @@ let g:better_whitespace_filetypes_blacklist = ['vimshell', 'diff', 'gitcommit', 
 autocmd BufWritePre * call ClearWhitespaceInFile()
 
 function! ClearWhitespaceInFile()
-  let retv = StripWhitespaceWholeFile()
+  let retv = StripWhitespaceInFile()
   if retv == 1
     let g:suppress_clear_message = 1
   endif
