@@ -815,7 +815,7 @@ let g:tagbar_iconchars = ['▸', '▾']
 
 " Plugin: vim-better-whitespace {{{
 let g:current_line_whitespace_disabled_soft = 1
-let g:better_whitespace_filetypes_blacklist = ['vimshell', 'vim', 'diff', 'gitcommit', 'qf', 'help']
+let g:better_whitespace_filetypes_blacklist = ['vimshell', 'diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * StripWhitespace
 " End: vim-better-whitespace }}}
 
@@ -1210,7 +1210,7 @@ noremap <F1> <Nop>
 noremap K <Nop>
 
 " Map K to split lines in normal mode
-nnoremap K <Esc>i<CR><Esc>^
+nnoremap <silent> K <Esc>i<CR><Esc>^:.-1StripWhitespace<CR>
 
 " <leader> + r to toggle relative line numbers
 noremap <silent> <leader>r :set rnu!<CR>
