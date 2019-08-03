@@ -13,9 +13,9 @@ General:
 - apt: curl
 - apt: git
 - apt: tmux
-- git: (Universal Ctags)[https://github.com/universal-ctags/ctags]
-- git: (fzf)[https://github.com/junegunn/fzf]
-- git: (ripgrep)[https://github.com/BurntSushi/ripgrep]
+- git: [Universal Ctags](https://github.com/universal-ctags/ctags)
+- git: [fzf](https://github.com/junegunn/fzf)
+- git: [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 NeoVim:
 - pip: pynvim
