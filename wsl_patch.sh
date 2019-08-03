@@ -15,7 +15,7 @@ if [ -f ${HOME}/.bashrc ]; then
         echo 'bash -c zsh' >> ${HOME}/.bashrc
     fi
 else
-    echo 'Warning: .bashrc not found in home directory.'
+    echo 'Warning: File .bashrc not found in home directory.'
 fi
 
 if [ -f ${HOME}/.zshrc ]; then
@@ -30,7 +30,7 @@ if [ -f ${HOME}/.zshrc ]; then
         echo 'fi' >> ${HOME}/.zshrc
     fi
 else
-    echo 'Warning: .zshrc not found in home directory'
+    echo 'Warning: File .zshrc not found in home directory'
 fi
 
 if [ -f ${HOME}/.config/nvim/init.vim ]; then
@@ -41,4 +41,6 @@ if [ -f ${HOME}/.config/nvim/init.vim ]; then
     else
         sed -i '/^set fillchars=.*$/ s/$/,vert:\\|/' ${HOME}/.config/nvim/init.vim
     fi
+else
+    echo 'Warning: File init.vim not found in ~/.config/nvim/'
 fi
