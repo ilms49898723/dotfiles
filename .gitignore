@@ -1,1 +1,6 @@
+# Gitignore
+
 *.DS_Store
+
+tags
+.ctags.tags
