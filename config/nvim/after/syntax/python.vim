@@ -16,8 +16,8 @@ syn match pythonShebang "\%^#!.*$"
 syn match pythonEncoding "\%^.*\%(\n.*\)\?#.*coding[:=]\s*[0-9A-Za-z-_.]\+.*$"
 
 " Highlighting
-hi def link pythonShebang Identifier
-hi def link pythonEncoding Identifier
+hi def link pythonShebang Special
+hi def link pythonEncoding Special
 
 " Python Errors
 syn match pythonError "\<\d\+\D\+\>" display
