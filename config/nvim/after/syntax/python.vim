@@ -12,12 +12,12 @@ syn keyword pythonSelfStatement self
 hi def link pythonSelfStatement Macro
 
 " Shebang line and coding
-syn match pythonRun "\%^#!.*$"
-syn match pythonCoding "\%^.*\%(\n.*\)\?#.*coding[:=]\s*[0-9A-Za-z-_.]\+.*$"
+syn match pythonShebang "\%^#!.*$"
+syn match pythonEncoding "\%^.*\%(\n.*\)\?#.*coding[:=]\s*[0-9A-Za-z-_.]\+.*$"
 
 " Highlighting
-hi def link pythonRun Identifier
-hi def link pythonCoding Identifier
+hi def link pythonShebang Identifier
+hi def link pythonEncoding Identifier
 
 " Python Errors
 syn match pythonError "\<\d\+\D\+\>" display
