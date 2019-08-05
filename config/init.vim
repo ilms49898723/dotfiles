@@ -576,6 +576,9 @@ inoremap <silent> <expr> <Tab>
   \ <SID>check_back_space() ? "\<Tab>" :
   \ deoplete#manual_complete()
 
+inoremap <silent> <expr> <C-p> pumvisible() ? "\<C-p>" : deoplete#manual_complete()
+inoremap <silent> <expr> <C-n> pumvisible() ? "\<C-n>" : deoplete#manual_complete()
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -996,10 +999,13 @@ set display=lastline,msgsep
 
 " Smart cursor moving
 noremap <Down> gj
-noremap <Up> gk
+noremap <Up>   gk
 
 noremap j gj
 noremap k gk
+
+inoremap <Down> <C-o>gj
+inoremap <Up>   <C-o>gk
 
 " Smart way to move between windows
 nnoremap <A-h> <C-W>h
@@ -1055,6 +1061,9 @@ noremap L $
 
 " Toggle paste mode on and off
 noremap <silent> <leader>p :setlocal paste!<CR>
+
+" Path for find, etc.
+set path=.,,**
 
 " Undo directory
 let s:undo_dir = expand('~/.local/share/nvim/undodir')
@@ -1300,29 +1309,31 @@ function! RedrawIfNecessary(delta)
 endfunction
 
 " The prefix key for tab operations
-nnoremap [Tag] <Nop>
-nmap t [Tag]
+nnoremap [Tabs] <Nop>
+nmap t [Tabs]
 " Tab jump, using t<tabnum>
 for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+  execute 'nnoremap <silent> [Tabs]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 
 " Operation: tc, tablast (new tab at last)
-noremap <silent> [Tag]c :tablast <Bar> tabnew<CR>
+noremap <silent> [Tabs]c :tablast <Bar> tabnew<CR>
 " Operation: tx, tabclose (close tab)
-noremap <silent> [Tag]x :tabclose<CR>
+noremap <silent> [Tabs]x :tabclose<CR>
 " Operation: tn, tabnext (next tab)
-noremap <silent> [Tag]n :tabnext<CR>
+noremap <silent> [Tabs]n :tabnext<CR>
 " Operation: tb, tabprevious (previous tab)
-noremap <silent> [Tag]b :tabprevious<CR>
+noremap <silent> [Tabs]b :tabprevious<CR>
+" Operation: tf, tab find
+noremap [Tabs]f :tabfind<Space>
 " Operation: te, tab edit
-noremap [Tag]e :tabedit<Space>
+noremap [Tabs]e :tabedit<Space>
 " Operation: tm, tab move
-noremap [Tag]m :tabmove<Space>
+noremap [Tabs]m :tabmove<Space>
 " Operation: tg, tabnext <tabnum>
-noremap [Tag]g :tabnext<Space>
+noremap [Tabs]g :tabnext<Space>
 
-" Ctrl+N and Ctrl+P to switch tab in normal mode
+" Ctrl-n and Ctrl-p to switch tab in normal mode
 noremap <silent> <C-n> :tabnext<CR>
 noremap <silent> <C-p> :tabprevious<CR>
 
