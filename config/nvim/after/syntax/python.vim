@@ -5,6 +5,10 @@
 " Add builtin object keywords
 syn keyword pythonBuiltin __doc__ __file__ __name__ __package__ __future__
 
+" Add syntax rules for floating numbers
+syn match pythonNumber "\.\d\+\%([eE][+-]\=\d\+\)\=[jJ]\=\>" display
+syn match pythonNumber "\<\d\+\.\d*\%([eE][+-]\=\d\+\)\=[jJ]\=" display
+
 " Add 'self' to keywords
 syn keyword pythonSelfStatement self
 
