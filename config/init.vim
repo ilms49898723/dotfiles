@@ -66,6 +66,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'vim-python/python-syntax'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 

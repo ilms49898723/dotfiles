@@ -3,52 +3,16 @@
 " Author: LittleBird
 
 " Add builtin object keywords
-syn keyword pythonBuiltin __doc__ __file__ __name__ __package__ __future__
+syn keyword pythonBuiltinObj __future__
 
-" Add syntax rules for floating numbers
-syn match pythonNumber "\.\d\+\%([eE][+-]\=\d\+\)\=[jJ]\=\>" display
-syn match pythonNumber "\<\d\+\.\d*\%([eE][+-]\=\d\+\)\=[jJ]\=" display
+" Highlighting class variables
+hi link pythonClassVar Macro
 
-" Add 'self' to keywords
-syn keyword pythonSelfStatement self
+" Highlighting Shebang and file encoding line
+hi link pythonCoding Special
+hi link pythonRun Special
 
-" Highlighting
-hi def link pythonSelfStatement Macro
-
-" Shebang line and coding
-syn match pythonShebang "\%^#!.*$"
-syn match pythonEncoding "\%^.*\%(\n.*\)\?#.*coding[:=]\s*[0-9A-Za-z-_.]\+.*$"
-
-" Highlighting
-hi def link pythonShebang Special
-hi def link pythonEncoding Special
-
-" Python Errors
-syn match pythonError "[$?]" display
-syn match pythonError "[&|]\{2,}" display
-syn match pythonError "[=]\{3,}" display
-
-" Highlighting
-hi def link pythonError Error
-
-" % format strings
-syn match pythonStrFormatting "%\%(([^)]\+)\)\=[-#0 +]*\d*\%(\.\d\+\)\=[hlL]\=[diouxXeEfFgGcrs%]" contained containedin=pythonString,pythonRawString
-syn match pythonStrFormatting "%[-#0 +]*\%(\*\|\d\+\)\=\%(\.\%(\*\|\d\+\)\)\=[hlL]\=[diouxXeEfFgGcrs%]" contained containedin=pythonString,pythonRawString
-
-" Highlighting
-hi def link pythonStrFormatting Identifier
-
-" str.format() format strings
-syn match pythonStrFormat "{{\|}}" contained containedin=pythonString,pythonRawString
-syn match pythonStrFormat "{\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)\=\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\[\%(\d\+\|[^!:\}]\+\)\]\)*\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}" contained containedin=pythonString,pythonRawString
-
-" Highlighting
-hi def link pythonStrFormat Identifier
-
-" string.template format strings
-syn match pythonStrTemplate "\$\$" contained containedin=pythonString,pythonRawString
-syn match pythonStrTemplate "\${[a-zA-Z_][a-zA-Z0-9_]*}" contained containedin=pythonString,pythonRawString
-syn match pythonStrTemplate "\$[a-zA-Z_][a-zA-Z0-9_]*" contained containedin=pythonString,pythonRawString
-
-" Highlighting
-hi def link pythonStrTemplate Identifier
+" Highlighting format strings
+hi link pythonStrFormat Identifier
+hi link pythonStrFormatting Identifier
+hi link pythonStrTemplate Identifier
