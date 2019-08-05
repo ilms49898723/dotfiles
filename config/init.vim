@@ -578,8 +578,14 @@ inoremap <silent> <expr> <Tab>
   \ <SID>check_back_space() ? "\<Tab>" :
   \ deoplete#manual_complete()
 
-inoremap <silent> <expr> <C-p> pumvisible() ? "\<C-p>" : deoplete#manual_complete()
-inoremap <silent> <expr> <C-n> pumvisible() ? "\<C-n>" : deoplete#manual_complete()
+inoremap <silent> <expr> <C-p>
+  \ pumvisible() ? "\<C-p>" :
+  \ <SID>check_back_space() ? "" :
+  \ deoplete#manual_complete()
+inoremap <silent> <expr> <C-n>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "" :
+  \ deoplete#manual_complete()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -1006,8 +1012,8 @@ noremap <Up>   gk
 noremap j gj
 noremap k gk
 
-inoremap <Down> <C-o>gj
-inoremap <Up>   <C-o>gk
+inoremap <silent> <expr> <Down> pumvisible() ? "\<Down>" : "\<C-o>gj"
+inoremap <silent> <expr> <Up>   pumvisible() ? "\<Up>"   : "\<C-o>gk"
 
 " Smart way to move between windows
 nnoremap <A-h> <C-W>h
