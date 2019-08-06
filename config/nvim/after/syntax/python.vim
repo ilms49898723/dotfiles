@@ -15,4 +15,5 @@ hi link pythonRun Special
 " Highlighting format strings
 hi link pythonStrFormat Identifier
 hi link pythonStrFormatting Identifier
+hi link pythonStrInterpRegion Identifier
 hi link pythonStrTemplate Identifier
