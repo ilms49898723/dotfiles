@@ -571,8 +571,19 @@ try
   " Disable file source
   call deoplete#custom#option('ignore_sources', {'_': ['file']})
 
+  " Change member source rank
+  call deoplete#custom#source('member', 'rank', 400)
+
   " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+
+  " Change around source settings
+  call deoplete#custom#var('around', {
+    \ 'range_above': 25,
+    \ 'range_below': 25,
+    \ 'mark_above': '[A]',
+    \ 'mark_below': '[A]',
+    \ 'mark_changes': '[A]'})
 catch
 endtry
 

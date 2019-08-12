@@ -3,7 +3,7 @@
 " Author: LittleBird
 
 " Add builtin object keywords
-syn keyword pythonBuiltinObj __future__
+syn keyword pythonBuiltinObj __future__ __main__
 
 " Highlighting class variables
 hi link pythonClassVar Macro
