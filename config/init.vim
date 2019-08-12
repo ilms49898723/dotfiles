@@ -42,7 +42,6 @@ endif
 call plug#begin(s:plugin_dir)
 
 Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/neoinclude.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
@@ -83,6 +82,7 @@ Plug 'Shougo/neco-vim'
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'ilms49898723/neco-syntax'
+Plug 'ilms49898723/neoinclude.vim'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
 
@@ -567,6 +567,9 @@ try
   call deoplete#custom#option('num_processes', 0)
   call deoplete#custom#option('skip_chars', [])
   call deoplete#custom#option('smart_case', 1)
+
+  " Disable file source
+  call deoplete#custom#option('ignore_sources', {'_': ['file']})
 
   " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
