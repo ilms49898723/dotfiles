@@ -19,4 +19,4 @@ General:
 
 NeoVim:
 - pip: pynvim
-
+- pip: Jedi
