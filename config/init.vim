@@ -565,6 +565,7 @@ try
   call deoplete#custom#option('camel_case', 1)
   call deoplete#custom#option('ignore_case', 1)
   call deoplete#custom#option('num_processes', 0)
+  call deoplete#custom#option('on_insert_enter', 0)
   call deoplete#custom#option('skip_chars', [])
   call deoplete#custom#option('smart_case', 1)
 
