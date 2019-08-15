@@ -564,7 +564,7 @@ try
   call deoplete#custom#option('auto_refresh_delay', 0)
   call deoplete#custom#option('camel_case', 1)
   call deoplete#custom#option('ignore_case', 1)
-  call deoplete#custom#option('num_processes', 0)
+  call deoplete#custom#option('num_processes', 4)
   call deoplete#custom#option('on_insert_enter', 0)
   call deoplete#custom#option('skip_chars', [])
   call deoplete#custom#option('smart_case', 1)
@@ -587,6 +587,10 @@ try
     \ 'mark_changes': '[A]'})
 catch
 endtry
+
+inoremap <silent> <expr> <CR>
+  \ pumvisible() ? deoplete#close_popup() :
+  \ "\<CR>"
 
 inoremap <silent> <expr> <Tab>
   \ pumvisible() ? "\<C-n>" :
