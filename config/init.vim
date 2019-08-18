@@ -1035,35 +1035,45 @@ inoremap <silent> <expr> <Down> pumvisible() ? "\<Down>" : "\<C-o>gj"
 inoremap <silent> <expr> <Up>   pumvisible() ? "\<Up>"   : "\<C-o>gk"
 
 " Smart way to move between windows
-nnoremap <A-h> <C-W>h
-nnoremap <A-j> <C-W>j
-nnoremap <A-k> <C-W>k
-nnoremap <A-l> <C-W>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
-nnoremap <A-Left>  <C-W>h
-nnoremap <A-Down>  <C-W>j
-nnoremap <A-Up>    <C-W>k
-nnoremap <A-Right> <C-W>l
+nnoremap <A-Left>  <C-w>h
+nnoremap <A-Down>  <C-w>j
+nnoremap <A-Up>    <C-w>k
+nnoremap <A-Right> <C-w>l
 
-inoremap <A-h> <C-\><C-N><C-W>h
-inoremap <A-j> <C-\><C-N><C-W>j
-inoremap <A-k> <C-\><C-N><C-W>k
-inoremap <A-l> <C-\><C-N><C-W>l
+inoremap <A-h> <C-\><C-n><C-w>h
+inoremap <A-j> <C-\><C-n><C-w>j
+inoremap <A-k> <C-\><C-n><C-w>k
+inoremap <A-l> <C-\><C-n><C-w>l
 
-inoremap <A-Left>  <C-\><C-N><C-W>h
-inoremap <A-Down>  <C-\><C-N><C-W>j
-inoremap <A-Up>    <C-\><C-N><C-W>k
-inoremap <A-Right> <C-\><C-N><C-W>l
+inoremap <A-Left>  <C-\><C-n><C-w>h
+inoremap <A-Down>  <C-\><C-n><C-w>j
+inoremap <A-Up>    <C-\><C-n><C-w>k
+inoremap <A-Right> <C-\><C-n><C-w>l
 
-tnoremap <A-h> <C-\><C-N><C-W>h
-tnoremap <A-j> <C-\><C-N><C-W>j
-tnoremap <A-k> <C-\><C-N><C-W>k
-tnoremap <A-l> <C-\><C-N><C-W>l
+vnoremap <A-h> <C-\><C-n><C-w>h
+vnoremap <A-j> <C-\><C-n><C-w>j
+vnoremap <A-k> <C-\><C-n><C-w>k
+vnoremap <A-l> <C-\><C-n><C-w>l
 
-tnoremap <A-Left>  <C-\><C-N><C-W>h
-tnoremap <A-Down>  <C-\><C-N><C-W>j
-tnoremap <A-Up>    <C-\><C-N><C-W>k
-tnoremap <A-Right> <C-\><C-N><C-W>l
+vnoremap <A-Left>  <C-\><C-n><C-w>h
+vnoremap <A-Down>  <C-\><C-n><C-w>j
+vnoremap <A-Up>    <C-\><C-n><C-w>k
+vnoremap <A-Right> <C-\><C-n><C-w>l
+
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+
+tnoremap <A-Left>  <C-\><C-n><C-w>h
+tnoremap <A-Down>  <C-\><C-n><C-w>j
+tnoremap <A-Up>    <C-\><C-n><C-w>k
+tnoremap <A-Right> <C-\><C-n><C-w>l
 
 " Ctrl-F and Ctrl-B mapped to Ctrl-D and Ctrl-U
 noremap <C-f> <C-d>
@@ -1155,6 +1165,10 @@ autocmd FileType Makefile setlocal noexpandtab
 autocmd FileType c,cpp,cc setlocal cindent
 autocmd FileType c,cpp,cc setlocal comments=sr:/*,mb:*,el:*/,://
 autocmd FileType c,cpp,cc setlocal cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+
+" Disable auto text wrapping in formatoptions
+autocmd FileType * setlocal formatoptions-=t
+autocmd FileType * setlocal formatoptions-=c
 
 " Syntax
 syntax enable
@@ -1297,6 +1311,44 @@ noremap ' `
 " Using tab to jump between matching pairs
 nmap <Tab> %
 vmap <Tab> %
+
+" Map s to split windows
+noremap s <Nop>
+noremap S <Nop>
+
+noremap SS :split<Space>
+noremap SV :vsplit<Space>
+
+noremap SD :diffsplit<Space>
+noremap sd :diffsplit<Space>
+
+noremap <silent> ss :split<CR>
+noremap <silent> sv :vsplit<CR>
+
+" Use s + [hjkl] to switch between windows
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+
+nnoremap sp <C-w>W
+nnoremap sn <C-w>w
+nnoremap sw <C-w>p
+nnoremap st <C-w>t
+nnoremap sb <C-w>b
+nnoremap so <C-w>o
+
+vnoremap sh <C-\><C-n><C-w>h
+vnoremap sj <C-\><C-n><C-w>j
+vnoremap sk <C-\><C-n><C-w>k
+vnoremap sl <C-\><C-n><C-w>l
+
+vnoremap sp <C-\><C-n><C-w>W
+vnoremap sn <C-\><C-n><C-w>w
+vnoremap sw <C-\><C-n><C-w>p
+vnoremap st <C-\><C-n><C-w>t
+vnoremap sb <C-\><C-n><C-w>b
+vnoremap so <C-\><C-n><C-w>o
 
 " Vimdiff option
 set diffopt=vertical
