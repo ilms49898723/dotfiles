@@ -1,6 +1,6 @@
-" NeoVim Config File
+" File: NeoVim Configurations
 "
-" LittleBird
+" Author: LittleBird
 
 
 " Section: Preliminaries {{{
@@ -164,10 +164,10 @@ let g:lightline.subseparator = {'left': '>', 'right': '<'}
 let g:lightline.tabline_separator = {'left': '', 'right': ''}
 let g:lightline.tabline_subseparator = {'left': '', 'right': ''}
 
-" Force update after Vim starts
+" Update events for lightline
 autocmd VimEnter,BufWinEnter,FileType * call lightline#update()
 
-" Lazy update useful variables
+" Update useful variables
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_current_filename = MyRawFileName()
 autocmd BufNew,BufRead,BufWrite,WinEnter,TabEnter * let b:raw_mode_length = (MyRawMode() == '' ? 2 : 10)
 
@@ -597,10 +597,16 @@ inoremap <silent> <expr> <Tab>
   \ <SID>check_back_space() ? "\<Tab>" :
   \ deoplete#manual_complete()
 
+inoremap <silent> <expr> <S-Tab>
+  \ pumvisible() ? "\<C-p>" :
+  \ <SID>check_back_space() ? "\<C-d>" :
+  \ deoplete#manual_complete()
+
 inoremap <silent> <expr> <C-p>
   \ pumvisible() ? "\<C-p>" :
   \ <SID>check_back_space() ? "" :
   \ deoplete#manual_complete()
+
 inoremap <silent> <expr> <C-n>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "" :
@@ -612,15 +618,16 @@ function! s:check_back_space() abort
 endfunction
 
 " Enable omni completion
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=python3complete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType cc setlocal omnifunc=ccomplete#Complete
 autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType python setlocal omnifunc=python3complete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " For conceal markers
 if has('conceal')
@@ -632,7 +639,7 @@ endif
 " Plugin: deoplete-jedi {{{
 try
   let g:deoplete#sources#jedi#enable_typeinfo = 0
-  call deoplete#custom#option('ignore_sources', {'python': ['jedi']})
+  call deoplete#custom#option('ignore_sources', {'python': ['jedi', 'file']})
   " call deoplete#custom#option('sources', {'python': ['jedi', 'file']})
 catch
 endtry
@@ -883,7 +890,7 @@ if !isdirectory(s:vim_note_dir)
   call mkdir(s:vim_note_dir, 'p')
 endif
 
-let g:notes_directories = ['~/Documents/Notes']
+let g:notes_directories = [s:vim_note_dir]
 let g:notes_suffix = '.note'
 let g:notes_word_boundaries = 1
 let g:notes_smart_quotes = 1
@@ -970,7 +977,6 @@ set matchtime=2
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
 
 " Timeout length
 set timeoutlen=500
@@ -988,11 +994,11 @@ set synmaxcol=2048
 set encoding=utf8
 
 " Use Unix as the standard file type
-set ffs=unix,mac,dos
+set fileformats=unix,mac,dos
 
 " Turn backup off, since most stuff is in svn, git, etc., anyway...
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " Show line number
@@ -1012,8 +1018,8 @@ set shiftwidth=4
 set shiftround
 
 " Line break
-set lbr
-set tw=0
+set linebreak
+set textwidth=0
 
 " Auto indent
 set autoindent
@@ -1167,8 +1173,8 @@ autocmd FileType c,cpp,cc setlocal comments=sr:/*,mb:*,el:*/,://
 autocmd FileType c,cpp,cc setlocal cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
 
 " Disable auto text wrapping in formatoptions
-autocmd FileType * setlocal formatoptions-=t
 autocmd FileType * setlocal formatoptions-=c
+autocmd FileType * setlocal formatoptions-=t
 
 " Syntax
 syntax enable
@@ -1228,7 +1234,7 @@ highlight MsgSeparator gui=bold guifg=#af9c8a guibg=none
 " Fillchars for vertical split
 highlight VertSplit ctermbg=none guibg=none
 
-" Fillchars for folding
+" Fillchars settings
 set fillchars=fold:\ ,msgsep:~
 
 " Update time
@@ -1252,7 +1258,7 @@ set nojoinspaces
 set virtualedit=block
 
 set modeline
-set modelines=2
+set modelines=5
 
 set nostartofline
 
@@ -1365,7 +1371,7 @@ function! ClearCommandOutput()
     return
   endif
   if &hlsearch == 0
-    echo ''
+    echon ''
   endif
 endfunction
 
