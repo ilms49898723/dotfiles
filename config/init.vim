@@ -914,6 +914,9 @@ filetype on
 filetype plugin on
 filetype indent on
 
+" Enable syntax highlighting
+syntax enable
+
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -979,10 +982,7 @@ set noerrorbells
 set novisualbell
 
 " Timeout length
-set timeoutlen=500
-
-" Enable syntax highlighting
-syntax enable
+set timeoutlen=1000
 
 " Set dark background
 set background=dark
@@ -1279,7 +1279,7 @@ noremap <F1> <Nop>
 noremap K <Nop>
 
 " Map K to split lines in normal mode
-nnoremap <silent> K <Esc>i<CR><Esc>^:.-1StripWhitespace<CR>
+nnoremap <silent> K <C-\><C-n>i<CR><C-\><C-n>^:.-1StripWhitespace<CR>
 
 " <leader> + r to toggle relative line numbers
 noremap <silent> <leader>r :set rnu!<CR>
@@ -1288,7 +1288,7 @@ noremap <silent> <leader>r :set rnu!<CR>
 noremap <silent> <leader>m :nohls<CR>
 
 " Remap space
-nnoremap <Space> <Esc>zz
+nnoremap <Space> <C-\><C-n>zz
 
 " Remap B to build using :make!
 nnoremap B :make!<CR>
@@ -1363,6 +1363,7 @@ let g:is_posix = 1
 
 " Clear command output buffer once cursor moved
 autocmd CursorMoved,InsertEnter,InsertLeave * call ClearCommandOutput()
+autocmd BufEnter,BufWinEnter,TabEnter,WinEnter * call ClearCommandOutput()
 
 function! ClearCommandOutput()
   let whether_skip = get(g:, 'suppress_clear_message', 0)
@@ -1394,33 +1395,35 @@ function! RedrawIfNecessary(delta)
 endfunction
 
 " The prefix key for tab operations
-nnoremap [Tabs] <Nop>
-nmap t [Tabs]
+noremap [Tabs] <Nop>
+map t [Tabs]
+
 " Tab jump, using t<tabnum>
 for n in range(1, 9)
-  execute 'nnoremap <silent> [Tabs]'.n  ':<C-u>tabnext'.n.'<CR>'
+  execute 'noremap <silent> [Tabs]'.n  '<C-\><C-n>:<C-u>tabnext'.n.'<CR>'
 endfor
+noremap <silent> [Tabs]0 <C-\><C-n>:<C-u>tabnext10<CR>
 
 " Operation: tc, tablast (new tab at last)
-noremap <silent> [Tabs]c :tablast <Bar> tabnew<CR>
+noremap <silent> [Tabs]c <C-\><C-n>:tablast <Bar> tabnew<CR>
 " Operation: tx, tabclose (close tab)
-noremap <silent> [Tabs]x :tabclose<CR>
+noremap <silent> [Tabs]x <C-\><C-n>:tabclose<CR>
 " Operation: tn, tabnext (next tab)
-noremap <silent> [Tabs]n :tabnext<CR>
+noremap <silent> [Tabs]n <C-\><C-n>:tabnext<CR>
 " Operation: tb, tabprevious (previous tab)
-noremap <silent> [Tabs]b :tabprevious<CR>
+noremap <silent> [Tabs]b <C-\><C-n>:tabprevious<CR>
 " Operation: tf, tab find
-noremap [Tabs]f :tabfind<Space>
+noremap [Tabs]f <C-\><C-n>:tabfind<Space>
 " Operation: te, tab edit
-noremap [Tabs]e :tabedit<Space>
+noremap [Tabs]e <C-\><C-n>:tabedit<Space>
 " Operation: tm, tab move
-noremap [Tabs]m :tabmove<Space>
+noremap [Tabs]m <C-\><C-n>:tabmove<Space>
 " Operation: tg, tabnext <tabnum>
-noremap [Tabs]g :tabnext<Space>
+noremap [Tabs]g <C-\><C-n>:tabnext<Space>
 
 " Ctrl-n and Ctrl-p to switch tab in normal mode
-noremap <silent> <C-n> :tabnext<CR>
-noremap <silent> <C-p> :tabprevious<CR>
+noremap <silent> <C-n> <C-\><C-n>:tabnext<CR>
+noremap <silent> <C-p> <C-\><C-n>:tabprevious<CR>
 
 " Mappings to move lines
 nnoremap <silent> <C-j> :m .+1<CR>==
