@@ -1318,7 +1318,7 @@ noremap ' `
 nmap <Tab> %
 vmap <Tab> %
 
-" Map s to split windows
+" Map s as the prefix key to split windows
 noremap s <Nop>
 noremap S <Nop>
 
@@ -1331,7 +1331,7 @@ noremap sd :diffsplit<Space>
 noremap <silent> ss :split<CR>
 noremap <silent> sv :vsplit<CR>
 
-" Use s + [hjkl] to switch between windows
+" Use s as the prefix key to switch between windows
 nnoremap sh <C-w>h
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
