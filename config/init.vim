@@ -1,5 +1,5 @@
 " File: NeoVim Configurations
-"
+" Note: For macOS and Linux
 " Author: LittleBird
 
 
