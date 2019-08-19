@@ -631,12 +631,6 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" For conceal markers
-if has('conceal')
-  set conceallevel=0
-  set concealcursor=niv
-endif
 " End: deoplete }}}
 
 " Plugin: deoplete-jedi {{{
@@ -1032,6 +1026,12 @@ set wrap
 
 " The way text is displayed
 set display=lastline,msgsep
+
+" For conceal markers
+if has('conceal')
+  set conceallevel=0
+  set concealcursor=niv
+endif
 
 " Smart cursor moving
 noremap <Down> gj
