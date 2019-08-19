@@ -735,7 +735,9 @@ let g:anzu_status_format = 'Search for %p (%i of %l)'
 " End: anzu }}}
 
 " Plugin: vim-slash {{{
+let g:vim_slash_clear_anzu_search_status = 0
 let g:vim_slash_clear_command_output = 1
+let g:vim_slash_map_silently = 1
 let g:vim_slash_remap_n = 0
 
 " Work with anzu
