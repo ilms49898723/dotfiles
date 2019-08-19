@@ -17,6 +17,9 @@ endtry
 let mapleader = ","
 let g:mapleader = ","
 
+let maplocalleader = ","
+let g:maplocalleader = ","
+
 " End: Preliminaries }}}
 
 
@@ -985,9 +988,6 @@ set novisualbell
 " Timeout length
 set timeoutlen=1000
 
-" Set dark background
-set background=dark
-
 " Maximum number of columns to try and highlight
 set synmaxcol=2048
 
@@ -1180,6 +1180,9 @@ autocmd FileType * setlocal formatoptions-=t
 " Syntax
 syntax enable
 syntax on
+
+" Set dark background
+set background=dark
 
 " Colorscheme settings
 try
