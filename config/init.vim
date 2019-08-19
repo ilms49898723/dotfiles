@@ -183,8 +183,8 @@ function! MyTabFilename(n)
        \ fname =~ '#FZF' ? '[FZF]' :
        \ fname =~ '--graph' ? '[Git Graph]' :
        \ isdiff == 1 ? '[File Diffs]' :
-       \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? '[Git Commit]' :
+       \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
+       \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? '[Git Commit]' :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -214,8 +214,8 @@ function! MyFilenameGetter()
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
-       \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
+       \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
+       \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -225,7 +225,7 @@ function! MyRawMode()
        \ fname =~ '__Gundo__' ? '' :
        \ fname =~ '__Gundo_Preview__' ? '' :
        \ fname =~ 'NERD_tree' ? '' :
-       \ &ft =~ 'vimshell' ? '' :
+       \ (&filetype) =~ 'vimshell' ? '' :
        \ 'RawMode'
 endfunction
 
@@ -237,8 +237,8 @@ function! MyRawFileName()
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
-       \ &ft =~ 'vimshell' ? '[VimShell]' :
-       \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
+       \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
+       \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]')
 endfunction
 
@@ -269,7 +269,7 @@ function! MyRawFileFormat()
 endfunction
 
 function! MyRawFileEncoding()
-  return (&fenc !=# '' ? &fenc : &enc)
+  return (&fileencoding !=# '' ? &fileencoding : &encoding)
 endfunction
 
 function! MyPercent()
@@ -290,7 +290,7 @@ function! MyMode()
        \ fname =~ '__Gundo__' ? '' :
        \ fname =~ '__Gundo_Preview__' ? '' :
        \ fname =~ 'NERD_tree' ? '' :
-       \ &ft =~ 'vimshell' ? '' :
+       \ (&filetype) =~ 'vimshell' ? '' :
        \ lightline#mode()
 endfunction
 
@@ -309,8 +309,8 @@ function! MyFilename()
                 \ fname =~ 'NERD_tree' ? '[NERDTree]' :
                 \ fname =~ '#FZF' ? '[FZF]' :
                 \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
-                \ &ft =~ 'vimshell' ? '[VimShell]' :
-                \ &ft == 'git' && fname =~ '^[0-9a-f]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
+                \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
+                \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
                 \ ('' != fname ? fname : '[New File]')
   let ret_fname = ret_fname . ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
                 \ ('' != MyModified() ? ' ' . MyModified() : '')
@@ -411,7 +411,7 @@ function! MyFileEncoding()
   if winwidth('.') < required_space
     return ''
   endif
-  return (&fenc !=# '' ? &fenc : &enc)
+  return (&fileencoding !=# '' ? &fileencoding : &encoding)
 endfunction
 
 function! MyFugitive()
@@ -482,7 +482,7 @@ function! MyCharCode()
   silent! ascii
   redir END
 
-  let encoding = (&fenc == '' ? &enc : &fenc)
+  let encoding = (&fileencoding == '' ? &encoding : &fileencoding)
 
   if match(ascii, 'NUL') != -1
     if encoding == 'utf-8'
@@ -516,7 +516,7 @@ function! MyUTF8Code()
     return ''
   endif
 
-  let encoding = (&fenc == '' ? &enc : &fenc)
+  let encoding = (&fileencoding == '' ? &encoding : &fileencoding)
 
   if encoding != 'utf-8'
     return ''
@@ -844,8 +844,9 @@ autocmd BufRead * silent CtagsCreateOnly
 " Plugin: tagbar {{{
 nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
-let g:tagbar_width = 32
 let g:tagbar_autofocus = 1
+let g:tagbar_silent = 1
+let g:tagbar_width = 32
 
 let g:tagbar_iconchars = ['▸', '▾']
 " End: tagbar }}}
