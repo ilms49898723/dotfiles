@@ -1344,6 +1344,7 @@ nnoremap sw <C-w>p
 nnoremap st <C-w>t
 nnoremap sb <C-w>b
 nnoremap so <C-w>o
+nnoremap sq <C-w>q
 
 vnoremap sh <C-\><C-n><C-w>h
 vnoremap sj <C-\><C-n><C-w>j
@@ -1356,6 +1357,7 @@ vnoremap sw <C-\><C-n><C-w>p
 vnoremap st <C-\><C-n><C-w>t
 vnoremap sb <C-\><C-n><C-w>b
 vnoremap so <C-\><C-n><C-w>o
+vnoremap sq <C-\><C-n><C-w>q
 
 " Vimdiff option
 set diffopt=vertical
