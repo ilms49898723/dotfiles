@@ -1,4 +1,4 @@
-" File: NeoVim Configurations
+" File: Neovim Configurations
 " Note: For macOS and Linux
 " Author: LittleBird
 
@@ -579,7 +579,7 @@ try
   call deoplete#custom#source('member', 'rank', 400)
 
   " Do not show the word typed in completion menu
-  call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+  call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 
   " Change around source settings
   call deoplete#custom#var('around', {
@@ -732,14 +732,9 @@ let g:anzu_status_format = 'Search for %p (%i of %l)'
 let g:vim_slash_clear_anzu_search_status = 0
 let g:vim_slash_clear_command_output = 1
 let g:vim_slash_map_silently = 1
-let g:vim_slash_remap_n = 0
 
 " Work with anzu
 map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
-
-" Remap n and N to / and ? to suppress /pattern or ?pattern commandline output
-map <silent> n /<CR>
-map <silent> N ?<CR>
 " End: vim-slash }}}
 
 " Plugin: emmet-vim {{{
