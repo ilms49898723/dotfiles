@@ -17,6 +17,6 @@ General:
 - git: [fzf](https://github.com/junegunn/fzf)
 - git: [ripgrep](https://github.com/BurntSushi/ripgrep)
 
-NeoVim:
+Neovim:
 - pip: pynvim
 - pip: Jedi
