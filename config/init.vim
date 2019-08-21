@@ -48,7 +48,6 @@ Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deol.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
-Plug 'farmergreg/vim-lastplace'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
@@ -80,6 +79,7 @@ Plug 'xolox/vim-notes'
 Plug 'ilms49898723/auto-ctags.vim'
 Plug 'ilms49898723/molokai'
 Plug 'ilms49898723/vim-better-whitespace'
+Plug 'ilms49898723/vim-lastplace'
 Plug 'ilms49898723/vim-slash'
 
 Plug 'Shougo/neco-vim'
@@ -751,6 +751,7 @@ map <silent> <leader>/ <Plug>NERDCommenterToggle
 " Plugin: NERDTree {{{
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
+
 let g:NERDTreeIgnore = [
       \ '\.clean$', '\.swp$', '\.bak$', '\~$'
       \ ]
@@ -760,6 +761,8 @@ let g:NERDTreeNaturalSort = 1
 let g:NERDTreeMinimalUI = 0
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeMouseMode = 0
+
+let g:NERDTreeMapOpenVSplit = 'v'
 
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -870,6 +873,10 @@ let g:notes_alt_indents = 0
 autocmd BufNewFile,BufRead *.note setlocal ft=notes
 autocmd BufNewFile,BufRead *.note setlocal tw=0
 " End: vim-notes }}}
+
+" Plugin: vim-lastplace {{{
+let g:lastplace_ignore_centering = 1
+" End: vim-lastplace }}}
 
 " End: Plugin Settings }}}
 
