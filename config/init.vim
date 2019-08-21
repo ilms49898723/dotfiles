@@ -45,6 +45,7 @@ endif
 call plug#begin(s:plugin_dir)
 
 Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/deol.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'farmergreg/vim-lastplace'
@@ -62,6 +63,7 @@ Plug 'keith/swift.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
+Plug 'neomake/neomake'
 Plug 'osyo-manga/vim-anzu'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -80,17 +82,17 @@ Plug 'ilms49898723/molokai'
 Plug 'ilms49898723/vim-better-whitespace'
 Plug 'ilms49898723/vim-slash'
 
-Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-
 Plug 'Shougo/neco-vim'
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'ilms49898723/neco-syntax'
 Plug 'ilms49898723/neoinclude.vim'
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Shougo/vimshell'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -105,6 +107,7 @@ call plug#end()
 filetype on
 filetype plugin on
 filetype indent on
+syntax enable
 
 " End: Plugin Manager }}}
 
@@ -189,7 +192,6 @@ function! MyTabFilename(n)
        \ fname =~ '#FZF' ? '[FZF]' :
        \ fname =~ '--graph' ? '[Git Graph]' :
        \ isdiff == 1 ? '[File Diffs]' :
-       \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
        \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? '[Git Commit]' :
        \ ('' != fname ? fname : '[New File]')
 endfunction
@@ -220,7 +222,6 @@ function! MyFilenameGetter()
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
-       \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
        \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]')
 endfunction
@@ -231,7 +232,6 @@ function! MyRawMode()
        \ fname =~ '__Gundo__' ? '' :
        \ fname =~ '__Gundo_Preview__' ? '' :
        \ fname =~ 'NERD_tree' ? '' :
-       \ (&filetype) =~ 'vimshell' ? '' :
        \ 'RawMode'
 endfunction
 
@@ -243,7 +243,6 @@ function! MyRawFileName()
        \ fname =~ 'NERD_tree' ? '[NERDTree]' :
        \ fname =~ '#FZF' ? '[FZF]' :
        \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
-       \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
        \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
        \ ('' != fname ? fname : '[New File]')
 endfunction
@@ -296,7 +295,6 @@ function! MyMode()
        \ fname =~ '__Gundo__' ? '' :
        \ fname =~ '__Gundo_Preview__' ? '' :
        \ fname =~ 'NERD_tree' ? '' :
-       \ (&filetype) =~ 'vimshell' ? '' :
        \ lightline#mode()
 endfunction
 
@@ -315,7 +313,6 @@ function! MyFilename()
                 \ fname =~ 'NERD_tree' ? '[NERDTree]' :
                 \ fname =~ '#FZF' ? '[FZF]' :
                 \ fname =~ '--graph' ? 'Git Graph > ' . fname[0:len(fname) - 9] :
-                \ (&filetype) =~ 'vimshell' ? '[VimShell]' :
                 \ (&filetype) =~ 'git' && fname =~ '^[0-9a-fA-F]*$' && len(fname) == 40 ? 'Git Commit > ' . fname[0:6] :
                 \ ('' != fname ? fname : '[New File]')
   let ret_fname = ret_fname . ('' != MyReadonly() ? ' ' . MyReadonly() : '') .
@@ -558,7 +555,6 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
-let g:vimshell_force_overwrite_statusline = 0
 " End: lightline }}}
 
 " Plugin: deoplete {{{
@@ -582,12 +578,12 @@ try
   call deoplete#custom#source('member', 'rank', 400)
 
   " Do not show the word typed in completion menu
-  call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+  call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 
   " Change around source settings
   call deoplete#custom#var('around', {
-    \ 'range_above': 25,
-    \ 'range_below': 25,
+    \ 'range_above': 30,
+    \ 'range_below': 30,
     \ 'mark_above': '[A]',
     \ 'mark_below': '[A]',
     \ 'mark_changes': '[A]'})
@@ -649,30 +645,6 @@ endtry
 let g:necosyntax#min_keyword_length = 2
 let g:necosyntax#max_syntax_lines = 4096
 " End: neco-syntax }}}
-
-" Plugin: vimshell {{{
-let g:vimshell_environment_term = 'xterm256'
-let g:vimshell_disable_escape_highlight = 1
-let g:vimshell_interactive_update_time = 200
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_prompt = $USER."$ "
-
-" Initialize execute file list
-let g:vimshell_execute_file_list = {}
-let g:vimshell_execute_file_list['rb'] = 'ruby'
-let g:vimshell_execute_file_list['pl'] = 'perl'
-let g:vimshell_execute_file_list['py'] = 'python3'
-
-autocmd FileType vimshell call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
-
-function! MyChpwd(args, context)
-  call vimshell#execute('ls')
-endfunction
-
-autocmd FileType int-* call s:interactive_settings()
-function! s:interactive_settings()
-endfunction
-" End: vimshell }}}
 
 " Plugin: fzf.vim {{{
 " Open files
@@ -850,7 +822,7 @@ let g:tagbar_iconchars = ['▸', '▾']
 
 " Plugin: vim-better-whitespace {{{
 let g:current_line_whitespace_disabled_soft = 1
-let g:better_whitespace_filetypes_blacklist = ['vimshell', 'diff', 'gitcommit', 'qf', 'help']
+let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * call ClearWhitespaceInFile()
 
 function! ClearWhitespaceInFile()
