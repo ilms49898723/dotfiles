@@ -798,6 +798,7 @@ vmap <Enter> <Plug>(EasyAlign)
 " Plugin: vim-gutentags {{{
 let g:gutentags_project_root = ['.ctags.d']
 let g:gutentags_ctags_tagfile = '.ctags.tags'
+let g:gutentags_ctags_extra_args = ['--tag-relative=never', '--recurse=yes', '--sort=yes', '--links=no']
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_empty_buffer = 1
 let g:gutentags_generate_on_missing = 1
