@@ -565,7 +565,6 @@ try
   call deoplete#custom#option('auto_refresh_delay', 0)
   call deoplete#custom#option('camel_case', 1)
   call deoplete#custom#option('ignore_case', 1)
-  call deoplete#custom#option('num_processes', 4)
   call deoplete#custom#option('on_insert_enter', 0)
   call deoplete#custom#option('skip_chars', [])
   call deoplete#custom#option('smart_case', 1)
@@ -581,8 +580,6 @@ try
 
   " Change around source settings
   call deoplete#custom#var('around', {
-    \ 'range_above': 30,
-    \ 'range_below': 30,
     \ 'mark_above': '[A]',
     \ 'mark_below': '[A]',
     \ 'mark_changes': '[A]'})
@@ -786,8 +783,8 @@ endfunction
 " Plugin: gitgutter {{{
 set signcolumn=yes
 let g:gitgutter_max_signs = 2048
-map <silent> ]h <Plug>GitGutterNextHunk
-map <silent> [h <Plug>GitGutterPrevHunk
+map <silent> ]h <Plug>(GitGutterNextHunk)
+map <silent> [h <Plug>(GitGutterPrevHunk)
 " End: gitgutter }}}
 
 " Plugin: vim-easy-align {{{
@@ -823,7 +820,6 @@ let g:tagbar_iconchars = ['▸', '▾']
 " End: tagbar }}}
 
 " Plugin: vim-better-whitespace {{{
-let g:current_line_whitespace_disabled_soft = 1
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'qf', 'help']
 autocmd BufWritePre * call ClearWhitespaceInFile()
 
