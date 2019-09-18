@@ -59,6 +59,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'keith/swift.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
@@ -75,7 +76,6 @@ Plug 'vim-python/python-syntax'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 
-Plug 'ilms49898723/auto-ctags.vim'
 Plug 'ilms49898723/molokai'
 Plug 'ilms49898723/vim-better-whitespace'
 Plug 'ilms49898723/vim-lastplace'
@@ -764,8 +764,10 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
-  \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+autocmd VimEnter * if (argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in"))
+  \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
+  \ | call lightline#update() | endif
+autocmd VimEnter * NERDTreeFocus | wincmd p | call lightline#update()
 
 let g:LittleBird_NERDTreeAutoRefresh = 0
 if g:LittleBird_NERDTreeAutoRefresh == 1
@@ -793,21 +795,17 @@ vmap <C-a> <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
 " End: vim-easy-align }}}
 
-" Plugin: auto-ctags {{{
-let s:ctags_dir = expand('~/.ctags_files')
-if !isdirectory(s:ctags_dir)
-  call mkdir(s:ctags_dir, 'p')
-endif
-let g:auto_ctags = 1
-let g:auto_ctags_search_recursively = 1
-let g:auto_ctags_directory_list = ['.git', '.svn', '.ctags.d']
-let g:auto_ctags_tags_name = '.ctags.tags'
-let g:auto_ctags_tags_args = ['--tag-relative=never', '--recurse=yes', '--sort=yes', '--links=no']
+" Plugin: vim-gutentags {{{
+let g:gutentags_project_root = ['.ctags.d']
+let g:gutentags_ctags_tagfile = '.ctags.tags'
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_empty_buffer = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_resolve_symlinks = 0
 
-set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;
-
-autocmd BufRead * silent CtagsCreateOnly
-" End: auto-ctags }}}
+set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;,./.ctags.tags;
+" End: vim-gutentags }}}
 
 " Plugin: tagbar {{{
 nnoremap <silent> <F9> :TagbarToggle<CR>
