@@ -1,0 +1,4 @@
+# Global Ignore Files for Git Version Control
+*~
+.DS_Store
+.ctags.tags
