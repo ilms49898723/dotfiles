@@ -768,6 +768,8 @@ autocmd VimEnter * if (argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_i
   \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
   \ | call lightline#update() | endif
 autocmd VimEnter * NERDTreeFocus | wincmd p | call lightline#update()
+autocmd BufEnter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree())
+  \ | q | endif
 
 let g:LittleBird_NERDTreeAutoRefresh = 0
 if g:LittleBird_NERDTreeAutoRefresh == 1
@@ -819,7 +821,12 @@ let g:tagbar_iconchars = ['▸', '▾']
 " End: tagbar }}}
 
 " Plugin: vim-better-whitespace {{{
+let g:strip_whitelines_at_eof = 1
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'qf', 'help']
+
+autocmd InsertEnter * DisableWhitespace
+autocmd InsertLeave * EnableWhitespace
+
 autocmd BufWritePre * call ClearWhitespaceInFile()
 
 function! ClearWhitespaceInFile()
