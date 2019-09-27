@@ -59,7 +59,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'keith/swift.vim'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
@@ -78,6 +77,7 @@ Plug 'xolox/vim-notes'
 
 Plug 'ilms49898723/molokai'
 Plug 'ilms49898723/vim-better-whitespace'
+Plug 'ilms49898723/vim-gutentags'
 Plug 'ilms49898723/vim-lastplace'
 Plug 'ilms49898723/vim-slash'
 
@@ -807,6 +807,8 @@ let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
 let g:gutentags_resolve_symlinks = 0
 
+let g:gutentags_suppress_warning_messages = 1
+
 set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;,./.ctags.tags;
 " End: vim-gutentags }}}
 
@@ -1379,6 +1381,9 @@ function! RedrawIfNecessary(delta)
     redraw!
   endif
 endfunction
+
+" Map :W to :w
+command! W w
 
 " The prefix key for tab operations
 noremap [Tabs] <Nop>
