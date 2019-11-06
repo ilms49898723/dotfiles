@@ -814,6 +814,7 @@ set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;,./.cta
 " Plugin: tagbar {{{
 nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_silent = 1
 let g:tagbar_width = 32
