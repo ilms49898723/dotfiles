@@ -644,13 +644,13 @@ let g:necosyntax#max_syntax_lines = 4096
 
 " Plugin: fzf.vim {{{
 " Open files
-noremap <silent> <A-o> :FZF<CR>
+noremap <silent> <M-o> :FZF<CR>
 " List windows
-noremap <silent> <A-w> :Windows<CR>
+noremap <silent> <M-w> :Windows<CR>
 " List buffers
-noremap <silent> <A-b> :Buffers<CR>
+noremap <silent> <M-b> :Buffers<CR>
 " Find line in current buffer
-noremap <silent> <A-f> :BLines<CR>
+noremap <silent> <M-f> :BLines<CR>
 noremap <silent> <C-g> :BLines<CR>
 
 function! s:fzf_statusline()
@@ -788,6 +788,7 @@ set signcolumn=yes
 let g:gitgutter_max_signs = 2048
 map <silent> ]h <Plug>(GitGutterNextHunk)
 map <silent> [h <Plug>(GitGutterPrevHunk)
+map <silent> <C-u> <Plug>(GitGutterUndoHunk)
 " End: gitgutter }}}
 
 " Plugin: vim-easy-align {{{
@@ -1024,45 +1025,45 @@ inoremap <silent> <expr> <Down> pumvisible() ? "\<Down>" : "\<C-o>gj"
 inoremap <silent> <expr> <Up>   pumvisible() ? "\<Up>"   : "\<C-o>gk"
 
 " Smart way to move between windows
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
-nnoremap <A-Left>  <C-w>h
-nnoremap <A-Down>  <C-w>j
-nnoremap <A-Up>    <C-w>k
-nnoremap <A-Right> <C-w>l
+nnoremap <M-Left>  <C-w>h
+nnoremap <M-Down>  <C-w>j
+nnoremap <M-Up>    <C-w>k
+nnoremap <M-Right> <C-w>l
 
-inoremap <A-h> <C-\><C-n><C-w>h
-inoremap <A-j> <C-\><C-n><C-w>j
-inoremap <A-k> <C-\><C-n><C-w>k
-inoremap <A-l> <C-\><C-n><C-w>l
+inoremap <M-h> <C-\><C-n><C-w>h
+inoremap <M-j> <C-\><C-n><C-w>j
+inoremap <M-k> <C-\><C-n><C-w>k
+inoremap <M-l> <C-\><C-n><C-w>l
 
-inoremap <A-Left>  <C-\><C-n><C-w>h
-inoremap <A-Down>  <C-\><C-n><C-w>j
-inoremap <A-Up>    <C-\><C-n><C-w>k
-inoremap <A-Right> <C-\><C-n><C-w>l
+inoremap <M-Left>  <C-\><C-n><C-w>h
+inoremap <M-Down>  <C-\><C-n><C-w>j
+inoremap <M-Up>    <C-\><C-n><C-w>k
+inoremap <M-Right> <C-\><C-n><C-w>l
 
-vnoremap <A-h> <C-\><C-n><C-w>h
-vnoremap <A-j> <C-\><C-n><C-w>j
-vnoremap <A-k> <C-\><C-n><C-w>k
-vnoremap <A-l> <C-\><C-n><C-w>l
+vnoremap <M-h> <C-\><C-n><C-w>h
+vnoremap <M-j> <C-\><C-n><C-w>j
+vnoremap <M-k> <C-\><C-n><C-w>k
+vnoremap <M-l> <C-\><C-n><C-w>l
 
-vnoremap <A-Left>  <C-\><C-n><C-w>h
-vnoremap <A-Down>  <C-\><C-n><C-w>j
-vnoremap <A-Up>    <C-\><C-n><C-w>k
-vnoremap <A-Right> <C-\><C-n><C-w>l
+vnoremap <M-Left>  <C-\><C-n><C-w>h
+vnoremap <M-Down>  <C-\><C-n><C-w>j
+vnoremap <M-Up>    <C-\><C-n><C-w>k
+vnoremap <M-Right> <C-\><C-n><C-w>l
 
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
+tnoremap <M-h> <C-\><C-n><C-w>h
+tnoremap <M-j> <C-\><C-n><C-w>j
+tnoremap <M-k> <C-\><C-n><C-w>k
+tnoremap <M-l> <C-\><C-n><C-w>l
 
-tnoremap <A-Left>  <C-\><C-n><C-w>h
-tnoremap <A-Down>  <C-\><C-n><C-w>j
-tnoremap <A-Up>    <C-\><C-n><C-w>k
-tnoremap <A-Right> <C-\><C-n><C-w>l
+tnoremap <M-Left>  <C-\><C-n><C-w>h
+tnoremap <M-Down>  <C-\><C-n><C-w>j
+tnoremap <M-Up>    <C-\><C-n><C-w>k
+tnoremap <M-Right> <C-\><C-n><C-w>l
 
 " Ctrl-F and Ctrl-B mapped to Ctrl-D and Ctrl-U
 noremap <C-f> <C-d>
@@ -1442,13 +1443,13 @@ inoremap <C-w> <C-o>cw
 inoremap <C-b> <C-w>
 
 " Indent using Alt
-nnoremap <A-,> <<
-nnoremap <A-.> >>
-vnoremap <A-,> <gv
-vnoremap <A-.> >gv
+nnoremap <M-,> <<
+nnoremap <M-.> >>
+vnoremap <M-,> <gv
+vnoremap <M-.> >gv
 
-inoremap <A-,> <C-d>
-inoremap <A-.> <C-t>
+inoremap <M-,> <C-d>
+inoremap <M-.> <C-t>
 
 " Map <C-d> to <C-\><C-n>
 nnoremap <C-d> <C-\><C-n>
