@@ -660,7 +660,7 @@ autocmd User FzfStatusLine call <SID>fzf_statusline()
 " End: fzf.vim }}}
 
 " Plugin: Gundo {{{
-noremap <silent> <leader>u :GundoToggle<CR>
+noremap <silent> <C-u> :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 " End: Gundo }}}
@@ -788,7 +788,7 @@ set signcolumn=yes
 let g:gitgutter_max_signs = 2048
 map <silent> ]h <Plug>(GitGutterNextHunk)
 map <silent> [h <Plug>(GitGutterPrevHunk)
-map <silent> <C-u> <Plug>(GitGutterUndoHunk)
+map <silent> <leader>u <Plug>(GitGutterUndoHunk)
 " End: gitgutter }}}
 
 " Plugin: vim-easy-align {{{
