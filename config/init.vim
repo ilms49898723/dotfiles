@@ -58,6 +58,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
+Plug 'kassio/neoterm'
 Plug 'keith/swift.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
@@ -882,6 +883,11 @@ autocmd BufNewFile,BufRead *.note setlocal tw=0
 let g:lastplace_ignore_centering = 1
 " End: vim-lastplace }}}
 
+" Plugin: neoterm {{{
+let g:neoterm_autoinsert = 1
+let g:neoterm_repl_python = 'python3'
+" End: neoterm }}}
+
 " End: Plugin Settings }}}
 
 
@@ -1345,9 +1351,15 @@ vnoremap sb <C-\><C-n><C-w>b
 vnoremap so <C-\><C-n><C-w>o
 vnoremap sq <C-\><C-n><C-w>q
 
+" Terminal emulator settings
+autocmd TermOpen term://* startinsert
+
+tnoremap <Esc> <C-\><C-n>
+
 " Vimdiff option
 set diffopt=vertical
 
+" POSIX
 let g:is_posix = 1
 
 " Clear command output buffer once cursor moved
