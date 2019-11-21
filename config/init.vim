@@ -972,7 +972,7 @@ set novisualbell
 set timeoutlen=1000
 
 " Maximum number of columns to try and highlight
-set synmaxcol=2048
+set synmaxcol=4096
 
 " Set utf8 as standard encoding
 set encoding=utf8
