@@ -19,5 +19,7 @@ General:
 - git: [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 Neovim:
+- apt: libtool-bin
+- apt: ninja-build
 - pip: pynvim
-- pip: Jedi
+- pip: jedi
