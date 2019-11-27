@@ -1,14 +1,13 @@
 #!/bin/sh
 
-if [ -d temp ]; then
-    echo "Directory ./temp/ already exists."
-    echo "Failed to create temporary directory."
+if [ -d install ]; then
+    echo "Directory './install/' already exists."
     echo "Abort."
     exit
 fi
 
-mkdir temp
-cd temp/
+mkdir install
+cd install/
 
 wget "https://github.com/neovim/neovim/archive/stable.tar.gz"
 tar xf stable.tar.gz
@@ -20,8 +19,8 @@ make install
 cd ..
 cd ..
 
-if [ -d temp ]; then
-    rm -rf temp/
+if [ -d install ]; then
+    rm -rf install/
 fi
 
 pip3 install --user --upgrade pynvim

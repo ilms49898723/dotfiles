@@ -1,14 +1,13 @@
 #!/bin/sh
 
-if [ -d temp ]; then
-    echo "Directory ./temp/ already exists."
-    echo "Failed to create temporary directory."
+if [ -d install ]; then
+    echo "Directory './install/' already exists."
     echo "Abort."
     exit
 fi
 
-mkdir temp
-cd temp/
+mkdir install
+cd install/
 
 git clone "https://github.com/universal-ctags/ctags.git"
 
@@ -21,6 +20,6 @@ make install
 cd ..
 cd ..
 
-if [ -d temp ]; then
-    rm -rf temp/
+if [ -d install ]; then
+    rm -rf install/
 fi
