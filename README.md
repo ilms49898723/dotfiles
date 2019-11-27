@@ -1,8 +1,8 @@
-# My Config Files Backup
+# My Configuration Files Backup
 
 A backup of my configuration files.
 
-## Memo: External Tools Needed
+## Memo: External Tools
 
 General:
 - apt: C/C++ compiler
