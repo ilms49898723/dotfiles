@@ -1140,6 +1140,7 @@ set foldlevelstart=99
 set foldignore=''
 set foldminlines=0
 
+" Map zz to toggle folding
 noremap zz za
 
 " File type options
