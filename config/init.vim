@@ -14,11 +14,11 @@ catch
 endtry
 
 " Leader key settings
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = ','
+let g:mapleader = ','
 
-let maplocalleader = ","
-let g:maplocalleader = ","
+let maplocalleader = ','
+let g:maplocalleader = ','
 
 " End: Preliminaries }}}
 
