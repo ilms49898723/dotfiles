@@ -697,7 +697,7 @@ map # <Plug>(anzu-sharp-with-echo)
 let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
 let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 0
 
-let g:anzu_status_format = '%#Normal#Searching for %#AnzuSearchPattern#%p%#Normal# (%i / %l)'
+let g:anzu_status_format = '%#Normal#Searching for %#SearchPatterns#%p%#Normal# (%i / %l)'
 " End: anzu }}}
 
 " Plugin: vim-slash {{{
