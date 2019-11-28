@@ -842,7 +842,7 @@ endfunction
 " End: vim-better-whitespace }}}
 
 " Plugin: rainbow parentheses {{{
-let g:rainbow#max_level = 16
+let g:rainbow#max_level = 24
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
