@@ -640,7 +640,7 @@ endtry
 
 " Plugin: neco-syntax {{{
 let g:necosyntax#min_keyword_length = 2
-let g:necosyntax#max_syntax_lines = 4096
+let g:necosyntax#max_syntax_lines = 8192
 " End: neco-syntax }}}
 
 " Plugin: fzf.vim {{{
@@ -969,7 +969,7 @@ set noerrorbells
 set novisualbell
 
 " Timeout length
-set timeoutlen=1000
+set timeoutlen=500
 
 " Maximum number of columns to try and highlight
 set synmaxcol=4096
