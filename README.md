@@ -1,4 +1,4 @@
-# My Configuration Files Backup
+# Backup of My Configuration Files
 
 A backup of my configuration files.
 
