@@ -76,6 +76,13 @@ Plug 'vim-python/python-syntax'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-indent'
+Plug 'glts/vim-textobj-comment'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'rbonvall/vim-textobj-latex'
+
 Plug 'ilms49898723/molokai'
 Plug 'ilms49898723/vim-better-whitespace'
 Plug 'ilms49898723/vim-gutentags'
@@ -969,7 +976,7 @@ set noerrorbells
 set novisualbell
 
 " Timeout length
-set timeoutlen=500
+set timeoutlen=1000
 
 " Maximum number of columns to try and highlight
 set synmaxcol=4096
