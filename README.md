@@ -1,6 +1,6 @@
 # Backup of My Configuration Files
 
-A backup of my configuration files.
+Backup of my configuration files.
 
 ## Memo: External Tools
 
