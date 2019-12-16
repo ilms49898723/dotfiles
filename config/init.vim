@@ -81,6 +81,7 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'glts/vim-textobj-comment'
 Plug 'Julian/vim-textobj-variable-segment'
+Plug 'junegunn/vim-after-object'
 Plug 'rbonvall/vim-textobj-latex'
 
 Plug 'ilms49898723/molokai'
@@ -854,6 +855,10 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 autocmd FileType * RainbowParentheses
 " End: rainbow parentheses }}}
+
+" Plugin: vim-after-object {{{
+autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+" End: vim-after-object }}}
 
 " Plugin: limelight {{{
 let g:limelight_conceal_ctermfg = 'gray'
