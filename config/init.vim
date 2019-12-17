@@ -755,7 +755,6 @@ map <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " Plugin: NERDTree {{{
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <F5> :NERDTreeToggle<CR>
 
 let g:NERDTreeIgnore = [
       \ '\.clean$', '\.swp$', '\.bak$', '\~$'
@@ -822,7 +821,6 @@ set tags+=./.git/.ctags.tags;,./.svn/.ctags.tags;,./.ctags.d/.ctags.tags;,./.cta
 " End: vim-gutentags }}}
 
 " Plugin: tagbar {{{
-nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
@@ -857,7 +855,7 @@ autocmd FileType * RainbowParentheses
 " End: rainbow parentheses }}}
 
 " Plugin: vim-after-object {{{
-autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+autocmd VimEnter * call after_object#enable('#', '-', '=', ':', ',', '.', ' ')
 " End: vim-after-object }}}
 
 " Plugin: limelight {{{
@@ -1280,10 +1278,6 @@ set shortmess-=n
 " Disable gui cursor
 set guicursor=
 
-" Disable F1, K
-noremap <F1> <Nop>
-noremap K <Nop>
-
 " Map K to split lines in normal mode
 nnoremap <silent> K <C-\><C-n>i<CR><C-\><C-n>^:.-1StripWhitespace<CR>
 
@@ -1417,7 +1411,7 @@ map t [Tabs]
 
 " Tab jump, using t<tabnum>
 for n in range(1, 9)
-  execute 'noremap <silent> [Tabs]'.n  '<C-\><C-n>:<C-u>tabnext'.n.'<CR>'
+  execute 'noremap <silent> [Tabs]'.n '<C-\><C-n>:<C-u>tabnext'.n.'<CR>'
 endfor
 noremap <silent> [Tabs]0 <C-\><C-n>:<C-u>tabnext10<CR>
 
@@ -1441,6 +1435,11 @@ noremap [Tabs]g <C-\><C-n>:tabnext<Space>
 " Ctrl-n and Ctrl-p to switch tab in normal mode
 noremap <silent> <C-n> <C-\><C-n>:tabnext<CR>
 noremap <silent> <C-p> <C-\><C-n>:tabprevious<CR>
+
+" Use function keys for tab navigation
+for n in range(1, 12)
+  execute 'noremap <silent> <F'.n.'>' '<C-\><C-n>:<C-u>tabnext'.n.'<CR>'
+endfor
 
 " Mappings to move lines
 nnoremap <silent> <C-j> :m .+1<CR>==
