@@ -21,3 +21,8 @@ Neovim:
 - apt: ninja-build
 - pip: pynvim
 - pip: jedi
+
+## Install Scripts
+
+- Neovim: stable release
+- Universal Ctags: head
