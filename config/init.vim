@@ -1403,6 +1403,16 @@ set diffopt=vertical
 " POSIX
 let g:is_posix = 1
 
+" Clear register
+function! s:clear_register() abort
+  let rs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  for r in rs
+    call setreg(r, [])
+  endfor
+endfunction
+
+command ClearRegister call s:clear_register()
+
 " Clear command output buffer once cursor moved
 autocmd CursorMoved,InsertEnter,InsertLeave * call ClearCommandOutput()
 autocmd BufEnter,BufWinEnter,TabEnter,WinEnter * call ClearCommandOutput()
