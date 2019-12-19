@@ -60,6 +60,8 @@ Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kassio/neoterm'
 Plug 'keith/swift.vim'
+Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/suda.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
@@ -830,6 +832,11 @@ let g:tagbar_width = 32
 let g:tagbar_iconchars = ['▸', '▾']
 " End: tagbar }}}
 
+" Plugin: suda.vim {{{
+let g:suda_smart_edit = 1
+let g:suda#prefix = ['suda://', 'sudo://']
+" End: suda.vim }}}
+
 " Plugin: vim-better-whitespace {{{
 let g:strip_whitelines_at_eof = 1
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'qf', 'help']
@@ -960,6 +967,9 @@ set ignorecase
 " When searching try to be smart about cases
 set smartcase
 
+" Tag searching
+set tagcase=match
+
 " Makes search act like search in modern browsers
 set incsearch
 set inccommand=nosplit
@@ -972,7 +982,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
-set matchtime=2
+set matchtime=1
 
 " No annoying sound on errors
 set noerrorbells
@@ -1028,6 +1038,12 @@ set display=lastline,msgsep
 if has('conceal')
   set conceallevel=0
   set concealcursor=niv
+endif
+
+" Grep
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+  set grepformat=%f:%l:%c:%m,%f:%l:%m,%f:%l%m,%f\ %l%m
 endif
 
 " Smart cursor moving
