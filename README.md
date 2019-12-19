@@ -24,5 +24,6 @@ Neovim:
 
 ## Install Scripts
 
+- Tools via apt (in Ubuntu, etc.)
 - Neovim: stable release
 - Universal Ctags: head
