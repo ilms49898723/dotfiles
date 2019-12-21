@@ -1,4 +1,4 @@
-# Backup of My Configuration Files
+# My Configuration Files
 
 ## Tools
 
@@ -24,13 +24,13 @@
 
 ## Setup Scripts
 
-- Copy configuration files to $HOME or proper locations
-- Update the setting for Windows Subsystem for Linux (WSL)
-- Setup plugins for zsh
-- Setup configuration for git
+- `install_config.sh`: Copy configuration files to $HOME or proper locations
+- `git_config.sh`: Setup configuration for git
+- `patch_wsl_config.sh`: Update the setting for Windows Subsystem for Linux (WSL)
+- `setup_zsh_plugins.sh`: Setup plugins for zsh
 
 ## Install Scripts
 
-- Tools via apt package manager
-- Neovim: stable release
-- Universal Ctags: head
+- `tools/tools_install.sh`: Tools via apt package manager
+- `tools/neovim_install.sh`: Neovim: stable release
+- `tools/ctags_install.sh`: Universal Ctags: head
