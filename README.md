@@ -24,6 +24,13 @@ Neovim:
 - pip: pynvim
 - pip: jedi
 
+## Setup Scripts
+
+- Copy configuration files to $HOME or proper locations
+- Update the setting for Windows Subsystem for Linux (WSL)
+- Setup plugins for zsh
+- Setup configuration for git
+
 ## Install Scripts
 
 - Tools via apt package manager
