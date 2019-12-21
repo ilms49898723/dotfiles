@@ -1183,7 +1183,6 @@ noremap ZQ <Nop>
 let python_highlight_all = 1
 
 autocmd FileType python setlocal completeopt-=preview
-autocmd FileType python setlocal tabstop=4
 
 autocmd BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
@@ -1198,6 +1197,11 @@ autocmd FileType Makefile setlocal noexpandtab
 autocmd FileType c,cpp,cc setlocal cindent
 autocmd FileType c,cpp,cc setlocal comments=sr:/*,mb:*,el:*/,://
 autocmd FileType c,cpp,cc setlocal cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+
+autocmd FileType vim setlocal tabstop=2
+autocmd FileType vim setlocal softtabstop=2
+autocmd FileType vim setlocal shiftwidth=2
+autocmd FileType vim setlocal foldmethod=marker
 
 " Disable auto text wrapping in formatoptions
 autocmd FileType * setlocal formatoptions-=c
