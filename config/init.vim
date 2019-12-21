@@ -952,7 +952,7 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Mouse settings
-set mouse=""
+set mouse=
 set mousehide
 
 " Ignore case when searching
