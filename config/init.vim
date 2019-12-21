@@ -639,7 +639,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 try
   let g:deoplete#sources#jedi#enable_typeinfo = 0
   call deoplete#custom#option('ignore_sources', {'python': ['jedi', 'file']})
-  " call deoplete#custom#option('sources', {'python': ['jedi', 'file']})
 catch
 endtry
 " End: deoplete-jedi }}}
@@ -682,17 +681,6 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 map  <leader>l <Plug>(easymotion-bd-jk)
 nmap <leader>l <Plug>(easymotion-overwin-line)
 " End: easymotion }}}
-
-" Plugin: incsearch {{{
-" map / <Plug>(incsearch-forward)
-" map ? <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-
-" With fuzzy & easymotion
-" map z/ <Plug>(incsearch-fuzzy-/)
-" map z? <Plug>(incsearch-fuzzy-?)
-" map zg/ <Plug>(incsearch-fuzzy-stay)
-" End: incsearch }}}
 
 " Plugin: anzu {{{
 map n <Plug>(anzu-n-with-echo)
