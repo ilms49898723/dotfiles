@@ -1,6 +1,8 @@
 # Backup of My Configuration Files
 
-## Memo: External Tools
+For personal usage.
+
+## External Tools
 
 General:
 - apt: C/C++ compiler
@@ -24,6 +26,6 @@ Neovim:
 
 ## Install Scripts
 
-- Tools via apt (in Ubuntu, etc.)
+- Tools via apt package manager
 - Neovim: stable release
 - Universal Ctags: head
