@@ -1183,6 +1183,7 @@ noremap ZQ <Nop>
 let python_highlight_all = 1
 
 autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python setlocal tabstop=4
 
 autocmd BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
