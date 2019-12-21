@@ -1,10 +1,8 @@
 # Backup of My Configuration Files
 
-For personal usage.
+## Tools
 
-## External Tools
-
-General:
+### General
 - apt: C/C++ compiler
 - apt: GNU Make
 - apt: Neovim
@@ -18,7 +16,7 @@ General:
 - git: [fzf](https://github.com/junegunn/fzf)
 - git: [ripgrep](https://github.com/BurntSushi/ripgrep)
 
-Neovim:
+### Neovim
 - apt: libtool-bin
 - apt: ninja-build
 - pip: pynvim
