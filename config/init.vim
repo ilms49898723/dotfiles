@@ -5,8 +5,6 @@
 
 " Section: Preliminaries {{{
 
-set nocompatible
-
 " True color
 try
   set termguicolors
@@ -29,11 +27,6 @@ let g:maplocalleader = ','
 let s:base_dir = expand('~/.local/share/nvim')
 let s:plugin_dir = s:base_dir . '/plugged'
 
-" Vim-plug script
-if &compatible
-  set nocompatible
-endif
-
 " Load vim-plug if not installed
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -51,6 +44,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
+Plug 'itchyny/calendar.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/limelight.vim'
@@ -64,8 +58,10 @@ Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
+Plug 'mileszs/ack.vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'osyo-manga/vim-anzu'
+Plug 'samoshkin/vim-mergetool'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sjl/gundo.vim'
@@ -719,6 +715,12 @@ let g:vim_slash_map_silently = 1
 map <silent> <Plug>(slash-after) <Plug>(anzu-update-search-status-with-echo)
 " End: vim-slash }}}
 
+" Plugin: ack.vim {{{
+let g:ackprg ='rg --vimgrep'
+
+nnoremap <leader>a :Ack!<Space>
+" End: ack.vim }}}
+
 " Plugin: emmet-vim {{{
 let g:user_zen_removetag_key = ''
 let g:use_zen_complete_tag = 1
@@ -740,6 +742,11 @@ nnoremap <silent> <leader>gN :<C-u>w<CR>:Git now --all<CR>
 nnoremap <silent> <C-h> :GV<CR>
 nnoremap <silent> <leader>b :GV<CR>
 " End: vim-gv }}}
+
+" Plugin: vim-mergetool {{{
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+" End: vim-mergetool }}}
 
 " Plugin: NERDCommenter {{{
 let g:NERDSpaceDelims = 1
@@ -774,7 +781,7 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
 autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * if (argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in"))
+autocmd VimEnter * if (argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in'))
   \ | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
   \ | call lightline#update() | endif
 autocmd BufEnter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree())
@@ -802,7 +809,6 @@ map <silent> <leader>u <Plug>(GitGutterUndoHunk)
 " End: gitgutter }}}
 
 " Plugin: vim-easy-align {{{
-nmap <C-a> <Plug>(EasyAlign)
 vmap <C-a> <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
 " End: vim-easy-align }}}
@@ -989,7 +995,7 @@ set noerrorbells
 set novisualbell
 
 " Timeout length
-set timeoutlen=1000
+set timeoutlen=2000
 
 " Maximum number of columns to try and highlight
 set synmaxcol=4096
@@ -1168,6 +1174,10 @@ set foldminlines=0
 
 " Map zz to toggle folding
 noremap zz za
+
+" Disable ZZ and ZQ
+noremap ZZ <Nop>
+noremap ZQ <Nop>
 
 " File type options
 let python_highlight_all = 1
@@ -1503,6 +1513,8 @@ inoremap <C-k> <C-o>gk
 inoremap <C-l> <Right>
 
 " C-a to the beginning of line, C-e to the end of line
+nnoremap <C-a> ^
+nnoremap <C-e> $
 inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
 
