@@ -15,10 +15,6 @@ endtry
 let mapleader = ','
 let g:mapleader = ','
 
-" Local leader
-let maplocalleader = '\'
-let g:maplocalleader = '\'
-
 " End: Preliminaries }}}
 
 
