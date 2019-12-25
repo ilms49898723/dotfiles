@@ -25,9 +25,9 @@
 ## Setup Scripts
 
 - `install_config.sh`: Copy configuration files to $HOME or proper locations
+- `setup_zsh_plugins.sh`: Setup plugins for zsh
 - `git_config.sh`: Setup configuration for git
 - `patch_wsl_config.sh`: Update the setting for Windows Subsystem for Linux (WSL)
-- `setup_zsh_plugins.sh`: Setup plugins for zsh
 
 ## Install Scripts
 
