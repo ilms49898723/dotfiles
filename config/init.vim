@@ -830,6 +830,30 @@ let g:tagbar_iconchars = ['▸', '▾']
 " End: tagbar }}}
 
 " Plugin: vim-sandwich {{{
+" Key mappings (disable default and operator mappings)
+let g:sandwich_no_default_key_mappings = 1
+let g:operator_sandwich_no_default_key_mappings = 1
+
+" Add
+nmap <unique> sa <Plug>(operator-sandwich-add)
+xmap <unique> sa <Plug>(operator-sandwich-add)
+omap <unique> sa <Plug>(operator-sandwich-g@)
+
+" Remove (delete)
+xmap <unique> sr <Plug>(operator-sandwich-delete)
+nmap <unique><silent> sr  <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap <unique><silent> srd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+
+" Change (replace)
+xmap <unique> sc <Plug>(operator-sandwich-replace)
+nmap <unique><silent> sc  <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap <unique><silent> scd <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+
+" Edit (replace)
+xmap <unique> se <Plug>(operator-sandwich-replace)
+nmap <unique><silent> se  <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap <unique><silent> sed <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 let g:sandwich#recipes += [
   \   {
@@ -1367,8 +1391,8 @@ noremap S <Nop>
 noremap SS :split<Space>
 noremap SV :vsplit<Space>
 
-noremap SC :diffsplit<Space>
-noremap sc :diffsplit<Space>
+noremap SD :diffsplit<Space>
+noremap sd :diffsplit<Space>
 
 noremap <silent> ss :split<CR>
 noremap <silent> sv :vsplit<CR>
