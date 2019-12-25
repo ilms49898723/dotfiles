@@ -15,8 +15,9 @@ endtry
 let mapleader = ','
 let g:mapleader = ','
 
-let maplocalleader = ','
-let g:maplocalleader = ','
+" Local leader
+let maplocalleader = '\'
+let g:maplocalleader = '\'
 
 " End: Preliminaries }}}
 
@@ -56,6 +57,7 @@ Plug 'kassio/neoterm'
 Plug 'keith/swift.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/suda.vim'
+Plug 'machakann/vim-sandwich'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'mileszs/ack.vim'
@@ -77,9 +79,10 @@ Plug 'xolox/vim-notes'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
-Plug 'glts/vim-textobj-comment'
 Plug 'Julian/vim-textobj-variable-segment'
+Plug 'glts/vim-textobj-comment'
 Plug 'junegunn/vim-after-object'
+Plug 'machakann/vim-textobj-delimited'
 Plug 'rbonvall/vim-textobj-latex'
 
 Plug 'ilms49898723/molokai'
@@ -734,6 +737,10 @@ nnoremap <silent> <leader>b :GV<CR>
 " Plugin: vim-mergetool {{{
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
+
+command MStart  MergetoolStart
+command MStop   MergetoolStop
+command MToggle MergetoolToggle
 " End: vim-mergetool }}}
 
 " Plugin: NERDCommenter {{{
@@ -825,6 +832,26 @@ let g:tagbar_width = 32
 
 let g:tagbar_iconchars = ['▸', '▾']
 " End: tagbar }}}
+
+" Plugin: vim-sandwich {{{
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+let g:sandwich#recipes += [
+  \  {
+  \    'buns'        : ['{', '}'],
+  \    'motionwise'  : ['line'],
+  \    'kind'        : ['add'],
+  \    'linewise'    : 1,
+  \    'command'     : ["'[+1,']-1normal! >>"],
+  \  },
+  \  {
+  \    'buns'        : ['{', '}'],
+  \    'motionwise'  : ['line'],
+  \    'kind'        : ['delete'],
+  \    'linewise'    : 1,
+  \    'command'     : ["'[,']normal! <<"],
+  \  }
+  \]
+" End: vim-sandwich }}}
 
 " Plugin: suda.vim {{{
 let g:suda_smart_edit = 1
@@ -1344,8 +1371,8 @@ noremap S <Nop>
 noremap SS :split<Space>
 noremap SV :vsplit<Space>
 
-noremap SD :diffsplit<Space>
-noremap sd :diffsplit<Space>
+noremap SC :diffsplit<Space>
+noremap sc :diffsplit<Space>
 
 noremap <silent> ss :split<CR>
 noremap <silent> sv :vsplit<CR>
