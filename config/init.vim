@@ -25,10 +25,12 @@ let s:base_dir = expand('~/.local/share/nvim')
 let s:plugin_dir = s:base_dir . '/plugged'
 
 " Load vim-plug if not installed
+let s:vimplug_setup_completed = 1
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  let s:vimplug_setup_completed = 0
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | call confirm('Setup completed. Please restart Neovim.') | qa!
 endif
 
 " Required:
@@ -119,6 +121,8 @@ syntax enable
 
 
 " Section: Plugin Settings {{{
+
+if s:vimplug_setup_completed == 1
 
 " Plugin: lightline {{{
 let g:lightline = {
@@ -952,6 +956,8 @@ let g:winresizer_start_key = '<M-e>'
 let g:winresizer_vert_resize = 1
 let g:winresizer_horiz_resize = 1
 " End: winresizer }}}
+
+endif
 
 " End: Plugin Settings }}}
 
