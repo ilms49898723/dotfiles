@@ -59,9 +59,10 @@ Plug 'mattn/emmet-vim'
 Plug 'mileszs/ack.vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'osyo-manga/vim-anzu'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
 Plug 'samoshkin/vim-mergetool'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+Plug 'simeji/winresizer'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -946,6 +947,12 @@ let g:neoterm_autoinsert = 1
 let g:neoterm_repl_python = 'python3'
 " End: neoterm }}}
 
+" Plugin: winresizer {{{
+let g:winresizer_start_key = '<M-e>'
+let g:winresizer_vert_resize = 1
+let g:winresizer_horiz_resize = 1
+" End: winresizer }}}
+
 " End: Plugin Settings }}}
 
 
@@ -1214,6 +1221,9 @@ noremap zz za
 noremap ZZ <Nop>
 noremap ZQ <Nop>
 
+" Complete options
+set completeopt-=preview
+
 " File type options
 let python_highlight_all = 1
 
@@ -1265,6 +1275,9 @@ set cursorline
 highlight LineNr term=none cterm=none ctermfg=94 ctermbg=none guibg=none
 highlight CursorLine term=none cterm=none ctermfg=none ctermbg=237 guibg=#323232
 highlight CursorLineNr term=bold cterm=bold ctermfg=226 ctermbg=237 guibg=#323232
+
+" Sign Column
+highlight SignColumn term=none cterm=none ctermfg=118 ctermbg=none guifg=#a6e22e guibg=none
 
 " Gitgutter
 highlight GitGutterAdd cterm=bold gui=bold ctermfg=2 ctermbg=none guifg=#009900 guibg=none
