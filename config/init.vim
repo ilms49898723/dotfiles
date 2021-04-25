@@ -1539,10 +1539,31 @@ noremap <silent> [Tabs]b <C-\><C-n>:tabprevious<CR>
 noremap [Tabs]f <C-\><C-n>:tabfind<Space>
 " Operation: te, tab edit
 noremap [Tabs]e <C-\><C-n>:tabedit<Space>
-" Operation: tm, tab move
-noremap [Tabs]m <C-\><C-n>:tabmove<Space>
 " Operation: tg, tabnext <tabnum>
 noremap [Tabs]g <C-\><C-n>:tabnext<Space>
+
+" Operation: tm, tab move
+" Alt-n and Alt-p to move current tab to the right/left
+noremap <silent> <M-n> <C-\><C-n>:+tabmove<CR>
+noremap <silent> <M-p> <C-\><C-n>:-tabmove<CR>
+
+function! TabMove(dest_pagenr)
+  let s:current_tabpagenr = tabpagenr()
+  let s:total_tabpagenr = tabpagenr('$')
+  if a:dest_pagenr <= 0
+    execute 'tabmove 0'
+  elseif a:dest_pagenr <= s:current_tabpagenr
+    execute 'tabmove '.(a:dest_pagenr - 1)
+  elseif a:dest_pagenr <= s:total_tabpagenr
+    execute 'tabmove '.a:dest_pagenr
+  else
+    execute 'tabmove'
+  endif
+endfunction
+
+for n in range(0, 9)
+  execute 'noremap <silent> [Tabs]m'.n.' <C-\><C-n>:<C-u>call TabMove('.n.')<CR>'
+endfor
 
 " Ctrl-n and Ctrl-p to switch tab in normal mode
 noremap <silent> <C-n> <C-\><C-n>:tabnext<CR>
@@ -1550,7 +1571,7 @@ noremap <silent> <C-p> <C-\><C-n>:tabprevious<CR>
 
 " Use function keys for tab navigation
 for n in range(1, 12)
-  execute 'noremap <silent> <F'.n.'>' '<C-\><C-n>:<C-u>tabnext'.n.'<CR>'
+  execute 'noremap <silent> <F'.n.'>'.' <C-\><C-n>:<C-u>tabnext '.n.'<CR>'
 endfor
 
 " Mappings to move lines

@@ -84,8 +84,8 @@ export GOPATH
 PATH="/Applications/MATLAB_R2017b.app/bin:${PATH}"
 export PATH
 
-# Setting PATH for Python 3.7
-PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
+# Setting PATH for Python 3.9
+PATH="${HOME}/Library/Python/3.9/bin:${PATH}"
 export PATH
 
 # Setting fzf environment variables
@@ -105,4 +105,3 @@ fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
-
