@@ -112,8 +112,8 @@ setopt complete_aliases
 setopt complete_in_word
 setopt equals
 setopt extended_history
-setopt hist_ignore_dups
 setopt hist_ignore_all_dups
+setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
@@ -133,6 +133,7 @@ setopt numeric_glob_sort
 setopt print_eight_bit
 setopt prompt_subst
 setopt pushd_ignore_dups
+setopt pushd_minus
 setopt rm_star_silent
 setopt share_history
 setopt transient_rprompt
@@ -201,4 +202,3 @@ elif [ -d ~/.zsh/zsh-syntax-highlighting/highlighters ]; then
 fi
 
 ZSH_HIGHLIGHT_STYLES[path]=''
-

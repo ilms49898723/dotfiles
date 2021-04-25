@@ -100,7 +100,8 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+
+Plug 'ilms49898723/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -1176,7 +1177,7 @@ noremap L $
 noremap <silent> <leader>p :setlocal paste!<CR>
 
 " Path for find, etc.
-set path=.,,**
+" set path=.,,**
 
 " Undo directory
 let s:undo_dir = expand('~/.local/share/nvim/undodir')
@@ -1398,6 +1399,10 @@ noremap <silent> ][ k$/}<CR>b99]}%?}<CR>
 
 noremap ` '
 noremap ' `
+
+" Switch 0 and ^
+noremap 0 ^
+noremap ^ 0
 
 " Using tab to jump between matching pairs
 nmap <Tab> %
