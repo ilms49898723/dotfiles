@@ -91,7 +91,6 @@ Plug 'ilms49898723/vim-lastplace'
 Plug 'ilms49898723/vim-slash'
 
 Plug 'Shougo/neco-vim'
-Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'ilms49898723/neco-syntax'
 Plug 'ilms49898723/neoinclude.vim'
@@ -587,6 +586,9 @@ try
   " Change member source rank
   call deoplete#custom#source('member', 'rank', 400)
 
+  " Change syntax source rank
+  call deoplete#custom#source('syntax', 'rank', 200)
+
   " Do not show the word typed in completion menu
   call deoplete#custom#source('around', 'matchers', ['matcher_fuzzy', 'matcher_length'])
 
@@ -639,14 +641,6 @@ autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " End: deoplete }}}
-
-" Plugin: deoplete-jedi {{{
-try
-  let g:deoplete#sources#jedi#enable_typeinfo = 0
-  call deoplete#custom#option('ignore_sources', {'python': ['jedi', 'file']})
-catch
-endtry
-" End: deoplete-jedi }}}
 
 " Plugin: neco-syntax {{{
 let g:necosyntax#min_keyword_length = 2
